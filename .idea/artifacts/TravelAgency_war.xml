@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="TravelAgency:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>TravelAgency</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="TravelAgency.war">
+      <element id="artifact" artifact-name="TravelAgency:war exploded" />
+    </root>
+  </artifact>
+</component>
