@@ -1,4 +1,4 @@
-package model.domain.TourPackage;
+package com.company.model.domain.TourPackage;
 
 import javax.persistence.*;
 import java.util.Objects;
