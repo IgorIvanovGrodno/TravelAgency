@@ -5,9 +5,9 @@
     <body>
         <h2>Tour Packages</h2>
         <ol>
-            <c:forEach var="spittle" items="${tourPackage}">
-                <td><c:out value="${spittle.getName()}" /></td>
-            </c:forEach>
+
+                <td><c:out value="${tourPackage.name}" /></td>
+
         </ol>
     </body>
 </html>

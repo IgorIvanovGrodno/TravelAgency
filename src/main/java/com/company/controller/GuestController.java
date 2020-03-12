@@ -5,6 +5,7 @@ import com.company.service.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -24,12 +25,11 @@ public class GuestController {
     }
 
     @RequestMapping({"/","/guest"})
-    public String showHomePage(Map<String, Object> model) {
+    public String showHomePage(Model model) {
         TourPackage tourPackage = new TourPackage();
         tourPackage.setName("TRAVEEL");
-        List<TourPackage> list = new ArrayList<>();
-        list.add(tourPackage);
-        model.put("tourPackages", list); //Добавить сообщения в модель
+        model.addAttribute("tourPackage", tourPackage);
+
         return "guest"; // Вернуть имя представления
     }
 

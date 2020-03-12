@@ -105,4 +105,18 @@ public class TourPackage {
     public int hashCode() {
         return Objects.hash(id, name, type, foodSystem, transport, days, price, statusHot);
     }
+
+    @Override
+    public String toString() {
+        return "TourPackage{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", foodSystem=" + foodSystem +
+                ", transport=" + transport +
+                ", days=" + days +
+                ", price=" + price +
+                ", statusHot=" + statusHot +
+                '}';
+    }
 }
