@@ -4,9 +4,9 @@ import com.company.model.domain.TourPackage.TourPackage;
 
 import java.util.List;
 
-public class TourPackageService {
+public interface TourPackageService {
 
-    public List<TourPackage> getTourPackages() {
-        return null;
-    }
+    List<TourPackage> getTourPackages();
+    TourPackage getTourPackage(Long id);
+
 }

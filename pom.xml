@@ -51,6 +51,7 @@
       <artifactId>hibernate-core</artifactId>
       <version>5.4.12.Final</version>
     </dependency>
+    
 
     <dependency>
       <groupId>mysql</groupId>

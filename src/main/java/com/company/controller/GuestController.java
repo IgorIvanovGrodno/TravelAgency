@@ -18,18 +18,14 @@ public class GuestController {
     private TourPackageService tourPackageService;
 
     @Autowired
-    public GuestController(
-            //TourPackageService tourPackageService
-    ) {
-        //this.tourPackageService = tourPackageService;
+    public GuestController(TourPackageService tourPackageService) {
+        this.tourPackageService = tourPackageService;
     }
 
     @RequestMapping({"/","/guest"})
     public String showHomePage(Model model) {
-        TourPackage tourPackage = new TourPackage();
-        tourPackage.setName("TRAVEEL");
-        model.addAttribute("tourPackage", tourPackage);
-
+        List<TourPackage> list=tourPackageService.getTourPackages();
+        model.addAttribute("tourPackage", list.get(0));
         return "guest"; // Вернуть имя представления
     }
 

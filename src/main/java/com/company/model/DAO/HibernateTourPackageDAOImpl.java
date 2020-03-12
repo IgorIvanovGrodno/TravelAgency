@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class HibernateTourPackageDAOImpl implements TourPackageDAO {
     private SessionFactory sessionFactory;
 
@@ -26,5 +28,11 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
     public List<TourPackage> getAllTourPackages() {
         TypedQuery<TourPackage> query = sessionFactory.getCurrentSession().createQuery("from TourPackage ");
         return query.getResultList();
+    }
+
+    @Override
+    public TourPackage getTourPackageById(Long id) {
+        TypedQuery<TourPackage> query = sessionFactory.getCurrentSession().createQuery("select T from TourPackage T where T.id="+id);
+        return query.getSingleResult();
     }
 }

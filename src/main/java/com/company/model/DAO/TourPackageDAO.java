@@ -4,5 +4,6 @@ import com.company.model.domain.TourPackage.TourPackage;
 import java.util.List;
 
 public interface TourPackageDAO {
-    public List<TourPackage> getAllTourPackages();
+    List<TourPackage> getAllTourPackages();
+    TourPackage getTourPackageById(Long id);
 }
