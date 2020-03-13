@@ -9,14 +9,24 @@ public class TourPackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
-    @Enumerated(EnumType.STRING)
-    private TourPackageType type;
-    @Enumerated(EnumType.STRING)
-    private FoodSystem foodSystem;
-    private Transport transport;
+
+    @Column
+    //@Enumerated(EnumType.STRING)
+    private String type;
+
+    @Column(name = "food_system")
+    //@Enumerated(EnumType.STRING)
+    private String foodSystem;
+    @Column
+    //@Enumerated(EnumType.STRING)
+    private String transport;
+    @Column
     private int days;
-    private int price;
+
+    //private int price;
+    @Column(name = "status")
     private boolean statusHot;
 
     public TourPackage() {
@@ -38,27 +48,27 @@ public class TourPackage {
         this.name = name;
     }
 
-    public TourPackageType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(TourPackageType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public FoodSystem getFoodSystem() {
+    public String getFoodSystem() {
         return foodSystem;
     }
 
-    public void setFoodSystem(FoodSystem foodSystem) {
+    public void setFoodSystem(String foodSystem) {
         this.foodSystem = foodSystem;
     }
 
-    public Transport getTransport() {
+    public String getTransport() {
         return transport;
     }
 
-    public void setTransport(Transport transport) {
+    public void setTransport(String transport) {
         this.transport = transport;
     }
 
@@ -70,13 +80,13 @@ public class TourPackage {
         this.days = days;
     }
 
-    public int getPrice() {
+   /* public int getPrice() {
         return price;
     }
 
     public void setPrice(int price) {
         this.price = price;
-    }
+    }*/
 
     public boolean isStatusHot() {
         return statusHot;
@@ -92,18 +102,17 @@ public class TourPackage {
         if (o == null || getClass() != o.getClass()) return false;
         TourPackage that = (TourPackage) o;
         return days == that.days &&
-                price == that.price &&
                 statusHot == that.statusHot &&
                 Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                type == that.type &&
-                foodSystem == that.foodSystem &&
-                transport == that.transport;
+                Objects.equals(type, that.type) &&
+                Objects.equals(foodSystem, that.foodSystem) &&
+                Objects.equals(transport, that.transport);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, foodSystem, transport, days, price, statusHot);
+        return Objects.hash(id, name, type, foodSystem, transport, days, statusHot);
     }
 
     @Override
@@ -111,11 +120,10 @@ public class TourPackage {
         return "TourPackage{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", type=" + type +
-                ", foodSystem=" + foodSystem +
-                ", transport=" + transport +
+                ", type='" + type + '\'' +
+                ", foodSystem='" + foodSystem + '\'' +
+                ", transport='" + transport + '\'' +
                 ", days=" + days +
-                ", price=" + price +
                 ", statusHot=" + statusHot +
                 '}';
     }
