@@ -2,7 +2,7 @@ package com.company.controller;
 
 import java.util.Objects;
 
-public class SelectForm {
+public class ParametersSelectingForTourPackages {
     private String valueOfFoodSystem;
     private String valueOfTransport;
     private String valueOfType;
@@ -80,7 +80,7 @@ public class SelectForm {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SelectForm that = (SelectForm) o;
+        ParametersSelectingForTourPackages that = (ParametersSelectingForTourPackages) o;
         return statusHot == that.statusHot &&
                 minDay == that.minDay &&
                 maxDay == that.maxDay &&

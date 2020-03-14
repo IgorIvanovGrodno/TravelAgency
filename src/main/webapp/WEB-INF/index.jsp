@@ -10,28 +10,29 @@
         <h1 align="center">Tour Packages</h1>
 
         <h2 align="center">Select tour package</h2>
+        <c:set value="${sessionScope.tourPackages}" var="tourPageList" />
         <div align="center">
         <f:form modelAttribute="foodSystem" action="select" method="get">
-            <table>
+            <table cellspacing="15">
                 <tr>
                     <td>
                         <label>Type</label>
                     <f:select path="valueOfType">
-                        <f:option value="NONE">--Select--</f:option>
+                        <f:option value="">--Select--</f:option>
                         <f:options items="${types}"/>
                     </f:select>
                     </td>
                     <td>
                         <label>Food System</label>
                         <f:select path="valueOfFoodSystem">
-                            <f:option value="NONE">--Select--</f:option>
+                            <f:option value="">--Select--</f:option>
                             <f:options items="${foodSystemList}"/>
                         </f:select>
                     </td>
                     <td>
                         <label>Transport</label>
                         <f:select path="valueOfTransport">
-                            <f:option value="NONE">--Select--</f:option>
+                            <f:option value="">--Select--</f:option>
                             <f:options items="${transports}"/>
                         </f:select>
                     </td>
@@ -44,19 +45,19 @@
                     <td>
                         <label>Days between</label>
                         <div>
-                            <f:input path="minDay"/>
+                            <f:input path="minDay" maxlength="6"/>
                         </div>
                         <div>
-                            <f:input path="maxDay"/>
+                            <f:input path="maxDay" maxlength="6"/>
                         </div>
                     </td>
                     <td>
                         <label>Price between</label>
                         <div>
-                            <f:input path="minPrice"/>
+                            <f:input path="minPrice" maxlength="10"/>
                         </div>
                         <div>
-                            <f:input path="maxPrice"/>
+                            <f:input path="maxPrice" maxlength="10"/>
                         </div>
                     </td>
                 </tr>
@@ -75,7 +76,7 @@
                 <td><p>Food System</p></td>
                 <td><p>Transport</p></td>
             </tr>
-            <c:forEach var="tours" items="${tourPackages}">
+            <c:forEach var="tours" items="${tourPageList.pageList}">
                 <tr>
                   <td><c:out value="${tours.name}" /></td>
                   <td><c:out value="${tours.foodSystem}"></c:out></td>
