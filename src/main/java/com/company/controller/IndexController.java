@@ -21,6 +21,7 @@ import java.util.List;
 public class IndexController {
     private TourPackageService tourPackageService;
 
+
     @Autowired
     public IndexController(TourPackageService tourPackageService) {
         this.tourPackageService = tourPackageService;
@@ -54,10 +55,13 @@ public class IndexController {
         ModelAndView model = new ModelAndView();
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
-            tourPackagesListHolder = new PagedListHolder<TourPackage>();
+            tourPackagesListHolder = new PagedListHolder<>();
             tourPackagesListHolder.setSource(list);
             tourPackagesListHolder.setPageSize(2);
             request.getSession().setAttribute("tourPackages", tourPackagesListHolder);
+            request.getSession().setAttribute("types", TourPackageType.values());
+            request.getSession().setAttribute("transports", Transport.values());
+            request.getSession().setAttribute("foodSystemList", FoodSystem.values());
         }else if(page.equals("prev")) {
             tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
             tourPackagesListHolder.previousPage();
@@ -70,13 +74,7 @@ public class IndexController {
             tourPackagesListHolder.setPage(pageNum - 1);
         }
         model.setViewName("index");
-        if(request.getSession().getAttribute("setSelectAttribute")==null){
-            request.getSession().setAttribute("setSelectAttribute","true");
-            request.getSession().setAttribute("foodSystemList", FoodSystem.values());
-            request.getSession().setAttribute("foodSystem", new ParametersSelectingForTourPackages());
-            request.getSession().setAttribute("types", TourPackageType.values());
-            request.getSession().setAttribute("transports", Transport.values());
-        }
+        model.addObject("selectsParameters", new ParametersSelectingForTourPackages());
 
         return model;
     }
@@ -86,6 +84,7 @@ public class IndexController {
                                          @ModelAttribute("foodSystem") ParametersSelectingForTourPackages parametersSelectingForTourPackages) {
 
         System.out.println(parametersSelectingForTourPackages);
+        model.addAttribute("selectsParameters", parametersSelectingForTourPackages);
         return "index";
     }
 
