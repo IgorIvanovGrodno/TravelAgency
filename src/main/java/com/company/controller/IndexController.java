@@ -20,6 +20,7 @@ import java.util.List;
 @Controller
 public class IndexController {
     private TourPackageService tourPackageService;
+    private ParametersSelectingForTourPackages parametersSelectingForTourPackages;
 
     @Autowired
     public IndexController(TourPackageService tourPackageService) {
@@ -73,10 +74,11 @@ public class IndexController {
         if(request.getSession().getAttribute("setSelectAttribute")==null){
             request.getSession().setAttribute("setSelectAttribute","true");
             request.getSession().setAttribute("foodSystemList", FoodSystem.values());
-            request.getSession().setAttribute("foodSystem", new ParametersSelectingForTourPackages());
+            request.getSession().setAttribute("selectsParameters", parametersSelectingForTourPackages);
             request.getSession().setAttribute("types", TourPackageType.values());
             request.getSession().setAttribute("transports", Transport.values());
         }
+        //model.addObject("selectsParameters", new ParametersSelectingForTourPackages());
 
         return model;
     }

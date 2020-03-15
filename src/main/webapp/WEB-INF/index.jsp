@@ -12,28 +12,28 @@
         <h2 align="center">Select tour package</h2>
         <c:set value="${sessionScope.tourPackages}" var="tourPageList" />
         <div align="center">
-        <f:form modelAttribute="foodSystem" action="select" method="get">
+        <f:form  modelAttribute="selectsParameters" action="select" method="get">
             <table cellspacing="15">
                 <tr>
                     <td>
                         <label>Type</label>
                     <f:select path="valueOfType">
                         <f:option value="">--Select--</f:option>
-                        <f:options items="${types}"/>
+                        <f:options items="${sessionScope.types}"/>
                     </f:select>
                     </td>
                     <td>
                         <label>Food System</label>
                         <f:select path="valueOfFoodSystem">
                             <f:option value="">--Select--</f:option>
-                            <f:options items="${foodSystemList}"/>
+                            <f:options items="${sessionScope.foodSystemList}"/>
                         </f:select>
                     </td>
                     <td>
                         <label>Transport</label>
                         <f:select path="valueOfTransport">
                             <f:option value="">--Select--</f:option>
-                            <f:options items="${transports}"/>
+                            <f:options items="${sessionScope.transports}"/>
                         </f:select>
                     </td>
                     <td>
