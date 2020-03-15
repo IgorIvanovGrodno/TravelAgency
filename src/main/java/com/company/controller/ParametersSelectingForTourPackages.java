@@ -1,9 +1,5 @@
 package com.company.controller;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
-import org.springframework.web.context.WebApplicationContext;
-
 import java.util.Objects;
 
 public class ParametersSelectingForTourPackages {
@@ -15,9 +11,6 @@ public class ParametersSelectingForTourPackages {
     private int maxDay;
     private int minPrice;
     private int maxPrice;
-
-    public ParametersSelectingForTourPackages() {
-    }
 
     public int getMinDay() {
         return minDay;
