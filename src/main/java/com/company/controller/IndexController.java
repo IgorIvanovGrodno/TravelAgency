@@ -30,17 +30,25 @@ public class IndexController {
     public ModelAndView showHomePage(@PathVariable(required=false, name="page") String page, HttpServletRequest request) {
         TourPackage tourPackage=new TourPackage();
         TourPackage tourPackage1=new TourPackage();
+        TourPackage tourPackage2=new TourPackage();
+        TourPackage tourPackage3=new TourPackage();
         tourPackage.setName("tour");
         tourPackage.setFoodSystem("ai");
         tourPackage.setTransport("bus");
         tourPackage1.setName("tour1");
         tourPackage1.setFoodSystem("ai1");
         tourPackage1.setTransport("bus1");
+        tourPackage1.setName("tour2");
+        tourPackage1.setFoodSystem("ai2");
+        tourPackage1.setTransport("bus2");
+        tourPackage1.setName("tour3");
+        tourPackage1.setFoodSystem("ai3");
+        tourPackage1.setTransport("bus3");
         List<TourPackage> list=new ArrayList<>();
         list.add(tourPackage);
         list.add(tourPackage1);
-        list.add(tourPackage);
-        list.add(tourPackage1);
+        list.add(tourPackage2);
+        list.add(tourPackage3);
 
 
         ModelAndView model = new ModelAndView();
@@ -62,10 +70,13 @@ public class IndexController {
             tourPackagesListHolder.setPage(pageNum - 1);
         }
         model.setViewName("index");
-        model.addObject("foodSystemList", FoodSystem.values());
-        model.addObject("foodSystem", new ParametersSelectingForTourPackages());
-        model.addObject("types", TourPackageType.values());
-        model.addObject("transports", Transport.values());
+        if(request.getSession().getAttribute("setSelectAttribute")==null){
+            request.getSession().setAttribute("setSelectAttribute","true");
+            request.getSession().setAttribute("foodSystemList", FoodSystem.values());
+            request.getSession().setAttribute("foodSystem", new ParametersSelectingForTourPackages());
+            request.getSession().setAttribute("types", TourPackageType.values());
+            request.getSession().setAttribute("transports", Transport.values());
+        }
 
         return model;
     }
