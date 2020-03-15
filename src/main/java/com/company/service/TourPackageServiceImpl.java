@@ -1,11 +1,11 @@
 package com.company.service;
 
+import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.DAO.TourPackageDAO;
 import com.company.model.domain.TourPackage.TourPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -20,6 +20,11 @@ public class TourPackageServiceImpl implements TourPackageService {
     @Override
     public List<TourPackage> getTourPackages() {
         return tourPackageDAO.getAllTourPackages();
+    }
+
+    @Override
+    public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
+        return tourPackageDAO.getSelectedTourPackages(parametersSelectedForTourPackages);
     }
 
     @Override

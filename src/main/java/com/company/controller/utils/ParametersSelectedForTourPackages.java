@@ -1,46 +1,56 @@
-package com.company.controller;
+package com.company.controller.utils;
 
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
-public class ParametersSelectingForTourPackages {
+
+public class ParametersSelectedForTourPackages {
     private String valueOfFoodSystem;
     private String valueOfTransport;
     private String valueOfType;
     private boolean statusHot;
-    private int minDay;
-    private int maxDay;
-    private int minPrice;
-    private int maxPrice;
+    @Pattern(regexp = "\\d+", message = "Please, enter number")
+    private String minDay;
+    @Pattern(regexp = "\\d+", message = "Please, enter number")
+    private String maxDay;
+    @Pattern(regexp = "\\d+", message = "Please, enter number")
+    private String minPrice;
+    @Pattern(regexp = "\\d+", message = "Please, enter number")
+    private String maxPrice;
 
-    public int getMinDay() {
+
+    public ParametersSelectedForTourPackages() {
+    }
+
+    public String getMinDay() {
         return minDay;
     }
 
-    public void setMinDay(int minDay) {
+    public void setMinDay(String minDay) {
         this.minDay = minDay;
     }
 
-    public int getMaxDay() {
+    public String getMaxDay() {
         return maxDay;
     }
 
-    public void setMaxDay(int maxDay) {
+    public void setMaxDay(String maxDay) {
         this.maxDay = maxDay;
     }
 
-    public int getMinPrice() {
+    public String getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(int minPrice) {
+    public void setMinPrice(String minPrice) {
         this.minPrice = minPrice;
     }
 
-    public int getMaxPrice() {
+    public String getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(int maxPrice) {
+    public void setMaxPrice(String maxPrice) {
         this.maxPrice = maxPrice;
     }
 
@@ -80,15 +90,15 @@ public class ParametersSelectingForTourPackages {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ParametersSelectingForTourPackages that = (ParametersSelectingForTourPackages) o;
+        ParametersSelectedForTourPackages that = (ParametersSelectedForTourPackages) o;
         return statusHot == that.statusHot &&
-                minDay == that.minDay &&
-                maxDay == that.maxDay &&
-                minPrice == that.minPrice &&
-                maxPrice == that.maxPrice &&
                 Objects.equals(valueOfFoodSystem, that.valueOfFoodSystem) &&
                 Objects.equals(valueOfTransport, that.valueOfTransport) &&
-                Objects.equals(valueOfType, that.valueOfType);
+                Objects.equals(valueOfType, that.valueOfType) &&
+                Objects.equals(minDay, that.minDay) &&
+                Objects.equals(maxDay, that.maxDay) &&
+                Objects.equals(minPrice, that.minPrice) &&
+                Objects.equals(maxPrice, that.maxPrice);
     }
 
     @Override
@@ -98,15 +108,15 @@ public class ParametersSelectingForTourPackages {
 
     @Override
     public String toString() {
-        return "SelectForm{" +
+        return "ParametersSelectedForTourPackages{" +
                 "valueOfFoodSystem='" + valueOfFoodSystem + '\'' +
                 ", valueOfTransport='" + valueOfTransport + '\'' +
                 ", valueOfType='" + valueOfType + '\'' +
                 ", statusHot=" + statusHot +
-                ", minDay=" + minDay +
-                ", maxDay=" + maxDay +
-                ", minPrice=" + minPrice +
-                ", maxPrice=" + maxPrice +
+                ", minDay='" + minDay + '\'' +
+                ", maxDay='" + maxDay + '\'' +
+                ", minPrice='" + minPrice + '\'' +
+                ", maxPrice='" + maxPrice + '\'' +
                 '}';
     }
 }

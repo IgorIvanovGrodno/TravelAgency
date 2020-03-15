@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.TourPackage.FoodSystem;
 import com.company.model.domain.TourPackage.TourPackage;
 import com.company.model.domain.TourPackage.TourPackageType;
@@ -9,41 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 public class IndexController {
     private TourPackageService tourPackageService;
-    static private List<TourPackage> list=new ArrayList<>();
-    static {
-        TourPackage tourPackage=new TourPackage();
-        TourPackage tourPackage1=new TourPackage();
-        TourPackage tourPackage2=new TourPackage();
-        TourPackage tourPackage3=new TourPackage();
-        tourPackage.setName("tour");
-        tourPackage.setFoodSystem("ai");
-        tourPackage.setTransport("bus");
-        tourPackage1.setName("tour1");
-        tourPackage1.setFoodSystem("ai1");
-        tourPackage1.setTransport("bus1");
-        tourPackage2.setName("tour2");
-        tourPackage2.setFoodSystem("ai2");
-        tourPackage.setTransport("bus2");
-        tourPackage3.setName("tour3");
-        tourPackage3.setFoodSystem("ai3");
-        tourPackage3.setTransport("bus3");
-        list.add(tourPackage);
-        list.add(tourPackage1);
-        list.add(tourPackage2);
-        list.add(tourPackage3);
-    }
-
 
     @Autowired
     public IndexController(TourPackageService tourPackageService) {
@@ -56,7 +33,7 @@ public class IndexController {
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
             tourPackagesListHolder = new PagedListHolder<>();
-            tourPackagesListHolder.setSource(list);
+            tourPackagesListHolder.setSource(tourPackageService.getTourPackages());
             tourPackagesListHolder.setPageSize(2);
             request.getSession().setAttribute("tourPackages", tourPackagesListHolder);
             request.getSession().setAttribute("types", TourPackageType.values());
@@ -74,16 +51,26 @@ public class IndexController {
             tourPackagesListHolder.setPage(pageNum - 1);
         }
         model.setViewName("index");
-        model.addObject("selectsParameters", new ParametersSelectingForTourPackages());
+        model.addObject("selectsParameters", new ParametersSelectedForTourPackages());
 
         return model;
     }
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     public String showSelectTourPackages(Model model,
-                                         @ModelAttribute("foodSystem") ParametersSelectingForTourPackages parametersSelectingForTourPackages) {
-        System.out.println(parametersSelectingForTourPackages);
-        model.addAttribute("selectsParameters", parametersSelectingForTourPackages);
+                                         HttpServletRequest request,
+                                         @Valid
+                                             @ModelAttribute("selectsParameters")
+                                         ParametersSelectedForTourPackages parametersSelectedForTourPackages,
+                                         BindingResult result) {
+        if(result.hasErrors()) {
+            return "index";
+        }
+        System.out.println(parametersSelectedForTourPackages);
+        PagedListHolder<TourPackage> tourPackagesListHolder=(PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
+        tourPackagesListHolder.setSource(tourPackageService.getSelectedTourPackages(parametersSelectedForTourPackages));
+        tourPackagesListHolder.setPage(0);
+        model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
         return "index";
     }
 
