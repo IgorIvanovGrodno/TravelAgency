@@ -20,15 +20,8 @@ import java.util.List;
 @Controller
 public class IndexController {
     private TourPackageService tourPackageService;
-
-
-    @Autowired
-    public IndexController(TourPackageService tourPackageService) {
-        this.tourPackageService = tourPackageService;
-    }
-
-    @RequestMapping({"/","/{page}"})
-    public ModelAndView showHomePage(@PathVariable(required=false, name="page") String page, HttpServletRequest request) {
+    static private List<TourPackage> list=new ArrayList<>();
+    static {
         TourPackage tourPackage=new TourPackage();
         TourPackage tourPackage1=new TourPackage();
         TourPackage tourPackage2=new TourPackage();
@@ -39,19 +32,26 @@ public class IndexController {
         tourPackage1.setName("tour1");
         tourPackage1.setFoodSystem("ai1");
         tourPackage1.setTransport("bus1");
-        tourPackage1.setName("tour2");
-        tourPackage1.setFoodSystem("ai2");
-        tourPackage1.setTransport("bus2");
-        tourPackage1.setName("tour3");
-        tourPackage1.setFoodSystem("ai3");
-        tourPackage1.setTransport("bus3");
-        List<TourPackage> list=new ArrayList<>();
+        tourPackage2.setName("tour2");
+        tourPackage2.setFoodSystem("ai2");
+        tourPackage.setTransport("bus2");
+        tourPackage3.setName("tour3");
+        tourPackage3.setFoodSystem("ai3");
+        tourPackage3.setTransport("bus3");
         list.add(tourPackage);
         list.add(tourPackage1);
         list.add(tourPackage2);
         list.add(tourPackage3);
+    }
 
 
+    @Autowired
+    public IndexController(TourPackageService tourPackageService) {
+        this.tourPackageService = tourPackageService;
+    }
+
+    @RequestMapping({"/","/{page}"})
+    public ModelAndView showHomePage(@PathVariable(required=false, name="page") String page, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
@@ -82,7 +82,6 @@ public class IndexController {
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     public String showSelectTourPackages(Model model,
                                          @ModelAttribute("foodSystem") ParametersSelectingForTourPackages parametersSelectingForTourPackages) {
-
         System.out.println(parametersSelectingForTourPackages);
         model.addAttribute("selectsParameters", parametersSelectingForTourPackages);
         return "index";
