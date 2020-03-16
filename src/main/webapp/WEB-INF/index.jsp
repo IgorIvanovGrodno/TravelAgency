@@ -9,41 +9,79 @@
     <body>
         <h1 align="center">Tour Packages</h1>
 
+        <%-- Форма авторизации--%>
+        <div align="right">
+            <form modelAttribute="selectsParameters" action="select" method="get">
+                <fieldset>
+                    <table cellspacing="0">
+                        <tr>
+                            <th><label for="email">Email</label></th>
+                            <td><input id="email"
+                                       name="j_username"
+                                       type="text" /> <!-- Поле ввода имени пользователя -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="password">Password</label></th>
+                            <td><input id="password"
+                                       name="j_password"
+                                       type="password" /> <!-- Поле ввода пароля -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input id="remember_me"
+                                       name="_spring_security_remember_me"
+                                       type="checkbox"/> <!-- Флажок "запомнить меня" -->
+                                <label for="remember_me"
+                                       class="inline">Remember me</label></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input name="commit" type="submit" value="Sign In" /></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+
+        <%-- Поле фильтра --%>
         <h2 align="center">Select tour package</h2>
         <c:set value="${sessionScope.tourPackages}" var="tourPageList" />
         <div align="center">
         <f:form modelAttribute="selectsParameters" action="select" method="get">
+            <fieldset>
             <table cellspacing="15">
                 <tr>
                     <td>
-                        <label>Type</label>
+                        <p>Type</p>
                     <f:select path="valueOfType">
                         <f:option value="">--Select--</f:option>
                         <f:options items="${sessionScope.types}"/>
                     </f:select>
                     </td>
                     <td>
-                        <label>Food System</label>
+                        <p>Food System</p>
                         <f:select path="valueOfFoodSystem">
                             <f:option value="">--Select--</f:option>
                             <f:options items="${sessionScope.foodSystemList}"/>
                         </f:select>
                     </td>
                     <td>
-                        <label>Transport</label>
+                        <p>Transport</p>
                         <f:select path="valueOfTransport">
                             <f:option value="">--Select--</f:option>
                             <f:options items="${sessionScope.transports}"/>
                         </f:select>
                     </td>
                     <td>
-                        <labe>Hot</labe>
+                        <p>Hot</p>
                         <f:checkbox path="statusHot"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <span>Days between</span>
+                        <p>Days between</p>
                         <br/>
                         <div>
                             <f:input path="minDay" maxlength="6"/>
@@ -56,7 +94,7 @@
                         </div>
                     </td>
                     <td>
-                        <span>Price between</span>
+                        <p>Price between</p>
                         <br/>
                         <div><f:errors path="minPrice"/></div>
                         <div>
@@ -77,6 +115,7 @@
                     <td></td>
                 </tr>
             </table>
+            </fieldset>
 
         </f:form>
         </div>
