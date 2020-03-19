@@ -11,7 +11,6 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,12 +28,13 @@ public class IndexController {
 
     @RequestMapping({"/","/{page}"})
     public ModelAndView showHomePage(@PathVariable(required=false, name="page") String page, HttpServletRequest request) {
+
         ModelAndView model = new ModelAndView();
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
             tourPackagesListHolder = new PagedListHolder<>();
             tourPackagesListHolder.setSource(tourPackageService.getTourPackages());
-            tourPackagesListHolder.setPageSize(2);
+            tourPackagesListHolder.setPageSize(1);
             request.getSession().setAttribute("tourPackages", tourPackagesListHolder);
             request.getSession().setAttribute("types", TourPackageType.values());
             request.getSession().setAttribute("transports", Transport.values());
@@ -72,6 +72,11 @@ public class IndexController {
         tourPackagesListHolder.setPage(0);
         model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
         return "index";
+    }
+
+    @RequestMapping(value = "/authorization", method = RequestMethod.GET)
+    public String showAuthorizationPage() {
+        return "authorization";
     }
 
 }

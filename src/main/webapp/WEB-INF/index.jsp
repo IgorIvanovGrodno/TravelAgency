@@ -180,18 +180,29 @@
         <%-- отображение туров--%>
         <div align="center">
             <table cellspacing="15" align="center">
+                <thead>
                 <tr style="color: darkorange">
                     <td><p>Description</p></td>
+                    <td><p>Type</p></td>
                     <td><p>Food System</p></td>
                     <td><p>Transport</p></td>
+                    <td><p>Days</p></td>
+                    <td><p>Price</p></td>
                 </tr>
+                </thead>
+                <tbody>
                 <c:forEach var="tour" items="${tourPageList.pageList}">
                     <tr>
                         <td>${tour.name}</td>
+                        <td>${tour.type}</td>
                         <td>${tour.foodSystem}</td>
                         <td>${tour.transport}</td>
+                        <td>${tour.days}</td>
+                        <td>${tour.price}</td>
                     </tr>
                 </c:forEach>
+                </tbody>
+                <tfoot>
                 <tr align="center">
                     <td></td>
                     <td>
@@ -228,8 +239,8 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <td></td>
                 </tr>
+                </tfoot>
             </table>
         </div>
         <br/>

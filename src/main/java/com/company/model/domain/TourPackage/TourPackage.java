@@ -13,19 +13,19 @@ public class TourPackage {
     private String name;
 
     @Column
-    //@Enumerated(EnumType.STRING)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TourPackageType type;
 
     @Column(name = "food_system")
-    //@Enumerated(EnumType.STRING)
-    private String foodSystem;
+    @Enumerated(EnumType.STRING)
+    private FoodSystem foodSystem;
     @Column
-    //@Enumerated(EnumType.STRING)
-    private String transport;
+    @Enumerated(EnumType.STRING)
+    private Transport transport;
     @Column
     private int days;
-
-    //private int price;
+    @Column
+    private int price;
     @Column(name = "status")
     private boolean statusHot;
 
@@ -48,27 +48,27 @@ public class TourPackage {
         this.name = name;
     }
 
-    public String getType() {
+    public TourPackageType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TourPackageType type) {
         this.type = type;
     }
 
-    public String getFoodSystem() {
+    public FoodSystem getFoodSystem() {
         return foodSystem;
     }
 
-    public void setFoodSystem(String foodSystem) {
+    public void setFoodSystem(FoodSystem foodSystem) {
         this.foodSystem = foodSystem;
     }
 
-    public String getTransport() {
+    public Transport getTransport() {
         return transport;
     }
 
-    public void setTransport(String transport) {
+    public void setTransport(Transport transport) {
         this.transport = transport;
     }
 
@@ -80,13 +80,13 @@ public class TourPackage {
         this.days = days;
     }
 
-   /* public int getPrice() {
+    public int getPrice() {
         return price;
     }
 
     public void setPrice(int price) {
         this.price = price;
-    }*/
+    }
 
     public boolean isStatusHot() {
         return statusHot;
@@ -102,17 +102,18 @@ public class TourPackage {
         if (o == null || getClass() != o.getClass()) return false;
         TourPackage that = (TourPackage) o;
         return days == that.days &&
+                price == that.price &&
                 statusHot == that.statusHot &&
                 Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(type, that.type) &&
-                Objects.equals(foodSystem, that.foodSystem) &&
-                Objects.equals(transport, that.transport);
+                type == that.type &&
+                foodSystem == that.foodSystem &&
+                transport == that.transport;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, foodSystem, transport, days, statusHot);
+        return Objects.hash(id, name, type, foodSystem, transport, days, price, statusHot);
     }
 
     @Override
@@ -120,10 +121,11 @@ public class TourPackage {
         return "TourPackage{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", foodSystem='" + foodSystem + '\'' +
-                ", transport='" + transport + '\'' +
+                ", type=" + type +
+                ", foodSystem=" + foodSystem +
+                ", transport=" + transport +
                 ", days=" + days +
+                ", price=" + price +
                 ", statusHot=" + statusHot +
                 '}';
     }

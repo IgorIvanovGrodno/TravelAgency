@@ -12,7 +12,7 @@ CREATE TABLE tour_package
     food_system VARCHAR(50) NULL,
     transport   VARCHAR(15) NULL,
     days        INT(10) NULL,
-    price       INT NULL,
+    price       INT(20) NULL,
     status      BOOL NULL,
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (id)

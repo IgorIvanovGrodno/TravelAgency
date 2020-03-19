@@ -1,11 +1,17 @@
 package com.company.config;
 
+import com.company.controller.utils.CustomUrlAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -17,32 +23,42 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception{
+
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT USERNAME, PASSWORD, ENABLED FROM USER WHERE USERNAME=?")
-                .authoritiesByUsernameQuery("SELECT U.USERNAME, A.AUTHORITY\n" +
-                        "        \t FROM AUTHORITIES A, USER U WHERE U.USERNAME = A.USERNAME AND U.USERNAME = ?");;
+                .passwordEncoder(passwordEncoder())
+                .usersByUsernameQuery("SELECT login, password, true FROM authorization WHERE login=?")
+                .authoritiesByUsernameQuery("SELECT login, role\n" +
+                        "        \t FROM authorization WHERE login=?");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .anyRequest().authenticated() //all requests will checked
                 .and()
-                .formLogin().loginPage("/login.html").permitAll().usernameParameter("j_username")
-                .passwordParameter("j_password").loginProcessingUrl("/j_spring_security_check").failureUrl("/login.html?error=true")
+                .formLogin().loginPage("/authorization").permitAll().usernameParameter("j_username")
+                .passwordParameter("j_password").loginProcessingUrl("/j_spring_security_check").successHandler(myAuthenticationSuccessHandler()).failureUrl("/authorization?error=true")
                 .and()
-                .httpBasic()
+                .authorizeRequests().antMatchers("/admin*").hasRole("ADMIN")
+                .antMatchers("/user*").hasRole("USER")
                 .and()
-                .authorizeRequests().antMatchers("/security/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
-                .and()
-                .logout().logoutUrl("/j_spring_security_logout").logoutSuccessUrl("/")
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/")
                 .and()
                 .rememberMe().key("myKey").tokenValiditySeconds(300)
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+        ;
 
+    }
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new CustomUrlAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder;
     }
 
 }

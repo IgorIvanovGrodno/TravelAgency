@@ -17,34 +17,6 @@ import java.util.List;
 public class HibernateTourPackageDAOImpl implements TourPackageDAO {
     private SessionFactory sessionFactory;
 
-    static private List<TourPackage> listAll=new ArrayList<>();
-    static private List<TourPackage> listSelected=new ArrayList<>();
-    static {
-        TourPackage tourPackage=new TourPackage();
-        TourPackage tourPackage1=new TourPackage();
-        TourPackage tourPackage2=new TourPackage();
-        TourPackage tourPackage3=new TourPackage();
-        tourPackage.setName("tour");
-        tourPackage.setFoodSystem("ai");
-        tourPackage.setTransport("bus");
-        tourPackage1.setName("tour1");
-        tourPackage1.setFoodSystem("ai1");
-        tourPackage1.setTransport("bus1");
-        tourPackage2.setName("tour2");
-        tourPackage2.setFoodSystem("ai2");
-        tourPackage2.setTransport("bus2");
-        tourPackage3.setName("tour3");
-        tourPackage3.setFoodSystem("ai3");
-        tourPackage3.setTransport("bus3");
-        listAll.add(tourPackage);
-        listAll.add(tourPackage1);
-        listAll.add(tourPackage2);
-        listAll.add(tourPackage3);
-
-        listSelected.add(tourPackage2);
-        listSelected.add(tourPackage3);
-    }
-
     @Autowired
    public HibernateTourPackageDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -74,6 +46,6 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
 
     @Override
     public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
-        return listSelected;
+        return null;
     }
 }
