@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tour_package")
-public class TourPackage {
+public class TourPackage implements Comparable<TourPackage>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -128,5 +128,12 @@ public class TourPackage {
                 ", price=" + price +
                 ", statusHot=" + statusHot +
                 '}';
+    }
+
+    @Override
+    public int compareTo(TourPackage p) {
+        int resultCompareType = type.toString().compareTo(p.getType().toString());
+        if (resultCompareType == 0) return price - p.getPrice();
+        else return resultCompareType;
     }
 }

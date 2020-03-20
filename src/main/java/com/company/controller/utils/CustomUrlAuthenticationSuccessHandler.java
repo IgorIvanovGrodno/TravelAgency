@@ -2,10 +2,9 @@ package com.company.controller.utils;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,24 +15,66 @@ import java.util.Collection;
 
 public class CustomUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-        @Override
-        public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException{
-            //do some logic here if you want something to be done whenever
-            //the user successfully logs in.
 
-            Collection<? extends GrantedAuthority> authorities
-                    = authentication.getAuthorities();
-            String targetUrl = null;
-            for (GrantedAuthority grantedAuthority : authorities) {
-                if (grantedAuthority.getAuthority().equals("user")) {
-                    targetUrl="user";
-                    break;
-                } else if (grantedAuthority.getAuthority().equals("admin")) {
-                    targetUrl="admin";
-                    break;
-                }
-            }
-            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, targetUrl);
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response, Authentication authentication)
+            throws IOException {
+
+        handle(request, response, authentication);
+        clearAuthenticationAttributes(request);
+    }
+
+    protected void handle(HttpServletRequest request,
+                          HttpServletResponse response, Authentication authentication)
+            throws IOException {
+
+        String targetUrl = determineTargetUrl(authentication);
+
+        if (response.isCommitted()) {
+            return;
         }
+
+        redirectStrategy.sendRedirect(request, response, targetUrl);
+    }
+
+    protected String determineTargetUrl(Authentication authentication) {
+        boolean isUser = false;
+        boolean isAdmin = false;
+        Collection<? extends GrantedAuthority> authorities
+                = authentication.getAuthorities();
+        for (GrantedAuthority grantedAuthority : authorities) {
+            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+                isUser = true;
+                break;
+            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+                isAdmin = true;
+                break;
+            }
+        }
+
+        if (isUser) {
+            return "/";
+        } else if (isAdmin) {
+            return "/admin";
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    protected void clearAuthenticationAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return;
+        }
+        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+    }
+
+    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
+        this.redirectStrategy = redirectStrategy;
+    }
+    protected RedirectStrategy getRedirectStrategy() {
+        return redirectStrategy;
+    }
 
 }

@@ -22,7 +22,16 @@ CREATE TABLE tour_package
 
 insert into tour_package(name, type, food_system, transport, days, price, status)
 values ('The best shopping tour', 'SHOPPING', 'AI', 'BUS', 3, 300, false )
-     , ('Very very cooling cruise', 'CRUISE', 'AI', 'SHIP', 15, 1000, false);
+     , ('Very very cooling cruise', 'MEDICAL', 'HB', 'AIRPLANE', 15, 1000, true)
+     , ('The best shopping tour', 'MEDICAL', 'BB', 'TRAIN', 5, 300, true )
+     , ('Very very cooling cruise', 'CRUISE', 'HB', 'SHIP', 5, 1000, false)
+     , ('The best shopping tour', 'EXCURSION', 'FB', 'BUS', 10, 300, false )
+     , ('Very very cooling cruise', 'RELAXATION', 'UAI', 'TRAIN', 15, 1000, false)
+     ,('The best shopping tour', 'SHOPPING', 'AI', 'BUS', 20, 300, false )
+     , ('Very very cooling cruise', 'CRUISE', 'HB', 'SHIP', 15, 1000, false)
+     ,('The best shopping tour', 'EXCURSION', 'BB', 'AIRPLANE', 2, 300, false )
+     , ('Very very cooling cruise', 'RELAXATION', 'AI', 'SHIP', 30, 1000, false);
+
 
 DROP TABLE IF EXISTS client;
 
@@ -54,8 +63,8 @@ CREATE TABLE authorization
     DEFAULT CHARACTER SET = utf8;
 
 insert into authorization (login, password, role, client_id)
-values ('admin', 'admin', 'admin',null)
-     , ('user', 'user', 'user', 1);
+values ('admin', 'admin', 'ROLE_ADMIN',null)
+     , ('user', 'user', 'ROLE_USER', 1);
 
 DROP TABLE IF EXISTS order_client;
 

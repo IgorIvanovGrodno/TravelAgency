@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TourPackageServiceImpl implements TourPackageService {
@@ -19,16 +20,22 @@ public class TourPackageServiceImpl implements TourPackageService {
 
     @Override
     public List<TourPackage> getTourPackages() {
-        return tourPackageDAO.getAllTourPackages();
+        return sortListTourPackages(tourPackageDAO.getAllTourPackages());
     }
 
     @Override
     public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
-        return tourPackageDAO.getSelectedTourPackages(parametersSelectedForTourPackages);
+        return sortListTourPackages(tourPackageDAO.getSelectedTourPackages(parametersSelectedForTourPackages));
     }
 
     @Override
     public TourPackage getTourPackage(Long id) {
         return tourPackageDAO.getTourPackageById(id);
     }
+
+    private List<TourPackage> sortListTourPackages(List<TourPackage> listTourPackages) {
+        return listTourPackages.stream().sorted().collect(Collectors.toList());
+    }
+
+
 }

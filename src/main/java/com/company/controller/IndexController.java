@@ -27,14 +27,15 @@ public class IndexController {
     }
 
     @RequestMapping({"/","/{page}"})
-    public ModelAndView showHomePage(@PathVariable(required=false, name="page") String page, HttpServletRequest request) {
+    public ModelAndView showHomePage(@PathVariable(required=false, name="page") String page,
+                                     HttpServletRequest request) {
 
         ModelAndView model = new ModelAndView();
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
             tourPackagesListHolder = new PagedListHolder<>();
             tourPackagesListHolder.setSource(tourPackageService.getTourPackages());
-            tourPackagesListHolder.setPageSize(1);
+            tourPackagesListHolder.setPageSize(5);
             request.getSession().setAttribute("tourPackages", tourPackagesListHolder);
             request.getSession().setAttribute("types", TourPackageType.values());
             request.getSession().setAttribute("transports", Transport.values());
@@ -60,13 +61,12 @@ public class IndexController {
     public String showSelectTourPackages(Model model,
                                          HttpServletRequest request,
                                          @Valid
-                                             @ModelAttribute("selectsParameters")
+                                         @ModelAttribute("selectsParameters")
                                          ParametersSelectedForTourPackages parametersSelectedForTourPackages,
                                          BindingResult result) {
         if(result.hasErrors()) {
             return "index";
         }
-        System.out.println(parametersSelectedForTourPackages);
         PagedListHolder<TourPackage> tourPackagesListHolder=(PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
         tourPackagesListHolder.setSource(tourPackageService.getSelectedTourPackages(parametersSelectedForTourPackages));
         tourPackagesListHolder.setPage(0);

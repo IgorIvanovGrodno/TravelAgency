@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
     <head>
         <meta charset="utf-8">
@@ -8,41 +9,19 @@
     </head>
     <body>
         <h1 align="center">Tour Packages</h1>
-
-        <%-- Форма авторизации--%>
-        <div align="right">
-            <form modelAttribute="selectsParameters" action="select" method="get">
-                <fieldset>
-                    <table cellspacing="0">
-                        <tr>
-                            <th><label for="email">Email</label></th>
-                            <td><input id="email"
-                                       name="j_username"
-                                       type="text" /> <!-- Поле ввода имени пользователя -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><label for="password">Password</label></th>
-                            <td><input id="password"
-                                       name="j_password"
-                                       type="password" /> <!-- Поле ввода пароля -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><input id="remember_me"
-                                       name="_spring_security_remember_me"
-                                       type="checkbox"/> <!-- Флажок "запомнить меня" -->
-                                <label for="remember_me"
-                                       class="inline">Remember me</label></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><input name="commit" type="submit" value="Sign In" /></td>
-                        </tr>
-                    </table>
-                </fieldset>
-            </form>
+        <%-- Приветствие --%>
+        <div align="center">
+            <div >
+                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+                    <h5 >Hello <sec:authentication property="principal.username" />!</h5>
+                </sec:authorize>
+            </div>
+            <%-- Кнопка авторизации--%>
+            <div align="right">
+                <f:form action="authorization" method="get" align="center">
+                    <input  type="submit" value="Log in"/>
+                </f:form>
+            </div>
         </div>
 
         <%-- Поле фильтра --%>
