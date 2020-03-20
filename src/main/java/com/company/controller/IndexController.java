@@ -60,7 +60,6 @@ public class IndexController {
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     public String showSelectTourPackages(Model model,
                                          HttpServletRequest request,
-                                         @Valid
                                          @ModelAttribute("selectsParameters")
                                          ParametersSelectedForTourPackages parametersSelectedForTourPackages,
                                          BindingResult result) {

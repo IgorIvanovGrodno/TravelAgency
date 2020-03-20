@@ -9,13 +9,9 @@ public class ParametersSelectedForTourPackages {
     private String valueOfTransport;
     private String valueOfType;
     private boolean statusHot;
-    @Pattern(regexp = "\\d+", message = "Please, enter number")
     private String minDay;
-    @Pattern(regexp = "\\d+", message = "Please, enter number")
     private String maxDay;
-    @Pattern(regexp = "\\d+", message = "Please, enter number")
     private String minPrice;
-    @Pattern(regexp = "\\d+", message = "Please, enter number")
     private String maxPrice;
 
 
