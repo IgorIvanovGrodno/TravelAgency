@@ -40,16 +40,16 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
 
     @Override
     public List<TourPackage> getAllTourPackages() {
-        TypedQuery<TourPackage> query = sessionFactory.getCurrentSession().createQuery("from TourPackage ");
+        TypedQuery<TourPackage> query = sessionFactory.getCurrentSession().createQuery("from TourPackage ").setCacheable(true);
         return query.getResultList();
 
     }
 
     @Override
     public TourPackage getTourPackageById(Long id) {
-       // TypedQuery<TourPackage> query = sessionFactory.getCurrentSession().createQuery("select T from TourPackage T where T.id="+id);
-        //return query.getSingleResult();
-        return null;
+        Session session=sessionFactory.getCurrentSession();
+        TourPackage tourPackage =  session.load(TourPackage.class, 1L);
+        return tourPackage;
     }
 
     @Override

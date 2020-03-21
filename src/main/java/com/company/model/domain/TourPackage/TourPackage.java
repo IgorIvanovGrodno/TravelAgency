@@ -1,9 +1,14 @@
 package com.company.model.domain.TourPackage;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "tour_package")
 public class TourPackage implements Comparable<TourPackage>{
     @Id

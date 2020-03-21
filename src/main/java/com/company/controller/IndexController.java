@@ -29,7 +29,7 @@ public class IndexController {
     @RequestMapping({"/","/{page}"})
     public ModelAndView showHomePage(@PathVariable(required=false, name="page") String page,
                                      HttpServletRequest request) {
-
+        
         ModelAndView model = new ModelAndView();
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {

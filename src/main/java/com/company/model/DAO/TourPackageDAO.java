@@ -7,6 +7,5 @@ import java.util.List;
 public interface TourPackageDAO {
     List<TourPackage> getAllTourPackages();
     TourPackage getTourPackageById(Long id);
-
     List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages);
 }
