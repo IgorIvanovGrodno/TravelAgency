@@ -7,12 +7,14 @@ import com.company.model.domain.TourPackage.TourPackageType;
 import com.company.model.domain.TourPackage.Transport;
 import com.company.service.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -22,15 +24,26 @@ public class IndexController {
     private TourPackageService tourPackageService;
 
     @Autowired
+    @Qualifier("selectedParameterValidator")
+    private Validator selectedParameterValidator;
+
+    /*@InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(personValidator);
+    }*/
+
+    @Autowired
     public IndexController(TourPackageService tourPackageService) {
         this.tourPackageService = tourPackageService;
     }
 
     @RequestMapping({"/","/{page}"})
-    public ModelAndView showHomePage(@PathVariable(required=false, name="page") String page,
-                                     HttpServletRequest request) {
-        
-        ModelAndView model = new ModelAndView();
+    public String showHomePage(Model model,
+                               @PathVariable(required=false, name="page") String page,
+                               HttpServletRequest request,
+                                @ModelAttribute("selectsParameters")
+                                ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
+
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
             tourPackagesListHolder = new PagedListHolder<>();
@@ -40,6 +53,7 @@ public class IndexController {
             request.getSession().setAttribute("types", TourPackageType.values());
             request.getSession().setAttribute("transports", Transport.values());
             request.getSession().setAttribute("foodSystemList", FoodSystem.values());
+            //parametersSelectedForTourPackages = new ParametersSelectedForTourPackages();
         }else if(page.equals("prev")) {
             tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
             tourPackagesListHolder.previousPage();
@@ -51,25 +65,25 @@ public class IndexController {
             tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
             tourPackagesListHolder.setPage(pageNum - 1);
         }
-        model.setViewName("index");
-        model.addObject("selectsParameters", new ParametersSelectedForTourPackages());
-
-        return model;
+       model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
+        return "index";
     }
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
-    public String showSelectTourPackages(Model model,
+    public String showSelectTourPackages(
                                          HttpServletRequest request,
+                                         @Valid
                                          @ModelAttribute("selectsParameters")
                                          ParametersSelectedForTourPackages parametersSelectedForTourPackages,
                                          BindingResult result) {
+
+        selectedParameterValidator.validate(parametersSelectedForTourPackages, result);
         if(result.hasErrors()) {
             return "index";
         }
         PagedListHolder<TourPackage> tourPackagesListHolder=(PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
         tourPackagesListHolder.setSource(tourPackageService.getSelectedTourPackages(parametersSelectedForTourPackages));
         tourPackagesListHolder.setPage(0);
-        model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
         return "index";
     }
 

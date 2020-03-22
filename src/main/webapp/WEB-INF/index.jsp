@@ -62,25 +62,32 @@
                     <td>
                         <p>Days between</p>
                         <br/>
+                        <div><f:errors path="minDay" /></div>
                         <div>
-                            <f:input type="number" path="minDay" maxlength="6"/>
+                            <f:label path="minDay">minDay</f:label>
+                            <f:input id="minD" type="number" path="minDay" maxlength="6" min="0"/>
+
+
                         </div>
                         <br/>
                         <div>
-                            <f:input type="number" path="maxDay" maxlength="6"/>
+                            <f:label path="maxDay">maxDay</f:label>
+                            <f:input id="maxD" type="number" path="maxDay" maxlength="6" min="0" />
                         </div>
                     </td>
                     <td>
                         <p>Price between</p>
                         <br/>
-
+                        <div><f:errors path="minPrice" /></div>
                         <div>
-                            <f:input type="number" path="minPrice" maxlength="10"/>
+                            <f:label path="minPrice">minPrice</f:label>
+                            <f:input type="number" path="minPrice" maxlength="10" min="0"/>
                         </div>
                         <br/>
 
                         <div>
-                            <f:input type="number" path="maxPrice" maxlength="10"/>
+                            <f:label path="maxPrice">maxPrice</f:label>
+                            <f:input type="number" path="maxPrice" maxlength="10" min="0"/>
                         </div>
                     </td>
                 </tr>
