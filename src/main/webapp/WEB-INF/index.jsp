@@ -24,9 +24,9 @@
             </div>
         </div>
 
+        <c:set value="${sessionScope.tourPackages}" var="tourPageList" />
         <%-- Поле фильтра --%>
         <h2 align="center">Select tour package</h2>
-        <c:set value="${sessionScope.tourPackages}" var="tourPageList" />
         <div align="center">
         <f:form modelAttribute="selectsParameters" action="select" method="get">
             <fieldset>

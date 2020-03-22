@@ -5,12 +5,21 @@
   Time: 22:53
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <html>
-<head>
-    <title>Admin</title>
-</head>
-<body>
-<h1>Admin</h1>
-</body>
+    <head>
+        <title>Admin</title>
+    </head>
+    <body>
+        <%-- Button creating tour packages--%>
+        <div align="right">
+            <f:form action="admin/create/" method="get" align="center">
+                <input  type="submit" value="Create tour package"/>
+            </f:form>
+        </div>
+
+    </body>
 </html>

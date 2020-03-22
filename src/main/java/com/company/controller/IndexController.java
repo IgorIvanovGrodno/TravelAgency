@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +25,6 @@ public class IndexController {
     @Autowired
     @Qualifier("selectedParameterValidator")
     private Validator selectedParameterValidator;
-
-    /*@InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(personValidator);
-    }*/
 
     @Autowired
     public IndexController(TourPackageService tourPackageService) {
@@ -53,7 +47,6 @@ public class IndexController {
             request.getSession().setAttribute("types", TourPackageType.values());
             request.getSession().setAttribute("transports", Transport.values());
             request.getSession().setAttribute("foodSystemList", FoodSystem.values());
-            //parametersSelectedForTourPackages = new ParametersSelectedForTourPackages();
         }else if(page.equals("prev")) {
             tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
             tourPackagesListHolder.previousPage();

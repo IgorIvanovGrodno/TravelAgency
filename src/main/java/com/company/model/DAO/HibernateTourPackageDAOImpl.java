@@ -48,7 +48,7 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
     @Override
     public TourPackage getTourPackageById(Long id) {
         Session session=sessionFactory.getCurrentSession();
-        TourPackage tourPackage =  session.load(TourPackage.class, 1L);
+        TourPackage tourPackage =  session.get(TourPackage.class, id);
         return tourPackage;
     }
 
@@ -63,6 +63,11 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
         Query<TourPackage> q=sessionFactory.getCurrentSession().createQuery(query);
         List<TourPackage> resultList=q.getResultList();
         return resultList;
+    }
+
+    @Override
+    public Long createTourPackage(TourPackage tourPackage) {
+        return (Long)sessionFactory.getCurrentSession().save(tourPackage);
     }
 
     private List<Predicate> createPredicatesFromParametersSelectedForTourPackages(CriteriaBuilder builder

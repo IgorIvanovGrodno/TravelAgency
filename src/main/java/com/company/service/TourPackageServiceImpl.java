@@ -33,6 +33,10 @@ public class TourPackageServiceImpl implements TourPackageService {
         return tourPackageDAO.getTourPackageById(id);
     }
 
+    @Override
+    public Long createTourPackage(TourPackage tourPackage) {
+        return tourPackageDAO.createTourPackage(tourPackage);
+    }
 
 
     private List<TourPackage> sortListTourPackages(List<TourPackage> listTourPackages) {
