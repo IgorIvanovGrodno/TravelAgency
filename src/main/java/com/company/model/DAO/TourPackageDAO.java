@@ -9,4 +9,5 @@ public interface TourPackageDAO {
     TourPackage getTourPackageById(Long id);
     List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages);
     Long createTourPackage(TourPackage tourPackage);
+    void updateTourPackage(TourPackage tourPackage);
 }

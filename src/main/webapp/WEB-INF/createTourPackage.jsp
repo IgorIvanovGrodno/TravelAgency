@@ -81,7 +81,10 @@
         </fieldset>
     </f:form>
 
-    <c:out value="Successfully created: ${addedTourPackage.toString()}"></c:out>
+    <c:if test="${addedTourPackage != null}">
+        <c:out value="Successfully created: ${addedTourPackage.toString()}"></c:out>
+    </c:if>
+
 </div>
 
 </body>

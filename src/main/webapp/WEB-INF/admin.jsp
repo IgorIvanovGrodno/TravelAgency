@@ -21,5 +21,12 @@
             </f:form>
         </div>
 
+        <%-- Button updating tour packages--%>
+        <div align="right">
+            <f:form action="admin/update/tourPackage/" method="get" align="center">
+                <input  type="submit" value="Update tour package"/>
+            </f:form>
+        </div>
+
     </body>
 </html>

@@ -38,6 +38,11 @@ public class TourPackageServiceImpl implements TourPackageService {
         return tourPackageDAO.createTourPackage(tourPackage);
     }
 
+    @Override
+    public void updateTourPackage(TourPackage tourPackage) {
+        tourPackageDAO.updateTourPackage(tourPackage);
+    }
+
 
     private List<TourPackage> sortListTourPackages(List<TourPackage> listTourPackages) {
         return listTourPackages.stream().sorted().collect(Collectors.toList());

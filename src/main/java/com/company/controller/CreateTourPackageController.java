@@ -16,7 +16,6 @@ import javax.validation.Valid;
 @Controller
 public class CreateTourPackageController {
     private TourPackageService tourPackageService;
-    private TourPackage tourPackage = new TourPackage();
 
     @Autowired
     public CreateTourPackageController(TourPackageService tourPackageService) {
@@ -25,7 +24,7 @@ public class CreateTourPackageController {
 
     @RequestMapping({"admin/create/**"})
     public String showCreateTourPackagePage(Model model) {
-        model.addAttribute("newTourPackage", tourPackage);
+        model.addAttribute("newTourPackage", new TourPackage());
         return "createTourPackage";
     }
 
@@ -40,8 +39,7 @@ public class CreateTourPackageController {
         }
         Long id =tourPackageService.createTourPackage(tourPackage);
         TourPackage addedTourPackage = tourPackageService.getTourPackage(id);
-        this.tourPackage=new TourPackage();
-        model.addAttribute("newTourPackage", this.tourPackage);
+        model.addAttribute("newTourPackage", new TourPackage());
         model.addAttribute("addedTourPackage", addedTourPackage);
         return "createTourPackage";
     }

@@ -70,6 +70,11 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
         return (Long)sessionFactory.getCurrentSession().save(tourPackage);
     }
 
+    @Override
+    public void updateTourPackage(TourPackage tourPackage) {
+        sessionFactory.getCurrentSession().saveOrUpdate(tourPackage);
+    }
+
     private List<Predicate> createPredicatesFromParametersSelectedForTourPackages(CriteriaBuilder builder
             , ParametersSelectedForTourPackages parametersSelectedForTourPackages
             , Root<TourPackage> root){

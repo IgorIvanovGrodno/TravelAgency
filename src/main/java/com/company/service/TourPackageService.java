@@ -11,4 +11,5 @@ public interface TourPackageService {
     List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages);
     TourPackage getTourPackage(Long id);
     Long createTourPackage(TourPackage tourPackage);
+    void updateTourPackage(TourPackage tourPackage);
 }
