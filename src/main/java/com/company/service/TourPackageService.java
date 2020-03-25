@@ -12,4 +12,6 @@ public interface TourPackageService {
     TourPackage getTourPackage(Long id);
     Long createTourPackage(TourPackage tourPackage);
     void updateTourPackage(TourPackage tourPackage);
+
+    void deleteTourPackage(TourPackage tourPackage);
 }

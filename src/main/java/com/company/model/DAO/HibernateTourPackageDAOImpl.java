@@ -75,6 +75,11 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
         sessionFactory.getCurrentSession().saveOrUpdate(tourPackage);
     }
 
+    @Override
+    public void deleteTourPackage(TourPackage tourPackage) {
+        sessionFactory.getCurrentSession().delete(tourPackage);
+    }
+
     private List<Predicate> createPredicatesFromParametersSelectedForTourPackages(CriteriaBuilder builder
             , ParametersSelectedForTourPackages parametersSelectedForTourPackages
             , Root<TourPackage> root){
