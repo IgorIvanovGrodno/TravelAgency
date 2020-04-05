@@ -107,63 +107,6 @@
         <%-- отображение туров--%>
         <div align="center">
             <table cellspacing="15" align="center">
-                <tr style="color: darkorange">
-                    <td><p>Description</p></td>
-                    <td><p>Food System</p></td>
-                    <td><p>Transport</p></td>
-                </tr>
-                <c:forEach var="tour" items="${tourPageList.pageList}">
-                    <tr>
-                      <td>${tour.name}</td>
-                      <td>${tour.foodSystem}</td>
-                      <td>${tour.transport}</td>
-                    </tr>
-                </c:forEach>
-                <tr align="center">
-                    <td></td>
-                    <td>
-                        <c:choose>
-                            <%-- кнопка предыдущая страница --%>
-                            <c:when test="${tourPageList.firstPage}">
-                                <span>Prev</span>
-                            </c:when>
-                            <c:otherwise>
-                                <c:url value="/prev" var="url" />
-                                <a href='<c:out value="${url}" />'>Prev</a>
-                            </c:otherwise>
-                        </c:choose>
-                        <c:forEach begin="1" end="${tourPageList.pageCount}" step="1"  varStatus="tagStatus">
-                            <c:choose>
-                                <%-- Нумерация страниц --%>
-                                <c:when test="${(tourPageList.page + 1) == tagStatus.index}">
-                                    <span>${tagStatus.index}</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:url value="/${tagStatus.index}" var="url" />
-                                    <a href='<c:out value="${url}" />'>${tagStatus.index}</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                        <%-- кнопка следующая страница --%>
-                        <c:choose>
-                            <c:when test="${tourPageList.lastPage}">
-                                <span>Next</span>
-                            </c:when>
-                            <c:otherwise>
-                                <c:url value="/next" var="url" />
-                                <a href='<c:out value="${url}" />'>Next</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td></td>
-                </tr>
-             </table>
-        </div>
-        <br/>
-
-        <%-- отображение туров--%>
-        <div align="center">
-            <table cellspacing="15" align="center">
                 <thead>
                 <tr style="color: darkorange">
                     <td><p>Description</p></td>

@@ -1,8 +1,9 @@
-package com.company.service;
+package com.company.service.tourPackage;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.DAO.TourPackageDAO;
 import com.company.model.domain.TourPackage.TourPackage;
+import com.company.service.tourPackage.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

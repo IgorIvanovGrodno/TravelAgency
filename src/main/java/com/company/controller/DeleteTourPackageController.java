@@ -1,7 +1,7 @@
 package com.company.controller;
 
 import com.company.model.domain.TourPackage.TourPackage;
-import com.company.service.TourPackageService;
+import com.company.service.tourPackage.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
@@ -31,7 +31,7 @@ public class DeleteTourPackageController {
     }
 
     @RequestMapping({"admin/delete/","admin/delete/{page}"})
-    public String showUpdateTourPackagePage(Model model,
+    public String showDeleteTourPackagePage(Model model,
                                             @PathVariable(required=false, name="page") String page,
                                             HttpServletRequest request) {
         PagedListHolder<TourPackage> tourPackagesListHolder;
@@ -56,7 +56,7 @@ public class DeleteTourPackageController {
     }
 
     @RequestMapping(value = "admin/delete/tourPackage", method = RequestMethod.GET)
-    public String showSelectTourPackages(
+    public String deleteTourPackages(
             @PathVariable(required=false, name="id") Long id,
             @Valid
             @ModelAttribute("deleteTourPackage")

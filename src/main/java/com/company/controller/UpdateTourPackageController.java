@@ -1,11 +1,7 @@
 package com.company.controller;
 
-import com.company.controller.utils.ParametersSelectedForTourPackages;
-import com.company.model.domain.TourPackage.FoodSystem;
 import com.company.model.domain.TourPackage.TourPackage;
-import com.company.model.domain.TourPackage.TourPackageType;
-import com.company.model.domain.TourPackage.Transport;
-import com.company.service.TourPackageService;
+import com.company.service.tourPackage.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
@@ -60,7 +56,7 @@ public class UpdateTourPackageController {
     }
 
     @RequestMapping(value = "admin/update/tourPackage/update", method = RequestMethod.GET)
-    public String showSelectTourPackages(
+    public String updateTourPackages(
             @Valid
             @ModelAttribute("updateTourPackage")
                     TourPackage tourPackage,
