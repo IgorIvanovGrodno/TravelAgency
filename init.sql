@@ -49,11 +49,10 @@ insert into client (discount)
 values (10);
 
 DROP TABLE IF EXISTS authorization;
-
 CREATE TABLE authorization
 (
     login        VARCHAR(30)        NOT NULL,
-    password     VARCHAR(15)        NOT NULL,
+    password     VARCHAR(60)        NOT NULL,
     role         VARCHAR(10)        NOT NULL,
     client_id    BIGINT(20),
     PRIMARY KEY (login),
@@ -63,17 +62,16 @@ CREATE TABLE authorization
     DEFAULT CHARACTER SET = utf8;
 
 insert into authorization (login, password, role, client_id)
-values ('admin', 'admin', 'ROLE_ADMIN',null)
-     , ('user', 'user', 'ROLE_USER', 1);
+values ('admin', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_ADMIN',null)
+     , ('user', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_USER', 1);
 
-DROP TABLE IF EXISTS order_client;
+DROP TABLE IF EXISTS client_tour;
 
-CREATE TABLE order_tour
+CREATE TABLE client_tour
 (
     id                  BIGINT(20)         NOT NULL AUTO_INCREMENT,
     client_id           BIGINT(20)            NOT NULL,
     tour_package_id     BIGINT(20)            NOT NULL,
-    total_cost          INT(20)            NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE,
     FOREIGN KEY (tour_package_id) REFERENCES tour_package (id) ON DELETE CASCADE
@@ -83,7 +81,7 @@ CREATE TABLE order_tour
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
 
-insert into order_tour (client_id, tour_package_id, total_cost)
-values (1, 1, 270)
-     ,(1, 2, 900);CREATE DATABASE IF NOT EXISTS travel_agency
+insert into client_tour (client_id, tour_package_id)
+values (1, 1)
+     ,(1, 2);CREATE DATABASE IF NOT EXISTS travel_agency
     COLLATE utf8_general_ci;

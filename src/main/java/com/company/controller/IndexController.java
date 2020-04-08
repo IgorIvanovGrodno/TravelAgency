@@ -1,10 +1,10 @@
 package com.company.controller;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
-import com.company.model.domain.TourPackage.FoodSystem;
-import com.company.model.domain.TourPackage.TourPackage;
-import com.company.model.domain.TourPackage.TourPackageType;
-import com.company.model.domain.TourPackage.Transport;
+import com.company.model.domain.tourPackage.FoodSystem;
+import com.company.model.domain.tourPackage.TourPackage;
+import com.company.model.domain.tourPackage.TourPackageType;
+import com.company.model.domain.tourPackage.Transport;
 import com.company.service.tourPackage.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,7 +36,9 @@ public class IndexController {
                                @PathVariable(required=false, name="page") String page,
                                HttpServletRequest request,
                                 @ModelAttribute("selectsParameters")
-                                ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
+                                ParametersSelectedForTourPackages parametersSelectedForTourPackages,
+                               @ModelAttribute("tourPackageForOrder")
+                               TourPackage tourPackageForOrder) {
 
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
@@ -58,7 +60,8 @@ public class IndexController {
             tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
             tourPackagesListHolder.setPage(pageNum - 1);
         }
-       model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
+        model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
+        model.addAttribute("tourPackageForOrder", tourPackageForOrder);
         return "index";
     }
 
@@ -68,6 +71,8 @@ public class IndexController {
                                          @Valid
                                          @ModelAttribute("selectsParameters")
                                          ParametersSelectedForTourPackages parametersSelectedForTourPackages,
+                                         @ModelAttribute("tourPackageForOrder")
+                                                 TourPackage tourPackageForOrder,
                                          BindingResult result) {
 
         selectedParameterValidator.validate(parametersSelectedForTourPackages, result);
@@ -77,6 +82,7 @@ public class IndexController {
         PagedListHolder<TourPackage> tourPackagesListHolder=(PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
         tourPackagesListHolder.setSource(tourPackageService.getSelectedTourPackages(parametersSelectedForTourPackages));
         tourPackagesListHolder.setPage(0);
+
         return "index";
     }
 

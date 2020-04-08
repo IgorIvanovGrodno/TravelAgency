@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.model.domain.TourPackage.TourPackage;
+import com.company.model.domain.tourPackage.TourPackage;
 import com.company.service.tourPackage.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

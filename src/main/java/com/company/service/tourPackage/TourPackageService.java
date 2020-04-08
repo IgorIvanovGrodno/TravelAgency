@@ -1,7 +1,7 @@
 package com.company.service.tourPackage;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
-import com.company.model.domain.TourPackage.TourPackage;
+import com.company.model.domain.tourPackage.TourPackage;
 
 import java.util.List;
 

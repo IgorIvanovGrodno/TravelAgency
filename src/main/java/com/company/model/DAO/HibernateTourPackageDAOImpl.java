@@ -1,10 +1,10 @@
 package com.company.model.DAO;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
-import com.company.model.domain.TourPackage.FoodSystem;
-import com.company.model.domain.TourPackage.TourPackage;
-import com.company.model.domain.TourPackage.TourPackageType;
-import com.company.model.domain.TourPackage.Transport;
+import com.company.model.domain.tourPackage.FoodSystem;
+import com.company.model.domain.tourPackage.TourPackage;
+import com.company.model.domain.tourPackage.TourPackageType;
+import com.company.model.domain.tourPackage.Transport;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

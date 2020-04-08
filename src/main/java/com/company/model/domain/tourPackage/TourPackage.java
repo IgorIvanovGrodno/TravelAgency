@@ -1,12 +1,12 @@
-package com.company.model.domain.TourPackage;
+package com.company.model.domain.tourPackage;
 
+import com.company.model.domain.user.User;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Cacheable
@@ -38,7 +38,18 @@ public class TourPackage implements Comparable<TourPackage>{
     @Column(name = "status")
     private boolean statusHot;
 
+    @ManyToMany(mappedBy = "paidTourPackages")
+    private List<User> users = new ArrayList<>();
+
     public TourPackage() {
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public Long getId() {

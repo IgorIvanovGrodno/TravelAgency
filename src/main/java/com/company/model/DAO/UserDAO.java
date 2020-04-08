@@ -8,4 +8,8 @@ public interface UserDAO {
     List<User> getAllUsers();
 
     int setDiscountById(Long id, int discount);
+
+    User getUserByLogin(String loginUser);
+
+    void updateUser(User user);
 }

@@ -1,6 +1,5 @@
 package com.company.controller;
 
-import com.company.model.domain.TourPackage.TourPackage;
 import com.company.model.domain.user.User;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class SetDiscountController {
     }
 
     @RequestMapping(value = "admin/set/discount/set", method = RequestMethod.GET)
-    public String updateTourPackages(
+    public String updateUser(
             @Valid
             @ModelAttribute("userWithUpdateDiscount")
                     User user,
@@ -61,7 +60,6 @@ public class SetDiscountController {
         if(result.hasErrors()){
             return "setDiscount";
         }
-        System.out.println("@@@@@"+user);
         int countUpdatedUsers = userService.setDiscount(user);
         if(countUpdatedUsers>0) return "redirect:/admin";
         else {

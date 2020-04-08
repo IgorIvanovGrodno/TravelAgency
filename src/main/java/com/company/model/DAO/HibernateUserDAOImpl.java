@@ -32,4 +32,17 @@ public class HibernateUserDAOImpl implements UserDAO {
         query.setParameter("id", id);
         return query.executeUpdate();
     }
+
+    @Override
+    public User getUserByLogin(String loginUser) {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User where login.login=:login").setCacheable(true);
+        query.setParameter("login", loginUser);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public void updateUser(User user) {
+        sessionFactory.getCurrentSession().saveOrUpdate(user);
+    }
+
 }

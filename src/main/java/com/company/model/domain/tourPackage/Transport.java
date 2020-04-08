@@ -1,4 +1,4 @@
-package com.company.model.domain.TourPackage;
+package com.company.model.domain.tourPackage;
 
 public enum Transport {
     AIRPLANE,

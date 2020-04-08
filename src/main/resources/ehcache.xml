@@ -55,7 +55,7 @@
          This cache contains 1000 elements. Elements will always be held in memory.
          They are not expired. -->
 
-    <cache name="com.company.model.domain.TourPackage.TourPackage"
+    <cache name="com.company.model.domain.tourPackage.TourPackage"
            maxElementsInMemory="1000"
            eternal="true"
            overflowToDisk="false"

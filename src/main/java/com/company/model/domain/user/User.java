@@ -1,12 +1,13 @@
 package com.company.model.domain.user;
 
+import com.company.model.domain.tourPackage.TourPackage;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Cacheable
@@ -26,7 +27,23 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Login login;
 
+    @ManyToMany( fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "client_tour",
+            joinColumns = { @JoinColumn(name = "client_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tour_package_id") }
+    )
+    private List<TourPackage> paidTourPackages = new ArrayList<>();
+
     public User() {
+    }
+
+    public List<TourPackage> getPaidTourPackages() {
+        return paidTourPackages;
+    }
+
+    public void setPaidTourPackages(List<TourPackage> paidTourPackages) {
+        this.paidTourPackages = paidTourPackages;
     }
 
     public Login getLogin() {

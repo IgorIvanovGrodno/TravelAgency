@@ -115,12 +115,23 @@
                     <td><p>Transport</p></td>
                     <td><p>Days</p></td>
                     <td><p>Price</p></td>
+                    <sec:authorize access="hasRole('ROLE_USER')">
+                        <td><p>Discount price</p></td>
+                    </sec:authorize>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="tour" items="${tourPageList.pageList}">
+
+                 <f:form action="/TravelAgency_war_exploded/user/order" modelAttribute="tourPackageForOrder" method="get" align="center">
+                     <div><f:errors path="id" /></div>
+                 <c:forEach var="tour" items="${tourPageList.pageList}">
                     <tr>
-                        <td>${tour.name}</td>
+                        <td>
+                            <sec:authorize access="hasRole('ROLE_USER')">
+                                <f:radiobutton  path="id" value="${tour.id}"/>
+                            </sec:authorize>
+                             ${tour.name}
+                        </td>
                         <td>${tour.type}</td>
                         <td>${tour.foodSystem}</td>
                         <td>${tour.transport}</td>
@@ -128,6 +139,12 @@
                         <td>${tour.price}</td>
                     </tr>
                 </c:forEach>
+                     <tr>
+                         <sec:authorize access="hasRole('ROLE_USER')">
+                             <input type="submit" value="Buy"/>
+                         </sec:authorize>
+                     </tr>
+                 </f:form>
                 </tbody>
                 <tfoot>
                 <tr align="center">

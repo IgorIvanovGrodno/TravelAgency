@@ -2,8 +2,6 @@ package com.company.model.domain.user;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,9 +11,6 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "authorization")
 public class Login {
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;*/
 
     @Id
     private String login;

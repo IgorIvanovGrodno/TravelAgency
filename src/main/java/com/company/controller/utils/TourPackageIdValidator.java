@@ -1,6 +1,6 @@
 package com.company.controller.utils;
 
-import com.company.model.domain.TourPackage.TourPackage;
+import com.company.model.domain.tourPackage.TourPackage;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
