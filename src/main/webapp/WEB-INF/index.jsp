@@ -12,15 +12,25 @@
         <%-- Приветствие --%>
         <div align="center">
             <div >
-                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+                <sec:authorize access="isAuthenticated()">
                     <h5 >Hello <sec:authentication property="principal.username" />!</h5>
                 </sec:authorize>
             </div>
             <%-- Кнопка авторизации--%>
             <div align="right">
+                <sec:authorize access="!isAuthenticated()">
                 <f:form action="authorization" method="get" align="center">
                     <input  type="submit" value="Log in"/>
                 </f:form>
+                </sec:authorize>
+            </div>
+            <%-- Кнопка Logout--%>
+            <div align="right">
+                <sec:authorize access="isAuthenticated()">
+                <f:form action="logout" method="get" align="center">
+                    <input  type="submit" value="Log out"/>
+                </f:form>
+                </sec:authorize>
             </div>
         </div>
 
