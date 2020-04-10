@@ -40,44 +40,43 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
 
     @Override
     public List<TourPackage> getAllTourPackages() {
-        TypedQuery<TourPackage> query = sessionFactory.getCurrentSession().createQuery("from TourPackage ").setCacheable(true);
+        TypedQuery<TourPackage> query = currentSession().createQuery("from TourPackage ").setCacheable(true);
         return query.getResultList();
 
     }
 
     @Override
     public TourPackage getTourPackageById(Long id) {
-        Session session=sessionFactory.getCurrentSession();
-        TourPackage tourPackage =  session.get(TourPackage.class, id);
+        TourPackage tourPackage =  currentSession().get(TourPackage.class, id);
         return tourPackage;
     }
 
     @Override
     public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
-        CriteriaBuilder builder = sessionFactory.getCurrentSession().getCriteriaBuilder();
+        CriteriaBuilder builder = currentSession().getCriteriaBuilder();
         CriteriaQuery<TourPackage> query = builder.createQuery(TourPackage.class);
         Root<TourPackage> root = query.from(TourPackage.class);
         List<Predicate> predicatesList = createPredicatesFromParametersSelectedForTourPackages(builder, parametersSelectedForTourPackages, root);
         Predicate[] predicates = predicatesList.toArray(new Predicate[predicatesList.size()]);
         query.select(root).where(predicates);
-        Query<TourPackage> q=sessionFactory.getCurrentSession().createQuery(query);
+        Query<TourPackage> q=currentSession().createQuery(query);
         List<TourPackage> resultList=q.getResultList();
         return resultList;
     }
 
     @Override
     public Long createTourPackage(TourPackage tourPackage) {
-        return (Long)sessionFactory.getCurrentSession().save(tourPackage);
+        return (Long)currentSession().save(tourPackage);
     }
 
     @Override
     public void updateTourPackage(TourPackage tourPackage) {
-        sessionFactory.getCurrentSession().saveOrUpdate(tourPackage);
+        currentSession().saveOrUpdate(tourPackage);
     }
 
     @Override
     public void deleteTourPackage(TourPackage tourPackage) {
-        sessionFactory.getCurrentSession().delete(tourPackage);
+        currentSession().delete(tourPackage);
     }
 
     private List<Predicate> createPredicatesFromParametersSelectedForTourPackages(CriteriaBuilder builder

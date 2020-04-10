@@ -1,5 +1,7 @@
 package com.company.model.domain.payment;
 
+import org.springframework.stereotype.Component;
+
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
 

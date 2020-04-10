@@ -1,6 +1,7 @@
 package com.company.model.DAO;
 
 import com.company.model.domain.user.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,15 +20,19 @@ public class HibernateUserDAOImpl implements UserDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    private Session currentSession(){
+        return sessionFactory.getCurrentSession();
+    }
+
     @Override
     public List<User> getAllUsers() {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User ").setCacheable(true);
+        TypedQuery<User> query = currentSession().createQuery("from User ").setCacheable(true);
         return query.getResultList();
     }
 
     @Override
     public int setDiscountById(Long id, int discount) {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("update User set discount=:discount where id=:id").setCacheable(true);
+        TypedQuery<User> query = currentSession().createQuery("update User set discount=:discount where id=:id").setCacheable(true);
         query.setParameter("discount", discount);
         query.setParameter("id", id);
         return query.executeUpdate();
@@ -35,14 +40,14 @@ public class HibernateUserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByLogin(String loginUser) {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User where login.login=:login").setCacheable(true);
+        TypedQuery<User> query = currentSession().createQuery("from User where login.login=:login").setCacheable(true);
         query.setParameter("login", loginUser);
         return query.getSingleResult();
     }
 
     @Override
     public void updateUser(User user) {
-        sessionFactory.getCurrentSession().saveOrUpdate(user);
+        currentSession().saveOrUpdate(user);
     }
 
 }

@@ -132,7 +132,7 @@
                 </thead>
                 <tbody>
 
-                 <f:form action="/TravelAgency_war_exploded/user/order" modelAttribute="tourPackageForOrder" method="get" align="center">
+                 <f:form action="/user/order" modelAttribute="tourPackageForOrder" method="get" align="center">
                      <div><f:errors path="id" /></div>
                  <c:forEach var="tour" items="${tourPageList.pageList}">
                     <tr>

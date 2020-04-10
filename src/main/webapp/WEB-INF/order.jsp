@@ -1,13 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Игорь
-  Date: 05.04.2020
-  Time: 17:33
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 
 <html>
@@ -19,7 +12,7 @@
     <div align="center">
         <table>
             <tr>
-                <f:form modelAttribute="payment" action="/TravelAgency_war_exploded/user/order/pay" method="get">
+                <f:form modelAttribute="payment" action="/user/order/pay" method="get">
                     <fieldset>
                     <div><f:errors path="numberCard" /></div>
                     <f:label path="numberCard">Number card</f:label>

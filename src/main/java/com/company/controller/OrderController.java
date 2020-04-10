@@ -59,14 +59,13 @@ public class OrderController {
             HttpServletRequest request,
             @Valid
             @ModelAttribute("payment")Payment payment,
-                                Principal principal,
-                                BindingResult result) {
+                                BindingResult result, Principal principal) {
 
         if(result.hasErrors()){
             return "order";
         }
-        TourPackage tourPackageForOrder = (TourPackage) request.getSession().getAttribute("tourPackageForOrder");
-        userService.buyTourPackage(tourPackageForOrder, principal.getName());
+        TourPackage tourPackageOrder = (TourPackage) request.getSession().getAttribute("tourPackageForOrder");
+        userService.buyTourPackage(tourPackageOrder, principal.getName());
         return "redirect:/user";
     }
 

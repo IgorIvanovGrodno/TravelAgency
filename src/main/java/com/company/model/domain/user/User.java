@@ -14,7 +14,7 @@ import java.util.*;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "client")
 public class User implements Serializable {
-    private static final long SERIAL_VERSION_UID=1l;
+    private static final long SERIAL_VERSION_UID=1L;
 
     @NotNull(message = "Please, select user for set discount!")
     @Id
