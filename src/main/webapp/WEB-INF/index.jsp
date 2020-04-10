@@ -38,7 +38,7 @@
         <%-- Поле фильтра --%>
         <h2 align="center">Select tour package</h2>
         <div align="center">
-        <f:form modelAttribute="selectsParameters" action="select" method="get">
+        <f:form modelAttribute="selectsParameters" action="/select" method="get">
             <fieldset>
             <table cellspacing="15">
                 <tr>

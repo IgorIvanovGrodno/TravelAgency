@@ -71,9 +71,10 @@ public class IndexController {
                                          @Valid
                                          @ModelAttribute("selectsParameters")
                                          ParametersSelectedForTourPackages parametersSelectedForTourPackages,
+                                         BindingResult result,
                                          @ModelAttribute("tourPackageForOrder")
-                                                 TourPackage tourPackageForOrder,
-                                         BindingResult result) {
+                                                 TourPackage tourPackageForOrder
+                                         ) {
 
         selectedParameterValidator.validate(parametersSelectedForTourPackages, result);
         if(result.hasErrors()) {

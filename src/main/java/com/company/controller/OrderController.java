@@ -41,7 +41,7 @@ public class OrderController {
         tourPackageIdValidator.validate(tourPackageForOrder, result);
         ModelAndView modelAndView = new ModelAndView();
         if(result.hasErrors()){
-            modelAndView.addObject("result", result);
+            modelAndView.addObject("resultTour", result);
             modelAndView.addObject("selectsParameters", new ParametersSelectedForTourPackages());
             modelAndView.setViewName("index");
             return modelAndView;
