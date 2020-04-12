@@ -19,7 +19,7 @@
             <%-- Кнопка авторизации--%>
             <div align="right">
                 <sec:authorize access="!isAuthenticated()">
-                <f:form action="authorization" method="get" align="center">
+                <f:form action="/authorization" method="get" align="center">
                     <input  type="submit" value="Log in"/>
                 </f:form>
                 </sec:authorize>
@@ -27,9 +27,27 @@
             <%-- Кнопка Logout--%>
             <div align="right">
                 <sec:authorize access="isAuthenticated()">
-                <f:form action="logout" method="get" align="center">
+                <f:form action="/logout" method="get" align="center">
                     <input  type="submit" value="Log out"/>
                 </f:form>
+                </sec:authorize>
+            </div>
+
+            <%-- Кнопка Cabinet for admin--%>
+            <div align="right">
+                <sec:authorize access="hasRole('ADMIN')">
+                    <f:form action="/admin" method="get" align="center">
+                        <input  type="submit" value="Cabinet"/>
+                    </f:form>
+                </sec:authorize>
+            </div>
+
+            <%-- Кнопка Cabinet for user--%>
+            <div align="right">
+                <sec:authorize access="hasRole('USER')">
+                    <f:form action="/user" method="get" align="center">
+                        <input  type="submit" value="Cabinet"/>
+                    </f:form>
                 </sec:authorize>
             </div>
         </div>
@@ -133,6 +151,7 @@
                 <tbody>
 
                  <f:form action="/user/order" modelAttribute="tourPackageForOrder" method="get" align="center">
+                     <input type="hidden" name="discount" value="${discount}">
                      <div><f:errors path="id" /></div>
                  <c:forEach var="tour" items="${tourPageList.pageList}">
                     <tr>
@@ -147,6 +166,9 @@
                         <td>${tour.transport}</td>
                         <td>${tour.days}</td>
                         <td>${tour.price}</td>
+                        <sec:authorize access="hasRole('ROLE_USER')">
+                            <td>${tour.price*(1-discount/100)}</td>
+                        </sec:authorize>
                     </tr>
                 </c:forEach>
                      <tr>

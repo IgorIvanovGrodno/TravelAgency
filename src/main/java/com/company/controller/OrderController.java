@@ -8,6 +8,7 @@ import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,9 @@ public class OrderController {
     @RequestMapping(value = "/user/order", method = RequestMethod.GET)
     public ModelAndView showPageOrder(HttpServletRequest request,
                                 @ModelAttribute("tourPackageForOrder")TourPackage tourPackageForOrder,
-                                BindingResult result) {
+                                BindingResult result,
+                                @RequestParam int discount
+                                ) {
         tourPackageIdValidator.validate(tourPackageForOrder, result);
         ModelAndView modelAndView = new ModelAndView();
         if(result.hasErrors()){
@@ -47,8 +50,11 @@ public class OrderController {
             return modelAndView;
         }
         Payment payment = new Payment();
-        //Добавляю в сессию чтобы при перезагрузке не пропадало отображение тура
-        request.getSession().setAttribute("tourPackageForOrder", tourPackageService.getTourPackage(tourPackageForOrder.getId()));
+        TourPackage tourPackage = tourPackageService.getTourPackage(tourPackageForOrder.getId());
+        int price = tourPackage.getPrice();
+        double totalPrice =price*(1-discount*0.01);
+        request.getSession().setAttribute("tourPackageForOrder", tourPackage);
+        modelAndView.addObject("totalPrice", totalPrice);
         modelAndView.addObject("payment", payment);
         modelAndView.setViewName("order");
         return modelAndView;
@@ -62,7 +68,7 @@ public class OrderController {
                                 BindingResult result, Principal principal) {
 
         if(result.hasErrors()){
-            return "order";
+            return "forward:order";
         }
         TourPackage tourPackageOrder = (TourPackage) request.getSession().getAttribute("tourPackageForOrder");
         userService.buyTourPackage(tourPackageOrder, principal.getName());

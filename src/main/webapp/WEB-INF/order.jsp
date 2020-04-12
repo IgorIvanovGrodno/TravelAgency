@@ -9,16 +9,28 @@
 </head>
 <body>
     <h1>Order</h1>
+    <c:set var="tourPackageForOrder" value="${sessionScope.tourPackageForOrder}"/>
     <div align="center">
         <table>
             <tr>
                 <f:form modelAttribute="payment" action="/user/order/pay" method="get">
-                    <fieldset>
-                    <div><f:errors path="numberCard" /></div>
-                    <f:label path="numberCard">Number card</f:label>
-                    <f:input type="text" path="numberCard"/>
-                    <input type="submit" value="Pay">
-                    </fieldset>
+                        <table>
+
+                            <tr>
+                                <td>
+                                    <div><f:errors path="numberCard" /></div>
+                                    <f:label path="numberCard">Number card</f:label>
+                                    <f:input type="text" path="numberCard"/>
+                                    <input type="submit" value="Pay">
+                                </td>
+                            </tr>
+                            <tr><td>
+                                    <p>Total Price</p>
+                                    <c:out value="${totalPrice}"/>
+                                </td>
+                            </tr>
+
+                        </table>
                 </f:form>
             </tr>
             <tr>
@@ -34,7 +46,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                            <c:set var="tourPackageForOrder" value="${sessionScope.tourPackageForOrder}"/>
+
                             <td>${tourPackageForOrder.name}</td>
                             <td>${tourPackageForOrder.type}</td>
                             <td>${tourPackageForOrder.foodSystem}</td>

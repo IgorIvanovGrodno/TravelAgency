@@ -6,9 +6,13 @@ import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.tourPackage.TourPackageType;
 import com.company.model.domain.tourPackage.Transport;
 import com.company.service.tourPackage.TourPackageService;
+import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,18 +21,22 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Collection;
 
 @Controller
 public class IndexController {
     private TourPackageService tourPackageService;
+    private UserService userService;
 
     @Autowired
     @Qualifier("selectedParameterValidator")
     private Validator selectedParameterValidator;
 
     @Autowired
-    public IndexController(TourPackageService tourPackageService) {
+    public IndexController(TourPackageService tourPackageService, UserService userService) {
         this.tourPackageService = tourPackageService;
+        this.userService = userService;
     }
 
     @RequestMapping({"/","/{page}"})
@@ -38,7 +46,8 @@ public class IndexController {
                                 @ModelAttribute("selectsParameters")
                                 ParametersSelectedForTourPackages parametersSelectedForTourPackages,
                                @ModelAttribute("tourPackageForOrder")
-                               TourPackage tourPackageForOrder) {
+                               TourPackage tourPackageForOrder
+                               ) {
 
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
@@ -62,11 +71,12 @@ public class IndexController {
         }
         model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
         model.addAttribute("tourPackageForOrder", tourPackageForOrder);
+        setDiscountForAuthorizedUser(model);
         return "index";
     }
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
-    public String showSelectTourPackages(
+    public String showSelectTourPackages(Model model,
                                          HttpServletRequest request,
                                          @Valid
                                          @ModelAttribute("selectsParameters")
@@ -83,6 +93,7 @@ public class IndexController {
         PagedListHolder<TourPackage> tourPackagesListHolder=(PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
         tourPackagesListHolder.setSource(tourPackageService.getSelectedTourPackages(parametersSelectedForTourPackages));
         tourPackagesListHolder.setPage(0);
+        setDiscountForAuthorizedUser(model);
 
         return "index";
     }
@@ -92,4 +103,18 @@ public class IndexController {
         return "authorization";
     }
 
+    private void setDiscountForAuthorizedUser(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication!=null&&authentication.isAuthenticated()) {
+            Collection<? extends GrantedAuthority> authorities
+                    = authentication.getAuthorities();
+            for (GrantedAuthority grantedAuthority : authorities) {
+                if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+                    model.addAttribute("discount", userService.getUserByLogin(authentication.getName()).getDiscount());
+                    break;
+                }
+            }
+        }
+
+    }
 }
