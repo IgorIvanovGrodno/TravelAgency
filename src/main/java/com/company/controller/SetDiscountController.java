@@ -3,10 +3,12 @@ package com.company.controller;
 import com.company.model.domain.user.User;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,10 @@ import javax.validation.Valid;
 @Controller
 public class SetDiscountController {
     private UserService userService;
+
+    @Autowired
+    @Qualifier("userIdValidator")
+    private Validator userIdValidator;
 
     @Autowired
     public SetDiscountController(UserService userService) {
@@ -57,6 +63,7 @@ public class SetDiscountController {
                     User user,
             BindingResult result
             ) {
+        userIdValidator.validate(user, result);
         if(result.hasErrors()){
             return "setDiscount";
         }

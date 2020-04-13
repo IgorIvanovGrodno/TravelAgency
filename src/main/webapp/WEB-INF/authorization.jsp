@@ -17,13 +17,13 @@
                     <td>
                         <c:if test="${param.error != null}">
                             <div id="error">
-                                <p>Incorrect login or password</p> <!-- Поле вывода ошибок -->
+                                <p>Incorrect authorization or password</p> <!-- Поле вывода ошибок -->
                             </div>
                         </c:if>
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="email">Email</label></th>
+                    <th><label for="email">Login</label></th>
                     <td><input id="email"
                                name="j_username"
                                type="text" /> <!-- Поле ввода имени пользователя -->

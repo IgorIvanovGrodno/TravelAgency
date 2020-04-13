@@ -17,4 +17,8 @@ public interface UserService {
     void updateUser(User user);
 
     void buyTourPackage(TourPackage tourPackage, String loginUser);
+
+    boolean isExistUserWithLogin(String login);
+
+    void register(User user);
 }

@@ -6,17 +6,18 @@
     <head>
         <meta charset="utf-8">
         <title>TourAgency</title>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/resources/CSS/button.css" />" />
     </head>
     <body>
         <h1 align="center">Tour Packages</h1>
-        <%-- Приветствие --%>
+        <%-- welcome --%>
         <div align="center">
             <div >
                 <sec:authorize access="isAuthenticated()">
                     <h5 >Hello <sec:authentication property="principal.username" />!</h5>
                 </sec:authorize>
             </div>
-            <%-- Кнопка авторизации--%>
+            <%-- button authorization--%>
             <div align="right">
                 <sec:authorize access="!isAuthenticated()">
                 <f:form action="/authorization" method="get" align="center">
@@ -24,7 +25,13 @@
                 </f:form>
                 </sec:authorize>
             </div>
-            <%-- Кнопка Logout--%>
+            <%-- button registration--%>
+            <div align="center">
+                <sec:authorize access="!isAuthenticated()">
+                   <a href="/registration" class="buttonTour">Registration</a>
+                </sec:authorize>
+            </div>
+            <%-- button Logout--%>
             <div align="right">
                 <sec:authorize access="isAuthenticated()">
                 <f:form action="/logout" method="get" align="center">
@@ -33,7 +40,7 @@
                 </sec:authorize>
             </div>
 
-            <%-- Кнопка Cabinet for admin--%>
+            <%-- button Cabinet for admin--%>
             <div align="right">
                 <sec:authorize access="hasRole('ADMIN')">
                     <f:form action="/admin" method="get" align="center">
@@ -42,7 +49,7 @@
                 </sec:authorize>
             </div>
 
-            <%-- Кнопка Cabinet for user--%>
+            <%-- button Cabinet for user--%>
             <div align="right">
                 <sec:authorize access="hasRole('USER')">
                     <f:form action="/user" method="get" align="center">
@@ -53,7 +60,7 @@
         </div>
 
         <c:set value="${sessionScope.tourPackages}" var="tourPageList" />
-        <%-- Поле фильтра --%>
+        <%-- Field filter --%>
         <h2 align="center">Select tour package</h2>
         <div align="center">
         <f:form modelAttribute="selectsParameters" action="/select" method="get">
@@ -183,7 +190,7 @@
                     <td></td>
                     <td>
                         <c:choose>
-                            <%-- кнопка предыдущая страница --%>
+                            <%-- link previous page --%>
                             <c:when test="${tourPageList.firstPage}">
                                 <span>Prev</span>
                             </c:when>
@@ -194,7 +201,7 @@
                         </c:choose>
                         <c:forEach begin="1" end="${tourPageList.pageCount}" step="1"  varStatus="tagStatus">
                             <c:choose>
-                                <%-- Нумерация страниц --%>
+                                <%-- number of page --%>
                                 <c:when test="${(tourPageList.page + 1) == tagStatus.index}">
                                     <span>${tagStatus.index}</span>
                                 </c:when>
@@ -204,7 +211,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
-                        <%-- кнопка следующая страница --%>
+                        <%-- link next page --%>
                         <c:choose>
                             <c:when test="${tourPageList.lastPage}">
                                 <span>Next</span>

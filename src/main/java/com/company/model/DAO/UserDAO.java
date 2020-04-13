@@ -12,4 +12,6 @@ public interface UserDAO {
     User getUserByLogin(String loginUser);
 
     void updateUser(User user);
+
+    void saveUser(User user);
 }

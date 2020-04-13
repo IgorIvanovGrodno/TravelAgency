@@ -42,7 +42,7 @@
                     <c:forEach var="user" items="${users.pageList}">
                         <tr>
                             <td>
-                                <f:radiobutton  path="id" value="${user.id}"/>${user.login.login}
+                                <f:radiobutton  path="id" value="${user.id}"/>${user.authorization.login}
                             </td>
                             <td>${user.discount}</td>
                         </tr>

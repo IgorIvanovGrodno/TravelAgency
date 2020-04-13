@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/admin*").hasRole("ADMIN")
                 .antMatchers("/user*").hasRole("USER")
+                .antMatchers("/registration*").anonymous()
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/")
                 .and()

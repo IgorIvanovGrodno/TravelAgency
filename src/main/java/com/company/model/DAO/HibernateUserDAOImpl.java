@@ -40,7 +40,7 @@ public class HibernateUserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByLogin(String loginUser) {
-        TypedQuery<User> query = currentSession().createQuery("from User where login.login=:login").setCacheable(true);
+        TypedQuery<User> query = currentSession().createQuery("from User where authorization.login=:login").setCacheable(true);
         query.setParameter("login", loginUser);
         return query.getSingleResult();
     }
@@ -48,6 +48,11 @@ public class HibernateUserDAOImpl implements UserDAO {
     @Override
     public void updateUser(User user) {
         currentSession().saveOrUpdate(user);
+    }
+
+    @Override
+    public void saveUser(User user) {
+        currentSession().save(user);
     }
 
 }
