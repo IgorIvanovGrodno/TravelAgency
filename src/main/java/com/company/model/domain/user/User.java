@@ -1,5 +1,6 @@
 package com.company.model.domain.user;
 
+import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -15,7 +16,6 @@ import java.util.*;
 public class User implements Serializable {
     private static final long SERIAL_VERSION_UID=1L;
 
-  //  @NotNull(message = "Please, select user for set discount!")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,13 +38,8 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Authorization authorization;
 
-    @ManyToMany( fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "client_tour",
-            joinColumns = { @JoinColumn(name = "client_id") },
-            inverseJoinColumns = { @JoinColumn(name = "tour_package_id") }
-    )
-    private List<TourPackage> paidTourPackages = new ArrayList<>();
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    private List<Order> orders;
 
     public User() {
     }
@@ -81,14 +76,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public List<TourPackage> getPaidTourPackages() {
-        return paidTourPackages;
-    }
-
-    public void setPaidTourPackages(List<TourPackage> paidTourPackages) {
-        this.paidTourPackages = paidTourPackages;
-    }
-
     public Authorization getAuthorization() {
         return authorization;
     }
@@ -112,6 +99,14 @@ public class User implements Serializable {
         this.discount = discount;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,12 +119,12 @@ public class User implements Serializable {
                 Objects.equals(phoneNumber, user.phoneNumber) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(authorization, user.authorization) &&
-                Objects.equals(paidTourPackages, user.paidTourPackages);
+                Objects.equals(orders, user.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, discount, firstName, secondName, phoneNumber, email, authorization, paidTourPackages);
+        return Objects.hash(id, discount, firstName, secondName, phoneNumber, email, authorization, orders);
     }
 
     @Override
@@ -141,8 +136,8 @@ public class User implements Serializable {
                 ", secondName='" + secondName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", login=" + authorization +
-                ", paidTourPackages=" + paidTourPackages +
+                ", authorization=" + authorization +
+                ", orders=" + orders +
                 '}';
     }
 }

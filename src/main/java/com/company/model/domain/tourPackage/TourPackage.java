@@ -1,6 +1,6 @@
 package com.company.model.domain.tourPackage;
 
-import com.company.model.domain.user.User;
+import com.company.model.domain.order.Order;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 
@@ -38,18 +38,10 @@ public class TourPackage implements Comparable<TourPackage>{
     @Column(name = "status")
     private boolean statusHot;
 
-    @ManyToMany(mappedBy = "paidTourPackages")
-    private List<User> users = new ArrayList<>();
+    @OneToMany(mappedBy="tourPackage")
+    private Set<Order> orders;
 
     public TourPackage() {
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public Long getId() {
@@ -114,6 +106,14 @@ public class TourPackage implements Comparable<TourPackage>{
 
     public void setStatusHot(boolean statusHot) {
         this.statusHot = statusHot;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

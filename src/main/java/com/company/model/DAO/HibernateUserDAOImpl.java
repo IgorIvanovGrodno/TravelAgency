@@ -20,10 +20,6 @@ public class HibernateUserDAOImpl implements UserDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    private Session currentSession(){
-        return sessionFactory.getCurrentSession();
-    }
-
     @Override
     public List<User> getAllUsers() {
         TypedQuery<User> query = currentSession().createQuery("from User ").setCacheable(true);
@@ -55,4 +51,7 @@ public class HibernateUserDAOImpl implements UserDAO {
         currentSession().save(user);
     }
 
+    private Session currentSession(){
+        return sessionFactory.getCurrentSession();
+    }
 }

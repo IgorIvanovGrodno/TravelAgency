@@ -7,7 +7,7 @@
     <title>User</title>
 </head>
 <body>
-    <h1>User</h1>
+    <h1>My orders:</h1>
     <div>
         <%-- Button return to index--%>
         <div align="right">
@@ -23,22 +23,62 @@
             <td><p>Food System</p></td>
             <td><p>Transport</p></td>
             <td><p>Days</p></td>
-            <td><p>Price</p></td>
+            <td><p>Total cost</p></td>
         </tr>
         </thead>
         <tbody>
-                <c:forEach var="paidTour" items="${paidTourPackages}">
+        <c:set var="orderPageList" value="${sessionScope.usersOrders}"/>
+                <c:forEach var="order" items="${orderPageList.pageList}">
                 <tr>
-                    <td>${paidTour.name}</td>
-                    <td>${paidTour.type}</td>
-                    <td>${paidTour.foodSystem}</td>
-                    <td>${paidTour.transport}</td>
-                    <td>${paidTour.days}</td>
-                    <td>${paidTour.price}</td>
+                    <td>${order.tourPackage.name}</td>
+                    <td>${order.tourPackage.type}</td>
+                    <td>${order.tourPackage.foodSystem}</td>
+                    <td>${order.tourPackage.transport}</td>
+                    <td>${order.tourPackage.days}</td>
+                    <td>${order.totalCost}</td>
                 </tr>
                 </c:forEach>
 
         </tbody>
+        <tfoot>
+        <tr align="center">
+            <td></td>
+            <td>
+                <c:choose>
+                    <%-- кнопка предыдущая страница --%>
+                    <c:when test="${orderPageList.firstPage}">
+                        <span>Prev</span>
+                    </c:when>
+                    <c:otherwise>
+                        <c:url value="/user/prev" var="url" />
+                        <a href='<c:out value="${url}" />'>Prev</a>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach begin="1" end="${orderPageList.pageCount}" step="1" varStatus="tagStatus">
+                    <c:choose>
+                        <%-- Нумерация страниц --%>
+                        <c:when test="${(orderPageList.page + 1) == tagStatus.index}">
+                            <span>${tagStatus.index}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <c:url value="/user/${tagStatus.index}" var="url" />
+                            <a href='<c:out value="${url}" />'>${tagStatus.index}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <%-- кнопка следующая страница --%>
+                <c:choose>
+                    <c:when test="${orderPageList.lastPage}">
+                        <span>Next</span>
+                    </c:when>
+                    <c:otherwise>
+                        <c:url value="/user/next" var="url" />
+                        <a href='<c:out value="${url}" />'>Next</a>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+        </tr>
+        </tfoot>
     </table>
 </body>
 </html>

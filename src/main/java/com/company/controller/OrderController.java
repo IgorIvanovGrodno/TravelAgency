@@ -1,14 +1,15 @@
 package com.company.controller;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
-import com.company.model.domain.payment.Payment;
+import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
+import com.company.model.domain.user.User;
+import com.company.service.order.OrderService;
 import com.company.service.tourPackage.TourPackageService;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
@@ -22,18 +23,18 @@ import java.security.Principal;
 public class OrderController {
     private TourPackageService tourPackageService;
     private UserService userService;
+    private OrderService orderService;
 
     @Autowired
     @Qualifier("tourPackageIdValidator")
     private Validator tourPackageIdValidator;
 
     @Autowired
-    public OrderController(TourPackageService tourPackageService, UserService userService) {
+    public OrderController(TourPackageService tourPackageService, UserService userService, OrderService orderService) {
         this.tourPackageService = tourPackageService;
         this.userService = userService;
+        this.orderService = orderService;
     }
-
-
 
     @RequestMapping(value = "/user/order", method = RequestMethod.GET)
     public ModelAndView showPageOrder(HttpServletRequest request,
@@ -49,13 +50,13 @@ public class OrderController {
             modelAndView.setViewName("index");
             return modelAndView;
         }
-        Payment payment = new Payment();
+        Order order = new Order();
         TourPackage tourPackage = tourPackageService.getTourPackage(tourPackageForOrder.getId());
         int price = tourPackage.getPrice();
         double totalPrice =price*(1-discount*0.01);
         request.getSession().setAttribute("tourPackageForOrder", tourPackage);
-        modelAndView.addObject("totalPrice", totalPrice);
-        modelAndView.addObject("payment", payment);
+        modelAndView.addObject("totalPrice", (long)totalPrice);
+        modelAndView.addObject("order", order);
         modelAndView.setViewName("order");
         return modelAndView;
     }
@@ -64,14 +65,17 @@ public class OrderController {
     public String payment(
             HttpServletRequest request,
             @Valid
-            @ModelAttribute("payment")Payment payment,
-                                BindingResult result, Principal principal) {
+            @ModelAttribute("order") Order order,
+            BindingResult result,
+            @RequestParam long totalCost,
+            Principal principal) {
 
         if(result.hasErrors()){
             return "forward:order";
         }
         TourPackage tourPackageOrder = (TourPackage) request.getSession().getAttribute("tourPackageForOrder");
-        userService.buyTourPackage(tourPackageOrder, principal.getName());
+        User currentUser = userService.getUserByLogin(principal.getName());
+        orderService.makePayment(order, tourPackageOrder, currentUser, totalCost);
         return "redirect:/user";
     }
 

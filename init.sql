@@ -69,13 +69,15 @@ insert into authorization (authorization, password, role, client_id)
 values ('admin', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_ADMIN',null)
      , ('user', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_USER', 1);
 
-DROP TABLE IF EXISTS client_tour;
+DROP TABLE IF EXISTS client_order;
 
-CREATE TABLE client_tour
+CREATE TABLE client_order
 (
     id                  BIGINT(20)         NOT NULL AUTO_INCREMENT,
-    client_id           BIGINT(20)            NOT NULL,
-    tour_package_id     BIGINT(20)            NOT NULL,
+    client_id           BIGINT(20)         NOT NULL,
+    tour_package_id     BIGINT(20)         NOT NULL,
+    number_card         INT(4)             NOT NULL,
+    total_cost          BIGINT(20)         NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE,
     FOREIGN KEY (tour_package_id) REFERENCES tour_package (id) ON DELETE CASCADE
@@ -85,7 +87,7 @@ CREATE TABLE client_tour
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
 
-insert into client_tour (client_id, tour_package_id)
-values (1, 1)
-     ,(1, 2);CREATE DATABASE IF NOT EXISTS travel_agency
+insert into client_order (client_id, tour_package_id, number_card, total_cost)
+values (1, 1, 1234, 1000)
+     ,(1, 2, 1234, 500);CREATE DATABASE IF NOT EXISTS travel_agency
     COLLATE utf8_general_ci;

@@ -13,7 +13,9 @@
     <div align="center">
         <table>
             <tr>
-                <f:form modelAttribute="payment" action="/user/order/pay" method="get">
+
+                <f:form modelAttribute="order" action="/user/order/pay" method="get">
+                    <input type="hidden" name="totalCost" value="${totalPrice}"/>
                         <table>
 
                             <tr>
@@ -27,11 +29,13 @@
                             <tr><td>
                                     <p>Total Price</p>
                                     <c:out value="${totalPrice}"/>
+
                                 </td>
                             </tr>
 
                         </table>
                 </f:form>
+
             </tr>
             <tr>
                 <table cellspacing="15" align="center">

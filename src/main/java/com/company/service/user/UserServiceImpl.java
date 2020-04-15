@@ -1,6 +1,7 @@
 package com.company.service.user;
 
 import com.company.model.DAO.UserDAO;
+import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,25 +37,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<TourPackage> getUsersPaidTourPackages(String loginUser) {
-        return userDAO.getUserByLogin(loginUser).getPaidTourPackages();
-    }
-
-    @Override
     public User getUserByLogin(String loginUser) {
         return userDAO.getUserByLogin(loginUser);
-    }
-
-    @Override
-    public void updateUser(User user) {
-        userDAO.updateUser(user);
-    }
-
-    @Override
-    public void buyTourPackage(TourPackage tourPackage, String loginUser) {
-        User user = userDAO.getUserByLogin(loginUser);
-        user.getPaidTourPackages().add(tourPackage);
-        userDAO.updateUser(user);
     }
 
     @Override
@@ -73,5 +58,11 @@ public class UserServiceImpl implements UserService {
         user.getAuthorization().setPassword(hashedPassword);
         user.getAuthorization().setUser(user);
         userDAO.saveUser(user);
+    }
+
+    @Override
+    public List<Order> getUsersOrders(String login) {
+        User user = getUserByLogin(login);
+        return user.getOrders().stream().sorted((order1, order2)->{return (int) (order2.getId()-order1.getId());}).collect(Collectors.toList());
     }
 }

@@ -33,9 +33,6 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
     public HibernateTourPackageDAOImpl() {
     }
 
-    private Session currentSession(){
-        return sessionFactory.getCurrentSession();
-    }
 
     @Override
     public List<TourPackage> getAllTourPackages() {
@@ -108,5 +105,9 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
             predicates.add(builder.equal(root.get("statusHot"), parametersSelectedForTourPackages.isStatusHot()));
 
         return predicates;
+    }
+
+    private Session currentSession(){
+        return sessionFactory.getCurrentSession();
     }
 }

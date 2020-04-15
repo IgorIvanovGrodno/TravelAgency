@@ -1,5 +1,6 @@
 package com.company.service.user;
 
+import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
 
@@ -10,15 +11,11 @@ public interface UserService {
 
     int setDiscount(User user);
 
-    List<TourPackage> getUsersPaidTourPackages(String nameUser);
-
     User getUserByLogin(String loginUser);
-
-    void updateUser(User user);
-
-    void buyTourPackage(TourPackage tourPackage, String loginUser);
 
     boolean isExistUserWithLogin(String login);
 
     void register(User user);
+
+    List<Order> getUsersOrders(String login);
 }
