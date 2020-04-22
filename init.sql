@@ -3,37 +3,92 @@ CREATE DATABASE IF NOT EXISTS travel_agency
 
 USE travel_agency;
 
+DROP TABLE IF EXISTS client_order;
 DROP TABLE IF EXISTS tour_package;
+DROP TABLE IF EXISTS transport;
+DROP TABLE IF EXISTS food_system;
+DROP TABLE IF EXISTS tour_type;
+DROP TABLE IF EXISTS authorization;
+DROP TABLE IF EXISTS client;
 
-CREATE TABLE tour_package
+CREATE TABLE transport
 (
-    name VARCHAR(50) NOT NULL,
-    type        VARCHAR(20) NULL,
-    food_system VARCHAR(50) NULL,
-    transport   VARCHAR(15) NULL,
-    days        INT(10) NULL,
-    price       INT(20) NULL,
-    status      BOOL NULL,
+    name VARCHAR(50) NOT NULL UNIQUE,
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (id)
 )
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
 
+insert into transport(name)
+values ('AIRPLANE')
+     ,('TRAIN')
+     ,('SHIP')
+     ,('BUS')
+     ,('RELAXATION');
+
+CREATE TABLE food_system
+(
+    name VARCHAR(50) NOT NULL UNIQUE,
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id)
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
+
+insert into food_system(name)
+values   ('RO'),
+         ('BB'),
+         ('HB'),
+         ('FB'),
+         ('AI'),
+         ('UAI');
+
+CREATE TABLE tour_type
+(
+    name VARCHAR(50) NOT NULL UNIQUE,
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id)
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
+
+insert into tour_type(name)
+values ('SHOPPING')
+     ,('MEDICAL')
+     ,('CRUISE')
+     ,('EXCURSION')
+     ,('RELAXATION');
+
+CREATE TABLE tour_package
+(
+    name VARCHAR(50) NOT NULL,
+    type        BIGINT(20) NULL,
+    food_system BIGINT(50) NULL,
+    transport   BIGINT(15) NULL,
+    days        INT(10) NULL,
+    price       INT(20) NULL,
+    status      BOOL NULL,
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (type) REFERENCES tour_type (id)  ON DELETE CASCADE,
+    FOREIGN KEY (transport) REFERENCES transport (id) ON DELETE CASCADE,
+    FOREIGN KEY (food_system) REFERENCES food_system (id) ON DELETE CASCADE
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
+
 insert into tour_package(name, type, food_system, transport, days, price, status)
-values ('The best shopping tour', 'SHOPPING', 'AI', 'BUS', 3, 300, false )
-     , ('Very very cooling cruise', 'MEDICAL', 'HB', 'AIRPLANE', 15, 1000, true)
-     , ('The best shopping tour', 'MEDICAL', 'BB', 'TRAIN', 5, 300, true )
-     , ('Very very cooling cruise', 'CRUISE', 'HB', 'SHIP', 5, 1000, false)
-     , ('The best shopping tour', 'EXCURSION', 'FB', 'BUS', 10, 300, false )
-     , ('Very very cooling cruise', 'RELAXATION', 'UAI', 'TRAIN', 15, 1000, false)
-     ,('The best shopping tour', 'SHOPPING', 'AI', 'BUS', 20, 300, false )
-     , ('Very very cooling cruise', 'CRUISE', 'HB', 'SHIP', 15, 1000, false)
-     ,('The best shopping tour', 'EXCURSION', 'BB', 'AIRPLANE', 2, 300, false )
-     , ('Very very cooling cruise', 'RELAXATION', 'AI', 'SHIP', 30, 1000, false);
-
-
-DROP TABLE IF EXISTS client;
+values ('The best shopping tour', 1, 1, 1, 3, 300, false )
+     , ('Very very cooling cruise', 2, 2, 2, 15, 1000, true)
+     , ('The best shopping tour', 3, 3, 3, 5, 300, true )
+     , ('Very very cooling cruise', 4, 4, 4, 5, 1000, false)
+     , ('The best shopping tour', 5, 5, 5, 10, 300, false )
+     , ('Very very cooling cruise', 5, 1, 1, 15, 1000, false)
+     ,('The best shopping tour', 4, 6, 2, 20, 300, false )
+     , ('Very very cooling cruise', 3, 6, 3, 15, 1000, false)
+     ,('The best shopping tour', 2, 1, 4, 2, 300, false )
+     , ('Very very cooling cruise', 1, 2, 5, 30, 1000, false);
 
 CREATE TABLE client
 (
@@ -52,24 +107,7 @@ CREATE TABLE client
 insert into client (discount, first_name, second_name, phone_number, email)
 values (10, 'Ivan', 'Ivanov', '+3752222222', 'ivan@gmail.com');
 
-DROP TABLE IF EXISTS authorization;
-CREATE TABLE authorization
-(
-    authorization        VARCHAR(30)        NOT NULL,
-    password     VARCHAR(60)        NOT NULL,
-    role         VARCHAR(10)        NOT NULL,
-    client_id    BIGINT(20),
-    PRIMARY KEY (authorization),
-    FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE
-)
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8;
 
-insert into authorization (authorization, password, role, client_id)
-values ('admin', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_ADMIN',null)
-     , ('user', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_USER', 1);
-
-DROP TABLE IF EXISTS client_order;
 
 CREATE TABLE client_order
 (
@@ -89,5 +127,20 @@ CREATE TABLE client_order
 
 insert into client_order (client_id, tour_package_id, number_card, total_cost)
 values (1, 1, 1234, 1000)
-     ,(1, 2, 1234, 500);CREATE DATABASE IF NOT EXISTS travel_agency
-    COLLATE utf8_general_ci;
+     ,(1, 2, 1234, 500);
+
+CREATE TABLE authorization
+(
+    login        VARCHAR(30)        NOT NULL,
+    password     VARCHAR(60)        NOT NULL,
+    role         VARCHAR(10)        NOT NULL,
+    client_id    BIGINT(20),
+    PRIMARY KEY (login),
+    FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
+
+insert into authorization (login, password, role, client_id)
+values ('admin', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_ADMIN',null)
+     , ('user', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_USER', 1);

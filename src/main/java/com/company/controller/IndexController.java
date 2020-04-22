@@ -1,11 +1,8 @@
 package com.company.controller;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
-import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
-import com.company.model.domain.tourPackage.TourPackageType;
-import com.company.model.domain.tourPackage.Transport;
-import com.company.service.tourPackage.TourPackageService;
+import com.company.service.facadeService.FacadeTourPackageService;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,12 +18,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.Collection;
 
 @Controller
 public class IndexController {
-    private TourPackageService tourPackageService;
+    private FacadeTourPackageService facadeTourPackageService;
     private UserService userService;
 
     @Autowired
@@ -34,8 +30,8 @@ public class IndexController {
     private Validator selectedParameterValidator;
 
     @Autowired
-    public IndexController(TourPackageService tourPackageService, UserService userService) {
-        this.tourPackageService = tourPackageService;
+    public IndexController(FacadeTourPackageService facadeTourPackageService, UserService userService) {
+        this.facadeTourPackageService = facadeTourPackageService;
         this.userService = userService;
     }
 
@@ -52,12 +48,12 @@ public class IndexController {
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
             tourPackagesListHolder = new PagedListHolder<>();
-            tourPackagesListHolder.setSource(tourPackageService.getTourPackages());
+            tourPackagesListHolder.setSource(facadeTourPackageService.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
             request.getSession().setAttribute("tourPackages", tourPackagesListHolder);
-            request.getSession().setAttribute("types", TourPackageType.values());
-            request.getSession().setAttribute("transports", Transport.values());
-            request.getSession().setAttribute("foodSystemList", FoodSystem.values());
+            request.getSession().setAttribute("types", facadeTourPackageService.getTypesOfTours());
+            request.getSession().setAttribute("transports", facadeTourPackageService.getTransportsOfTours());
+            request.getSession().setAttribute("foodSystemList", facadeTourPackageService.getFoodSystemsOfTours());
         }else if(page.equals("prev")) {
             tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
             tourPackagesListHolder.previousPage();
@@ -91,7 +87,7 @@ public class IndexController {
             return "index";
         }
         PagedListHolder<TourPackage> tourPackagesListHolder=(PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
-        tourPackagesListHolder.setSource(tourPackageService.getSelectedTourPackages(parametersSelectedForTourPackages));
+        tourPackagesListHolder.setSource(facadeTourPackageService.getSelectedTourPackages(parametersSelectedForTourPackages));
         tourPackagesListHolder.setPage(0);
         setDiscountForAuthorizedUser(model);
 

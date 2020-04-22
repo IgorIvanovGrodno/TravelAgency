@@ -1,8 +1,14 @@
 package com.company.service.tourPackage;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
-import com.company.model.DAO.TourPackageDAO;
+import com.company.model.DAO.tourPackage.TourPackageDAO;
+import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
+import com.company.model.domain.tourPackage.TourPackageType;
+import com.company.model.domain.tourPackage.Transport;
+import com.company.service.tourPackage.foodSystem.FoodSystemService;
+import com.company.service.tourPackage.transport.TransportService;
+import com.company.service.tourPackage.typeTourPackage.TypeTourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TourPackageServiceImpl implements TourPackageService {
-    TourPackageDAO tourPackageDAO;
+    private TourPackageDAO tourPackageDAO;
 
     @Autowired
     public TourPackageServiceImpl(TourPackageDAO tourPackageDAO) {
@@ -47,7 +53,6 @@ public class TourPackageServiceImpl implements TourPackageService {
     public void deleteTourPackage(TourPackage tourPackage) {
         tourPackageDAO.deleteTourPackage(tourPackage);
     }
-
 
     private List<TourPackage> sortListTourPackages(List<TourPackage> listTourPackages) {
         return listTourPackages.stream().sorted().collect(Collectors.toList());

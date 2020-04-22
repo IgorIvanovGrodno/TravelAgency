@@ -21,16 +21,18 @@ public class TourPackage implements Comparable<TourPackage>{
     @Column
     private String name;
 
-    @Column
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "type")
     private TourPackageType type;
 
-    @Column(name = "food_system")
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "food_system")
     private FoodSystem foodSystem;
-    @Column
-    @Enumerated(EnumType.STRING)
+
+    @ManyToOne
+    @JoinColumn(name = "transport")
     private Transport transport;
+
     @Column
     private int days;
     @Column

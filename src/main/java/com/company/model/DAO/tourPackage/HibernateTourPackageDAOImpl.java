@@ -1,10 +1,7 @@
-package com.company.model.DAO;
+package com.company.model.DAO.tourPackage;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
-import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
-import com.company.model.domain.tourPackage.TourPackageType;
-import com.company.model.domain.tourPackage.Transport;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,13 +78,13 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
         List<Predicate> predicates = new ArrayList<>();
 
         if(!parametersSelectedForTourPackages.getValueOfType().isEmpty())
-            predicates.add(builder.equal(root.get("type"), TourPackageType.valueOf(parametersSelectedForTourPackages.getValueOfType())));
+            predicates.add(builder.equal(root.get("type").get("name"), parametersSelectedForTourPackages.getValueOfType()));
 
         if(!parametersSelectedForTourPackages.getValueOfFoodSystem().isEmpty())
-            predicates.add(builder.equal(root.get("foodSystem"), FoodSystem.valueOf(parametersSelectedForTourPackages.getValueOfFoodSystem())));
+            predicates.add(builder.equal(root.get("foodSystem").get("name"), parametersSelectedForTourPackages.getValueOfFoodSystem()));
 
         if(!parametersSelectedForTourPackages.getValueOfTransport().isEmpty())
-            predicates.add(builder.equal(root.get("transport"), Transport.valueOf(parametersSelectedForTourPackages.getValueOfTransport())));
+            predicates.add(builder.equal(root.get("transport").get("name"), parametersSelectedForTourPackages.getValueOfTransport()));
 
         if(!(parametersSelectedForTourPackages.getMinDay().isEmpty()||parametersSelectedForTourPackages.getMaxDay().isEmpty()))
         predicates.add(builder.between(root.get("days")

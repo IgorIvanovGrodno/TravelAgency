@@ -1,4 +1,4 @@
-package com.company.model.DAO;
+package com.company.model.DAO.user;
 
 import com.company.model.domain.user.User;
 

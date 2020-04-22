@@ -1,4 +1,4 @@
-package com.company.model.DAO;
+package com.company.model.DAO.tourPackage;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.TourPackage;

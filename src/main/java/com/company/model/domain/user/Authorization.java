@@ -4,13 +4,15 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "authorization")
-public class Authorization {
+public class Authorization implements Serializable {
+    private static final long SERIAL_VERSION_UID=2L;
 
     @Id
     private String login;

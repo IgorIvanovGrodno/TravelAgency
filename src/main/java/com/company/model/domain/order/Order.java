@@ -14,7 +14,7 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "client_order")
 public class Order implements Serializable{
-    private static final long SERIAL_VERSION_UID=2L;
+    private static final long SERIAL_VERSION_UID=7L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

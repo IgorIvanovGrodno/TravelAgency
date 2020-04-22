@@ -1,8 +1,7 @@
 package com.company.service.user;
 
-import com.company.model.DAO.UserDAO;
+import com.company.model.DAO.user.UserDAO;
 import com.company.model.domain.order.Order;
-import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
