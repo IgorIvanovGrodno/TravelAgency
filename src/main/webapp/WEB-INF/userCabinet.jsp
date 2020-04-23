@@ -24,6 +24,8 @@
             <td><p>Transport</p></td>
             <td><p>Days</p></td>
             <td><p>Total cost</p></td>
+            <td><p>Create Date</p></td>
+            <td><p>Status</p></td>
         </tr>
         </thead>
         <tbody>
@@ -36,6 +38,8 @@
                     <td>${order.tourPackage.transport}</td>
                     <td>${order.tourPackage.days}</td>
                     <td>${order.totalCost}</td>
+                    <td>${order.createDate}</td>
+                    <td>${order.status}</td>
                 </tr>
                 </c:forEach>
 

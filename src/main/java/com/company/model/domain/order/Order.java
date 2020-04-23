@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cache;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -34,6 +35,14 @@ public class Order implements Serializable{
     @ManyToOne
     @JoinColumn(name = "tour_package_id")
     private TourPackage tourPackage;
+
+    @ManyToOne
+    @JoinColumn(name = "status")
+    private StatusOrder status;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date createDate;
 
     public Order() {
     }
@@ -83,6 +92,22 @@ public class Order implements Serializable{
         this.tourPackage = tourPackage;
     }
 
+    public StatusOrder getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusOrder status) {
+        this.status = status;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,12 +117,14 @@ public class Order implements Serializable{
                 Objects.equals(numberCard, order.numberCard) &&
                 Objects.equals(totalCost, order.totalCost) &&
                 Objects.equals(user, order.user) &&
-                Objects.equals(tourPackage, order.tourPackage);
+                Objects.equals(tourPackage, order.tourPackage) &&
+                Objects.equals(status, order.status) &&
+                Objects.equals(createDate, order.createDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, numberCard, totalCost, user, tourPackage);
+        return Objects.hash(id, numberCard, totalCost, user, tourPackage, status, createDate);
     }
 
     @Override
@@ -108,6 +135,8 @@ public class Order implements Serializable{
                 ", totalCost=" + totalCost +
                 ", user=" + user +
                 ", tourPackage=" + tourPackage +
+                ", status=" + status +
+                ", createDate=" + createDate +
                 '}';
     }
 }

@@ -4,6 +4,7 @@ CREATE DATABASE IF NOT EXISTS travel_agency
 USE travel_agency;
 
 DROP TABLE IF EXISTS client_order;
+DROP TABLE IF EXISTS status_order;
 DROP TABLE IF EXISTS tour_package;
 DROP TABLE IF EXISTS transport;
 DROP TABLE IF EXISTS food_system;
@@ -107,7 +108,21 @@ CREATE TABLE client
 insert into client (discount, first_name, second_name, phone_number, email)
 values (10, 'Ivan', 'Ivanov', '+3752222222', 'ivan@gmail.com');
 
+CREATE TABLE status_order
+(
+    id      BIGINT(20)      NOT NULL AUTO_INCREMENT,
+    name    VARCHAR(50)     NOT NULL,
+    PRIMARY KEY (id)
 
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
+
+insert into status_order (name)
+values ('NEW'),
+       ('PAYED'),
+       ('CANCEL'),
+       ('FINISHED');
 
 CREATE TABLE client_order
 (
@@ -116,18 +131,19 @@ CREATE TABLE client_order
     tour_package_id     BIGINT(20)         NOT NULL,
     number_card         INT(4)             NOT NULL,
     total_cost          BIGINT(20)         NOT NULL,
+    createDate          DATETIME           NOT NULL,
+    status              BIGINT             NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE,
-    FOREIGN KEY (tour_package_id) REFERENCES tour_package (id) ON DELETE CASCADE
-
-
+    FOREIGN KEY (tour_package_id) REFERENCES tour_package (id) ON DELETE CASCADE,
+    FOREIGN KEY (status) REFERENCES status_order(id) ON DELETE CASCADE
 )
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
 
-insert into client_order (client_id, tour_package_id, number_card, total_cost)
-values (1, 1, 1234, 1000)
-     ,(1, 2, 1234, 500);
+insert into client_order (client_id, tour_package_id, number_card, total_cost, createDate, status)
+values (1, 1, 1234, 1000, '20-03-01 10:05:10', 2)
+     ,(1, 2, 1234, 500, '19-03-01 10:05:10', 4);
 
 CREATE TABLE authorization
 (
