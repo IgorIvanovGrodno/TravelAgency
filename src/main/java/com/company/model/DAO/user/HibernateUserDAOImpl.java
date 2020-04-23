@@ -1,8 +1,7 @@
 package com.company.model.DAO.user;
 
+import com.company.model.DAO.utils.HibernateSessionUtil;
 import com.company.model.domain.user.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,22 +12,22 @@ import java.util.List;
 @Repository
 @Transactional
 public class HibernateUserDAOImpl implements UserDAO {
-    private SessionFactory sessionFactory;
+    private HibernateSessionUtil hibernateSessionUtil;
 
     @Autowired
-    public HibernateUserDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public HibernateUserDAOImpl(HibernateSessionUtil hibernateSessionUtil) {
+        this.hibernateSessionUtil = hibernateSessionUtil;
     }
 
     @Override
     public List<User> getAllUsers() {
-        TypedQuery<User> query = currentSession().createQuery("from User ").setCacheable(true);
+        TypedQuery<User> query = hibernateSessionUtil.getSession().createQuery("from User ").setCacheable(true);
         return query.getResultList();
     }
 
     @Override
     public int setDiscountById(Long id, int discount) {
-        TypedQuery<User> query = currentSession().createQuery("update User set discount=:discount where id=:id").setCacheable(true);
+        TypedQuery<User> query = hibernateSessionUtil.getSession().createQuery("update User set discount=:discount where id=:id").setCacheable(true);
         query.setParameter("discount", discount);
         query.setParameter("id", id);
         return query.executeUpdate();
@@ -36,22 +35,19 @@ public class HibernateUserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByLogin(String loginUser) {
-        TypedQuery<User> query = currentSession().createQuery("from User where authorization.login=:login").setCacheable(true);
+        TypedQuery<User> query = hibernateSessionUtil.getSession().createQuery("from User where authorization.login=:login").setCacheable(true);
         query.setParameter("login", loginUser);
         return query.getSingleResult();
     }
 
     @Override
     public void updateUser(User user) {
-        currentSession().saveOrUpdate(user);
+        hibernateSessionUtil.getSession().saveOrUpdate(user);
     }
 
     @Override
     public void saveUser(User user) {
-        currentSession().save(user);
+        hibernateSessionUtil.getSession().save(user);
     }
 
-    private Session currentSession(){
-        return sessionFactory.getCurrentSession();
-    }
 }

@@ -6,13 +6,16 @@ import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "tour_package")
-public class TourPackage implements Comparable<TourPackage>{
+public class TourPackage implements Comparable<TourPackage>, Serializable {
+    private static final long SERIAL_VERSION_UID=22L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

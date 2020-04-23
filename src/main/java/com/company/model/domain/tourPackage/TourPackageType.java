@@ -13,7 +13,7 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "tour_type")
 public class TourPackageType implements Serializable {
-    private static final long SERIAL_VERSION_UID=4L;
+    private static final long SERIAL_VERSION_UID=23L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,9 @@ public class TourPackageType implements Serializable {
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     private List<TourPackage> tourPackage;
+
+    public TourPackageType() {
+    }
 
     public List<TourPackage> getTourPackage() {
         return tourPackage;

@@ -12,7 +12,7 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "authorization")
 public class Authorization implements Serializable {
-    private static final long SERIAL_VERSION_UID=2L;
+    private static final long SERIAL_VERSION_UID=31L;
 
     @Id
     private String login;

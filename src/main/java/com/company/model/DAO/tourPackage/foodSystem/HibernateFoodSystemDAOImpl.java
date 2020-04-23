@@ -1,9 +1,7 @@
 package com.company.model.DAO.tourPackage.foodSystem;
 
+import com.company.model.DAO.utils.HibernateSessionUtil;
 import com.company.model.domain.tourPackage.FoodSystem;
-import com.company.model.domain.tourPackage.Transport;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,20 +12,17 @@ import java.util.List;
 @Repository
 @Transactional
 public class HibernateFoodSystemDAOImpl implements FoodSystemDAO {
-    private SessionFactory sessionFactory;
+    private HibernateSessionUtil hibernateSessionUtil;
 
     @Autowired
-    public HibernateFoodSystemDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public HibernateFoodSystemDAOImpl(HibernateSessionUtil hibernateSessionUtil) {
+        this.hibernateSessionUtil = hibernateSessionUtil;
     }
 
     @Override
     public List<FoodSystem> getAllFoodSystems() {
-        TypedQuery<FoodSystem> query = currentSession().createQuery("from FoodSystem ").setCacheable(true);
+        TypedQuery<FoodSystem> query = hibernateSessionUtil.getSession().createQuery("from FoodSystem ").setCacheable(true);
         return query.getResultList();
     }
 
-    private Session currentSession() {
-        return sessionFactory.getCurrentSession();
-    }
 }

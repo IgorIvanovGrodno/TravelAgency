@@ -13,7 +13,7 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "food_system")
 public class FoodSystem implements Serializable {
-    private static final long SERIAL_VERSION_UID=12L;
+    private static final long SERIAL_VERSION_UID=21L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,9 @@ public class FoodSystem implements Serializable {
 
     @OneToMany(mappedBy = "foodSystem", cascade = CascadeType.ALL)
     private List<TourPackage> tourPackage;
+
+    public FoodSystem() {
+    }
 
     public String getName() {
         return name;

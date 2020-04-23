@@ -1,5 +1,6 @@
 package com.company.model.DAO.order.statusOrder;
 
+import com.company.model.DAO.utils.HibernateSessionUtil;
 import com.company.model.domain.order.StatusOrder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,20 +11,17 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public class HibernateStatusOrderImpl implements StatusOrderDAO {
-    private SessionFactory sessionFactory;
+public class HibernateStatusOrderDAOImpl implements StatusOrderDAO {
+    private HibernateSessionUtil hibernateSessionUtil;
 
     @Autowired
-    public HibernateStatusOrderImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public HibernateStatusOrderDAOImpl(HibernateSessionUtil hibernateSessionUtil) {
+        this.hibernateSessionUtil = hibernateSessionUtil;
     }
 
     @Override
     public StatusOrder getStatusForNewOrder() {
-        return currentSession().get(StatusOrder.class,1L);
+        return hibernateSessionUtil.getSession().get(StatusOrder.class,1L);
     }
 
-    private Session currentSession(){
-        return sessionFactory.getCurrentSession();
-    }
 }

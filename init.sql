@@ -131,7 +131,7 @@ CREATE TABLE client_order
     tour_package_id     BIGINT(20)         NOT NULL,
     number_card         INT(4)             NOT NULL,
     total_cost          BIGINT(20)         NOT NULL,
-    createDate          DATETIME           NOT NULL,
+    create_date          DATETIME           NOT NULL,
     status              BIGINT             NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE,
@@ -141,7 +141,7 @@ CREATE TABLE client_order
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
 
-insert into client_order (client_id, tour_package_id, number_card, total_cost, createDate, status)
+insert into client_order (client_id, tour_package_id, number_card, total_cost, create_date, status)
 values (1, 1, 1234, 1000, '20-03-01 10:05:10', 2)
      ,(1, 2, 1234, 500, '19-03-01 10:05:10', 4);
 
@@ -150,6 +150,7 @@ CREATE TABLE authorization
     login        VARCHAR(30)        NOT NULL,
     password     VARCHAR(60)        NOT NULL,
     role         VARCHAR(10)        NOT NULL,
+    active       BOOL               NOT NULL,
     client_id    BIGINT(20),
     PRIMARY KEY (login),
     FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE
@@ -157,6 +158,6 @@ CREATE TABLE authorization
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
 
-insert into authorization (login, password, role, client_id)
-values ('admin', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_ADMIN',null)
-     , ('user', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_USER', 1);
+insert into authorization (login, password, role, client_id, active)
+values ('admin', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_ADMIN',null, true)
+     , ('user', '$2a$10$qzncMPtSI7of.AbIytli0OfvTfgiHFHDUt3Bsq1wPEx5YOZ5wC216', 'ROLE_USER', 1, true);

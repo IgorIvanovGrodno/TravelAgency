@@ -15,7 +15,7 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "client_order")
 public class Order implements Serializable{
-    private static final long SERIAL_VERSION_UID=7L;
+    private static final long SERIAL_VERSION_UID=11L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +40,9 @@ public class Order implements Serializable{
     @JoinColumn(name = "status")
     private StatusOrder status;
 
-    @Column
+    @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date createDate;
+    private Date createDate;
 
     public Order() {
     }

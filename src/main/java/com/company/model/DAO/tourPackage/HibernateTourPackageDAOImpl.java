@@ -1,12 +1,11 @@
 package com.company.model.DAO.tourPackage;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
+import com.company.model.DAO.utils.HibernateSessionUtil;
 import com.company.model.domain.tourPackage.TourPackage;
-import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.hibernate.SessionFactory;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,13 +18,12 @@ import java.util.List;
 @Repository
 @Transactional
 public class HibernateTourPackageDAOImpl implements TourPackageDAO {
-    private SessionFactory sessionFactory;
+    private HibernateSessionUtil hibernateSessionUtil;
 
     @Autowired
-   public HibernateTourPackageDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public HibernateTourPackageDAOImpl(HibernateSessionUtil hibernateSessionUtil) {
+        this.hibernateSessionUtil = hibernateSessionUtil;
     }
-
 
     public HibernateTourPackageDAOImpl() {
     }
@@ -33,43 +31,43 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
 
     @Override
     public List<TourPackage> getAllTourPackages() {
-        TypedQuery<TourPackage> query = currentSession().createQuery("from TourPackage ").setCacheable(true);
+        TypedQuery<TourPackage> query = hibernateSessionUtil.getSession().createQuery("from TourPackage ").setCacheable(true);
         return query.getResultList();
 
     }
 
     @Override
     public TourPackage getTourPackageById(Long id) {
-        TourPackage tourPackage =  currentSession().get(TourPackage.class, id);
+        TourPackage tourPackage =  hibernateSessionUtil.getSession().get(TourPackage.class, id);
         return tourPackage;
     }
 
     @Override
     public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
-        CriteriaBuilder builder = currentSession().getCriteriaBuilder();
+        CriteriaBuilder builder = hibernateSessionUtil.getSession().getCriteriaBuilder();
         CriteriaQuery<TourPackage> query = builder.createQuery(TourPackage.class);
         Root<TourPackage> root = query.from(TourPackage.class);
         List<Predicate> predicatesList = createPredicatesFromParametersSelectedForTourPackages(builder, parametersSelectedForTourPackages, root);
         Predicate[] predicates = predicatesList.toArray(new Predicate[predicatesList.size()]);
         query.select(root).where(predicates);
-        Query<TourPackage> q=currentSession().createQuery(query);
+        Query<TourPackage> q= hibernateSessionUtil.getSession().createQuery(query);
         List<TourPackage> resultList=q.getResultList();
         return resultList;
     }
 
     @Override
     public Long createTourPackage(TourPackage tourPackage) {
-        return (Long)currentSession().save(tourPackage);
+        return (Long) hibernateSessionUtil.getSession().save(tourPackage);
     }
 
     @Override
     public void updateTourPackage(TourPackage tourPackage) {
-        currentSession().saveOrUpdate(tourPackage);
+        hibernateSessionUtil.getSession().saveOrUpdate(tourPackage);
     }
 
     @Override
     public void deleteTourPackage(TourPackage tourPackage) {
-        currentSession().delete(tourPackage);
+        hibernateSessionUtil.getSession().delete(tourPackage);
     }
 
     private List<Predicate> createPredicatesFromParametersSelectedForTourPackages(CriteriaBuilder builder
@@ -104,7 +102,4 @@ public class HibernateTourPackageDAOImpl implements TourPackageDAO {
         return predicates;
     }
 
-    private Session currentSession(){
-        return sessionFactory.getCurrentSession();
-    }
 }

@@ -1,5 +1,6 @@
 package com.company.model.DAO.tourPackage.transport;
 
+import com.company.model.DAO.utils.HibernateSessionUtil;
 import com.company.model.domain.tourPackage.Transport;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,20 +14,17 @@ import java.util.List;
 @Repository
 @Transactional
 public class HibernateTransportDAOImpl implements TransportDAO {
-    private SessionFactory sessionFactory;
+    private HibernateSessionUtil hibernateSessionUtil;
 
     @Autowired
-    public HibernateTransportDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public HibernateTransportDAOImpl(HibernateSessionUtil hibernateSessionUtil) {
+        this.hibernateSessionUtil = hibernateSessionUtil;
     }
 
     @Override
     public List<Transport> getAllTransports() {
-        TypedQuery<Transport> query = currentSession().createQuery("from Transport ").setCacheable(true);
+        TypedQuery<Transport> query = hibernateSessionUtil.getSession().createQuery("from Transport ").setCacheable(true);
         return query.getResultList();
     }
 
-    private Session currentSession() {
-        return sessionFactory.getCurrentSession();
-    }
 }

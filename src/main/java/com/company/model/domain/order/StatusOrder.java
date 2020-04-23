@@ -1,10 +1,10 @@
 package com.company.model.domain.order;
 
-import com.company.model.domain.tourPackage.TourPackage;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +12,9 @@ import java.util.Objects;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "status_order")
-public class StatusOrder {
+public class StatusOrder implements Serializable {
+    private static final long SERIAL_VERSION_UID=12L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +24,9 @@ public class StatusOrder {
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
     private List<Order> orders;
+
+    public StatusOrder() {
+    }
 
     public Long getId() {
         return id;

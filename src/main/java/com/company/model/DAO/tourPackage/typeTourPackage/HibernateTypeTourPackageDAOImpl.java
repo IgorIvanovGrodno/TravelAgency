@@ -1,8 +1,7 @@
 package com.company.model.DAO.tourPackage.typeTourPackage;
 
+import com.company.model.DAO.utils.HibernateSessionUtil;
 import com.company.model.domain.tourPackage.TourPackageType;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,20 +12,17 @@ import java.util.List;
 @Repository
 @Transactional
 public class HibernateTypeTourPackageDAOImpl implements TypeTourPackageDAO {
-    private SessionFactory sessionFactory;
+    private HibernateSessionUtil hibernateSessionUtil;
 
     @Autowired
-    public HibernateTypeTourPackageDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public HibernateTypeTourPackageDAOImpl(HibernateSessionUtil hibernateSessionUtil) {
+        this.hibernateSessionUtil = hibernateSessionUtil;
     }
 
     @Override
     public List<TourPackageType> getAllTypes() {
-        TypedQuery<TourPackageType> query = currentSession().createQuery("from TourPackageType ").setCacheable(true);
+        TypedQuery<TourPackageType> query = hibernateSessionUtil.getSession().createQuery("from TourPackageType ").setCacheable(true);
         return query.getResultList();
     }
 
-    private Session currentSession() {
-        return sessionFactory.getCurrentSession();
-    }
 }

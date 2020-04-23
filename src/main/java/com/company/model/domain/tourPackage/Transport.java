@@ -13,7 +13,7 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "transport")
 public class Transport implements Serializable {
-    private static final long SERIAL_VERSION_UID=11L;
+    private static final long SERIAL_VERSION_UID=24L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,9 @@ public class Transport implements Serializable {
 
     @OneToMany(mappedBy = "transport", cascade = CascadeType.ALL)
     private List<TourPackage> tourPackage;
+
+    public Transport() {
+    }
 
     public String getName() {
         return name;
