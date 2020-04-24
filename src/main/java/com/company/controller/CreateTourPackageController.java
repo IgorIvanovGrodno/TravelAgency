@@ -37,8 +37,7 @@ public class CreateTourPackageController {
         if(result.hasErrors()) {
             return "createTourPackage";
         }
-        Long id =tourPackageService.createTourPackage(tourPackage);
-        TourPackage addedTourPackage = tourPackageService.getTourPackage(id);
+        TourPackage addedTourPackage = tourPackageService.createTourPackage(tourPackage);
         model.addAttribute("newTourPackage", new TourPackage());
         model.addAttribute("addedTourPackage", addedTourPackage);
         return "createTourPackage";

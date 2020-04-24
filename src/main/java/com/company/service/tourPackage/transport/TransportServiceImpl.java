@@ -1,6 +1,6 @@
 package com.company.service.tourPackage.transport;
 
-import com.company.model.DAO.tourPackage.transport.TransportDAO;
+import com.company.model.dao.tourPackage.transport.TransportDAO;
 import com.company.model.domain.tourPackage.Transport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,6 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public List<Transport> getAllTransports() {
-        return transportDAO.getAllTransports();
+        return transportDAO.findAll();
     }
 }

@@ -1,15 +1,15 @@
-package com.company.service.facadeService;
+package com.company.service.facade;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
-import com.company.model.domain.tourPackage.TourPackageType;
+import com.company.model.domain.tourPackage.TypeTourPackage;
 import com.company.model.domain.tourPackage.Transport;
 
 import java.util.List;
 
-public interface FacadeTourPackageService {
-    List<TourPackageType> getTypesOfTours();
+public interface FacadeTourPackage {
+    List<TypeTourPackage> getTypesOfTours();
 
     List<Transport> getTransportsOfTours();
 

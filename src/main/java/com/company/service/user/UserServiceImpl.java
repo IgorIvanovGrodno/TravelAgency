@@ -1,6 +1,6 @@
 package com.company.service.user;
 
-import com.company.model.DAO.user.UserDAO;
+import com.company.model.dao.user.UserDAO;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userDAO.getAllUsers();
+        return userDAO.findAll();
     }
 
     @Override
@@ -56,7 +56,8 @@ public class UserServiceImpl implements UserService {
         String hashedPassword = passwordEncoder.encode(user.getAuthorization().getPassword());
         user.getAuthorization().setPassword(hashedPassword);
         user.getAuthorization().setUser(user);
-        userDAO.saveUser(user);
+        user.getAuthorization().setActive(true);
+        userDAO.makePersistent(user);
     }
 
     @Override

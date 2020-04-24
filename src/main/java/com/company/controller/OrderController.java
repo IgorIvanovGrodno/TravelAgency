@@ -4,8 +4,7 @@ import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
-import com.company.service.facadeService.FacadeOrderService;
-import com.company.service.order.OrderService;
+import com.company.service.facade.FacadeOrder;
 import com.company.service.tourPackage.TourPackageService;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +23,17 @@ import java.security.Principal;
 public class OrderController {
     private TourPackageService tourPackageService;
     private UserService userService;
-    private FacadeOrderService facadeOrderService;
+    private FacadeOrder facadeOrder;
 
     @Autowired
     @Qualifier("tourPackageIdValidator")
     private Validator tourPackageIdValidator;
 
     @Autowired
-    public OrderController(TourPackageService tourPackageService, UserService userService, FacadeOrderService facadeOrderService) {
+    public OrderController(TourPackageService tourPackageService, UserService userService, FacadeOrder facadeOrder) {
         this.tourPackageService = tourPackageService;
         this.userService = userService;
-        this.facadeOrderService = facadeOrderService;
+        this.facadeOrder = facadeOrder;
     }
 
     @RequestMapping(value = "/user/order", method = RequestMethod.GET)
@@ -76,7 +75,7 @@ public class OrderController {
         }
         TourPackage tourPackageOrder = (TourPackage) request.getSession().getAttribute("tourPackageForOrder");
         User currentUser = userService.getUserByLogin(principal.getName());
-        facadeOrderService.makePayment(order, tourPackageOrder, currentUser, totalCost);
+        facadeOrder.makePayment(order, tourPackageOrder, currentUser, totalCost);
         return "redirect:/user";
     }
 

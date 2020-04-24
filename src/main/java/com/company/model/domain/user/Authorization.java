@@ -23,6 +23,9 @@ public class Authorization implements Serializable {
     @Column
     private String role;
 
+    @Column
+    private boolean active;
+
     @OneToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private User user;
@@ -60,6 +63,14 @@ public class Authorization implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

@@ -1,9 +1,9 @@
-package com.company.service.facadeService;
+package com.company.service.facade;
 
 import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
-import com.company.model.domain.tourPackage.TourPackageType;
+import com.company.model.domain.tourPackage.TypeTourPackage;
 import com.company.model.domain.tourPackage.Transport;
 import com.company.service.tourPackage.TourPackageService;
 import com.company.service.tourPackage.foodSystem.FoodSystemService;
@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FacadeTourPackageServiceImpl implements FacadeTourPackageService {
+public class FacadeTourPackageImpl implements FacadeTourPackage {
     private FoodSystemService foodSystemService;
     private TransportService transportService;
     private TypeTourPackageService typeTourPackageService;
     private TourPackageService tourPackageService;
 
     @Autowired
-    public FacadeTourPackageServiceImpl(FoodSystemService foodSystemService, TransportService transportService, TypeTourPackageService typeTourPackageService, TourPackageService tourPackageService) {
+    public FacadeTourPackageImpl(FoodSystemService foodSystemService, TransportService transportService, TypeTourPackageService typeTourPackageService, TourPackageService tourPackageService) {
         this.foodSystemService = foodSystemService;
         this.transportService = transportService;
         this.typeTourPackageService = typeTourPackageService;
@@ -30,7 +30,7 @@ public class FacadeTourPackageServiceImpl implements FacadeTourPackageService {
     }
 
     @Override
-    public List<TourPackageType> getTypesOfTours(){
+    public List<TypeTourPackage> getTypesOfTours(){
         return typeTourPackageService.getAllTypes();
     }
 
@@ -61,7 +61,7 @@ public class FacadeTourPackageServiceImpl implements FacadeTourPackageService {
 
     @Override
     public Long createTourPackage(TourPackage tourPackage) {
-        return tourPackageService.createTourPackage(tourPackage);
+        return tourPackageService.createTourPackage(tourPackage).getId();
     }
 
     @Override

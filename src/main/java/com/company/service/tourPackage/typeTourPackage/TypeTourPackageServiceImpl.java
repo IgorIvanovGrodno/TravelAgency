@@ -1,7 +1,7 @@
 package com.company.service.tourPackage.typeTourPackage;
 
-import com.company.model.DAO.tourPackage.typeTourPackage.TypeTourPackageDAO;
-import com.company.model.domain.tourPackage.TourPackageType;
+import com.company.model.dao.tourPackage.typeTourPackage.TypeTourPackageDAO;
+import com.company.model.domain.tourPackage.TypeTourPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class TypeTourPackageServiceImpl implements TypeTourPackageService {
     }
 
     @Override
-    public List<TourPackageType> getAllTypes() {
-        return typeTourPackageDAO.getAllTypes();
+    public List<TypeTourPackage> getAllTypes() {
+        return typeTourPackageDAO.findAll();
     }
 }

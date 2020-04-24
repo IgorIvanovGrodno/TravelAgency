@@ -12,7 +12,7 @@ import java.util.Objects;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "tour_type")
-public class TourPackageType implements Serializable {
+public class TypeTourPackage implements Serializable {
     private static final long SERIAL_VERSION_UID=23L;
 
     @Id
@@ -25,7 +25,7 @@ public class TourPackageType implements Serializable {
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     private List<TourPackage> tourPackage;
 
-    public TourPackageType() {
+    public TypeTourPackage() {
     }
 
     public List<TourPackage> getTourPackage() {
@@ -56,7 +56,7 @@ public class TourPackageType implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TourPackageType that = (TourPackageType) o;
+        TypeTourPackage that = (TypeTourPackage) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name);
     }

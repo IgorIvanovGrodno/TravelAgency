@@ -1,19 +1,12 @@
 package com.company.controller;
 
 import com.company.model.domain.order.Order;
-import com.company.model.domain.tourPackage.FoodSystem;
-import com.company.model.domain.tourPackage.TourPackage;
-import com.company.model.domain.tourPackage.TourPackageType;
-import com.company.model.domain.tourPackage.Transport;
-import com.company.service.order.OrderService;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;

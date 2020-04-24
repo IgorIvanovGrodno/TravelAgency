@@ -7,5 +7,5 @@ import com.company.model.domain.user.User;
 
 public interface OrderService {
 
-    long makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost, StatusOrder statusOrder);
+    Order makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost, StatusOrder statusOrder);
 }

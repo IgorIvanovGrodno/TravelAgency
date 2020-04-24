@@ -1,6 +1,6 @@
 package com.company.service.order;
 
-import com.company.model.DAO.order.OrderDAO;
+import com.company.model.dao.order.OrderDAO;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.order.StatusOrder;
 import com.company.model.domain.tourPackage.TourPackage;
@@ -21,12 +21,12 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public long makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost, StatusOrder statusOrder) {
+    public Order makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost, StatusOrder statusOrder) {
         order.setTourPackage(tourPackageOrder);
         order.setUser(currentUser);
         order.setTotalCost(totalCost);
         order.setStatus(statusOrder);
         order.setCreateDate(new Date());
-        return orderDAO.saveOrder(order);
+        return orderDAO.makePersistent(order);
     }
 }

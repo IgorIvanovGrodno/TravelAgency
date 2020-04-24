@@ -95,10 +95,10 @@ CREATE TABLE client
 (
     id                  BIGINT(20)         NOT NULL AUTO_INCREMENT,
     discount            INT            NOT NULL,
-    first_name          varchar(20)   not null,
-    second_name         varchar(20)     not null,
+    first_name          varchar(30)   not null,
+    second_name         varchar(30)     not null,
     phone_number        varchar(20)     not null,
-    email               varchar(20)     not null,
+    email               varchar(100)     not null,
     PRIMARY KEY (id)
 
 )

@@ -26,7 +26,7 @@ public class TourPackage implements Comparable<TourPackage>, Serializable {
 
     @ManyToOne
     @JoinColumn(name = "type")
-    private TourPackageType type;
+    private TypeTourPackage type;
 
     @ManyToOne
     @JoinColumn(name = "food_system")
@@ -65,11 +65,11 @@ public class TourPackage implements Comparable<TourPackage>, Serializable {
         this.name = name;
     }
 
-    public TourPackageType getType() {
+    public TypeTourPackage getType() {
         return type;
     }
 
-    public void setType(TourPackageType type) {
+    public void setType(TypeTourPackage type) {
         this.type = type;
     }
 

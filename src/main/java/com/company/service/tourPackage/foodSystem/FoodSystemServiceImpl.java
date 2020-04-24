@@ -1,6 +1,6 @@
 package com.company.service.tourPackage.foodSystem;
 
-import com.company.model.DAO.tourPackage.foodSystem.FoodSystemDAO;
+import com.company.model.dao.tourPackage.foodSystem.FoodSystemDAO;
 import com.company.model.domain.tourPackage.FoodSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,6 @@ public class FoodSystemServiceImpl implements FoodSystemService {
 
     @Override
     public List<FoodSystem> getAllFoodSystems() {
-        return foodSystemDAO.getAllFoodSystems();
+        return foodSystemDAO.findAll();
     }
 }

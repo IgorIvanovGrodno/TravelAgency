@@ -1,4 +1,4 @@
-package com.company.service.facadeService;
+package com.company.service.facade;
 
 import com.company.model.domain.order.Order;
 import com.company.model.domain.order.StatusOrder;
@@ -9,11 +9,11 @@ import com.company.service.order.statusOrder.StatusOrderService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FacadeOrderServiceImpl implements FacadeOrderService {
+public class FacadeOrderImpl implements FacadeOrder {
     private OrderService orderService;
     private StatusOrderService statusOrderService;
 
-    public FacadeOrderServiceImpl(OrderService orderService, StatusOrderService statusOrderService) {
+    public FacadeOrderImpl(OrderService orderService, StatusOrderService statusOrderService) {
         this.orderService = orderService;
         this.statusOrderService = statusOrderService;
     }
@@ -21,6 +21,6 @@ public class FacadeOrderServiceImpl implements FacadeOrderService {
     @Override
     public long makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost) {
         StatusOrder statusOrder = statusOrderService.getStatusForNewOrder();
-        return orderService.makePayment(order, tourPackageOrder, currentUser, totalCost,statusOrder);
+        return orderService.makePayment(order, tourPackageOrder, currentUser, totalCost,statusOrder).getId();
     }
 }
