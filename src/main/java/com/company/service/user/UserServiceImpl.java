@@ -1,5 +1,6 @@
 package com.company.service.user;
 
+import com.company.exceptions.SetDiscountException;
 import com.company.model.dao.user.UserDAO;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.user.User;
@@ -9,6 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,8 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int setDiscount(User user) {
-        return userDAO.setDiscountById(user.getId(), user.getDiscount());
+    public void setDiscount(User user) throws SetDiscountException {
+        //if(user==null||user.getId()==null) throw NullUserException();
+        int result =userDAO.setDiscountById(user.getId(), user.getDiscount());
+        if(result<=0) throw new SetDiscountException();
+
     }
 
     @Override
@@ -64,5 +69,11 @@ public class UserServiceImpl implements UserService {
     public List<Order> getUsersOrders(String login) {
         User user = getUserByLogin(login);
         return user.getOrders().stream().sorted((order1, order2)->{return (int) (order2.getId()-order1.getId());}).collect(Collectors.toList());
+    }
+
+    @Override
+    public int getDiscount(Principal principal) {
+        User user = userDAO.getUserByLogin(principal.getName());
+        return user.getDiscount();
     }
 }

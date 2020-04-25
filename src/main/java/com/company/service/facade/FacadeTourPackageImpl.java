@@ -10,9 +10,11 @@ import com.company.service.tourPackage.TourPackageService;
 import com.company.service.tourPackage.foodSystem.FoodSystemService;
 import com.company.service.tourPackage.transport.TransportService;
 import com.company.service.tourPackage.typeTourPackage.TypeTourPackageService;
+import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -21,13 +23,15 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
     private TransportService transportService;
     private TypeTourPackageService typeTourPackageService;
     private TourPackageService tourPackageService;
+    private UserService userService;
 
     @Autowired
-    public FacadeTourPackageImpl(FoodSystemService foodSystemService, TransportService transportService, TypeTourPackageService typeTourPackageService, TourPackageService tourPackageService) {
+    public FacadeTourPackageImpl(FoodSystemService foodSystemService, TransportService transportService, TypeTourPackageService typeTourPackageService, TourPackageService tourPackageService, UserService userService) {
         this.foodSystemService = foodSystemService;
         this.transportService = transportService;
         this.typeTourPackageService = typeTourPackageService;
         this.tourPackageService = tourPackageService;
+        this.userService = userService;
     }
 
     @Override
@@ -75,6 +79,12 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
     @Override
     public void deleteTourPackage(Long id) {
         tourPackageService.deleteTourPackage(id);
+    }
+
+    @Override
+    public double getTotalPrice(int price, Principal principal) {
+        double totalPrice =price*(1-userService.getDiscount(principal)*0.01);
+        return totalPrice;
     }
 
     private TourPackage getTourPackageAccordingToSelectedParameters(ModelTourPackage selectedParameters) {

@@ -15,7 +15,7 @@
                         <td>
                             <br/>
                             <div><f:errors path="authorization.login" /></div>
-                            <f:label path="authorization">Login:</f:label>
+                            <f:label path="authorization.login">Login:</f:label>
                         </td>
                         <td><f:input type="text" path="authorization.login" maxlength="10"/></td>
                         <br/>

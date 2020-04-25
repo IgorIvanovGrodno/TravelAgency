@@ -151,7 +151,7 @@ CREATE TABLE authorization
     password     VARCHAR(60)        NOT NULL,
     role         VARCHAR(10)        NOT NULL,
     active       BOOL               NOT NULL,
-    client_id    BIGINT(20)         NOT NULL,
+    client_id    BIGINT(20)         ,
     PRIMARY KEY (login),
     FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE
 )

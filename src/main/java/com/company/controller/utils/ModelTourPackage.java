@@ -11,7 +11,9 @@ public class ModelTourPackage {
     private String valueOfTransport;
     private String valueOfType;
     private boolean statusHot;
+    @NotEmpty(message = "Please, enter count of days!")
     private String day;
+    @NotEmpty(message = "Please, enter price!")
     private String price;
 
 

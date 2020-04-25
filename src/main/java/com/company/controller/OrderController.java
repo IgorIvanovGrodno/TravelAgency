@@ -5,7 +5,7 @@ import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
 import com.company.service.facade.FacadeOrder;
-import com.company.service.tourPackage.TourPackageService;
+import com.company.service.facade.FacadeTourPackage;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +21,7 @@ import java.security.Principal;
 
 @Controller
 public class OrderController {
-    private TourPackageService tourPackageService;
+    private FacadeTourPackage facadeTourPackage;
     private UserService userService;
     private FacadeOrder facadeOrder;
 
@@ -30,8 +30,8 @@ public class OrderController {
     private Validator tourPackageIdValidator;
 
     @Autowired
-    public OrderController(TourPackageService tourPackageService, UserService userService, FacadeOrder facadeOrder) {
-        this.tourPackageService = tourPackageService;
+    public OrderController(FacadeTourPackage facadeTourPackage, UserService userService, FacadeOrder facadeOrder) {
+        this.facadeTourPackage = facadeTourPackage;
         this.userService = userService;
         this.facadeOrder = facadeOrder;
     }
@@ -40,7 +40,7 @@ public class OrderController {
     public ModelAndView showPageOrder(HttpServletRequest request,
                                 @ModelAttribute("tourPackageForOrder")TourPackage tourPackageForOrder,
                                 BindingResult result,
-                                @RequestParam int discount
+                                Principal principal
                                 ) {
         tourPackageIdValidator.validate(tourPackageForOrder, result);
         ModelAndView modelAndView = new ModelAndView();
@@ -51,9 +51,8 @@ public class OrderController {
             return modelAndView;
         }
         Order order = new Order();
-        TourPackage tourPackage = tourPackageService.getTourPackage(tourPackageForOrder.getId());
-        int price = tourPackage.getPrice();
-        double totalPrice =price*(1-discount*0.01);
+        TourPackage tourPackage = facadeTourPackage.getTourPackage(tourPackageForOrder.getId());
+        double totalPrice = facadeTourPackage.getTotalPrice(tourPackage.getPrice(), principal);
         request.getSession().setAttribute("tourPackageForOrder", tourPackage);
         modelAndView.addObject("totalPrice", (long)totalPrice);
         modelAndView.addObject("order", order);
@@ -62,7 +61,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/user/order/pay", method = RequestMethod.GET)
-    public String payment(
+    public ModelAndView payment(
             HttpServletRequest request,
             @Valid
             @ModelAttribute("order") Order order,
@@ -70,13 +69,18 @@ public class OrderController {
             @RequestParam long totalCost,
             Principal principal) {
 
-        if(result.hasErrors()){
-            return "forward:order";
-        }
+        ModelAndView modelAndView = new ModelAndView();
         TourPackage tourPackageOrder = (TourPackage) request.getSession().getAttribute("tourPackageForOrder");
+        if(result.hasErrors()){
+            modelAndView.setViewName("order");
+            modelAndView.addObject("tourPackageForOrder", tourPackageOrder);
+            modelAndView.addObject("totalPrice", totalCost);
+            return modelAndView;
+        }
         User currentUser = userService.getUserByLogin(principal.getName());
         facadeOrder.makePayment(order, tourPackageOrder, currentUser, totalCost);
-        return "redirect:/user";
+        modelAndView.setViewName("redirect:/user");
+        return modelAndView;
     }
 
 

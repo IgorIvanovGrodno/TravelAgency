@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.exceptions.SetDiscountException;
 import com.company.model.domain.user.User;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,21 +59,17 @@ public class SetDiscountController {
 
     @RequestMapping(value = "admin/set/discount/set", method = RequestMethod.GET)
     public String updateUser(
-            @Valid
+
             @ModelAttribute("userWithUpdateDiscount")
                     User user,
             BindingResult result
-            ) {
+            ) throws SetDiscountException {
         userIdValidator.validate(user, result);
         if(result.hasErrors()){
             return "setDiscount";
         }
-        int countUpdatedUsers = userService.setDiscount(user);
-        if(countUpdatedUsers>0) return "redirect:/admin";
-        else {
-            //Добавить вывод ошибки
-            return "setDiscount";
-        }
+        userService.setDiscount(user);
+        return "redirect:/admin";
     }
 
 }

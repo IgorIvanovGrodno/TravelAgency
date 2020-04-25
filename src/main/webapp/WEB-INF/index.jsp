@@ -158,7 +158,6 @@
                 <tbody>
 
                  <f:form action="/user/order" modelAttribute="tourPackageForOrder" method="get" align="center">
-                     <input type="hidden" name="discount" value="${discount}">
                      <div><f:errors path="id" /></div>
                  <c:forEach var="tour" items="${tourPageList.pageList}">
                     <tr>

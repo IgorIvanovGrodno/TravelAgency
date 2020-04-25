@@ -14,6 +14,7 @@
             <table cellspacing="15">
                 <tr>
                     <td>
+                        <f:errors path="discount" />
                         <f:label path="discount">Set discount</f:label>
                         <f:input type="number" path="discount" maxlength="6" min="0"/>
                     </td>

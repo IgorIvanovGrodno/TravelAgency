@@ -7,6 +7,7 @@ import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.tourPackage.TypeTourPackage;
 import com.company.model.domain.tourPackage.Transport;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface FacadeTourPackage {
@@ -28,4 +29,5 @@ public interface FacadeTourPackage {
 
     void deleteTourPackage(Long id);
 
+    double getTotalPrice(int price, Principal principal);
 }
