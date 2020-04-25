@@ -8,10 +8,12 @@ import org.hibernate.query.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+@Transactional
 public abstract class GenericHibernateDAO<T, ID extends Serializable> implements GenericDAO<T, ID>  {
     private Class<T> persistentClass;
     private SessionFactory sessionFactory;
