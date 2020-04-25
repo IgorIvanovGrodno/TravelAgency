@@ -9,4 +9,5 @@ public interface TourPackageDAO extends GenericDAO<TourPackage, Long> {
 
     List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages);
 
+    void deleteById(Long id);
 }

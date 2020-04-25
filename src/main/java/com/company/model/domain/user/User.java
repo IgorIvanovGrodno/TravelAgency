@@ -35,7 +35,7 @@ public class User implements Serializable {
     @Column
     private String email;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Authorization authorization;
 
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

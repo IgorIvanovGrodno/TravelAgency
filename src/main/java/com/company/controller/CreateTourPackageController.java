@@ -1,7 +1,8 @@
 package com.company.controller;
 
+import com.company.controller.utils.ModelTourPackage;
 import com.company.model.domain.tourPackage.TourPackage;
-import com.company.service.tourPackage.TourPackageService;
+import com.company.service.facade.FacadeTourPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +16,16 @@ import javax.validation.Valid;
 
 @Controller
 public class CreateTourPackageController {
-    private TourPackageService tourPackageService;
+    private FacadeTourPackage facadeTourPackage;
 
     @Autowired
-    public CreateTourPackageController(TourPackageService tourPackageService) {
-        this.tourPackageService = tourPackageService;
+    public CreateTourPackageController(FacadeTourPackage facadeTourPackage) {
+        this.facadeTourPackage = facadeTourPackage;
     }
 
     @RequestMapping({"admin/create/**"})
     public String showCreateTourPackagePage(Model model) {
-        model.addAttribute("newTourPackage", new TourPackage());
+        model.addAttribute("newTourPackage", new ModelTourPackage());
         return "createTourPackage";
     }
 
@@ -32,15 +33,13 @@ public class CreateTourPackageController {
     public String createTourPackagePage(Model model,
                                         @Valid
                                         @ModelAttribute("newTourPackage")
-                                        TourPackage tourPackage,
+                                        ModelTourPackage modelTourPackage,
                                         BindingResult result) {
         if(result.hasErrors()) {
             return "createTourPackage";
         }
-        TourPackage addedTourPackage = tourPackageService.createTourPackage(tourPackage);
-        model.addAttribute("newTourPackage", new TourPackage());
-        model.addAttribute("addedTourPackage", addedTourPackage);
-        return "createTourPackage";
+        TourPackage addedTourPackage = facadeTourPackage.createTourPackage(modelTourPackage);
+        return "redirect:/admin";
     }
 
 }

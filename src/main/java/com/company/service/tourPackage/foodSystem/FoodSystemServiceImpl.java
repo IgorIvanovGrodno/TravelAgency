@@ -20,4 +20,9 @@ public class FoodSystemServiceImpl implements FoodSystemService {
     public List<FoodSystem> getAllFoodSystems() {
         return foodSystemDAO.findAll();
     }
+
+    @Override
+    public FoodSystem getFoodSystemByName(String name) {
+        return foodSystemDAO.findByName(name);
+    }
 }

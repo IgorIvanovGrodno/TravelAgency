@@ -22,7 +22,7 @@ public class TypeTourPackage implements Serializable {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TourPackage> tourPackage;
 
     public TypeTourPackage() {

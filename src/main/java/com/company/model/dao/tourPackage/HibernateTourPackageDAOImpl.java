@@ -37,6 +37,13 @@ public class HibernateTourPackageDAOImpl extends GenericHibernateDAO<TourPackage
         return resultList;
     }
 
+    @Override
+    public void deleteById(Long id) {
+        Query<TourPackage> query =getSession().createQuery("delete TourPackage where id=:id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
     private List<Predicate> createPredicatesFromParametersSelectedForTourPackages(CriteriaBuilder builder
             , ParametersSelectedForTourPackages parametersSelectedForTourPackages
             , Root<TourPackage> root){

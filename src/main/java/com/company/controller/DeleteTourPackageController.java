@@ -1,6 +1,8 @@
 package com.company.controller;
 
+import com.company.controller.utils.ModelTourPackage;
 import com.company.model.domain.tourPackage.TourPackage;
+import com.company.service.facade.FacadeTourPackage;
 import com.company.service.tourPackage.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,15 +21,15 @@ import javax.validation.Valid;
 
 @Controller
 public class DeleteTourPackageController {
-    private TourPackageService tourPackageService;
+    private FacadeTourPackage facadeTourPackage;
 
     @Autowired
-    @Qualifier("tourPackageIdValidator")
+    @Qualifier("modelTourPackageIdValidator")
     private Validator tourPackageIdValidator;
 
     @Autowired
-    public DeleteTourPackageController(TourPackageService tourPackageService) {
-        this.tourPackageService = tourPackageService;
+    public DeleteTourPackageController(FacadeTourPackage facadeTourPackage) {
+        this.facadeTourPackage = facadeTourPackage;
     }
 
     @RequestMapping({"admin/delete/","admin/delete/{page}"})
@@ -37,7 +39,7 @@ public class DeleteTourPackageController {
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
             tourPackagesListHolder = new PagedListHolder<>();
-            tourPackagesListHolder.setSource(tourPackageService.getTourPackages());
+            tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
             request.getSession().setAttribute("tourPackagesForDelete", tourPackagesListHolder);
         }else if(page.equals("prev")) {
@@ -51,22 +53,20 @@ public class DeleteTourPackageController {
             tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForDelete");
             tourPackagesListHolder.setPage(pageNum - 1);
         }
-        model.addAttribute("deleteTourPackage", new TourPackage());
+        model.addAttribute("deleteTourPackage", new ModelTourPackage());
         return "deleteTourPackage";
     }
 
     @RequestMapping(value = "admin/delete/tourPackage", method = RequestMethod.GET)
     public String deleteTourPackages(
-            @PathVariable(required=false, name="id") Long id,
-            @Valid
             @ModelAttribute("deleteTourPackage")
-            TourPackage tourPackage,
+            ModelTourPackage modelTourPackage,
             BindingResult result) {
-        tourPackageIdValidator.validate(tourPackage, result);
+        tourPackageIdValidator.validate(modelTourPackage, result);
         if(result.hasErrors()) {
             return "deleteTourPackage";
         }
-        tourPackageService.deleteTourPackage(tourPackage);
+        facadeTourPackage.deleteTourPackage(modelTourPackage.getId());
         return "redirect:/admin";
     }
 }

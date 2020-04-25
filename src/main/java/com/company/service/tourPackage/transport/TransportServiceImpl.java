@@ -20,4 +20,9 @@ public class TransportServiceImpl implements TransportService {
     public List<Transport> getAllTransports() {
         return transportDAO.findAll();
     }
+
+    @Override
+    public Transport getTransportByName(String name) {
+        return transportDAO.findByName(name);
+    }
 }

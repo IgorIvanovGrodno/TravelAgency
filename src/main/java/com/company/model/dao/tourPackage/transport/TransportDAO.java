@@ -5,4 +5,5 @@ import com.company.model.domain.tourPackage.Transport;
 
 public interface TransportDAO extends GenericDAO<Transport, Long> {
 
+    Transport findByName(String name);
 }

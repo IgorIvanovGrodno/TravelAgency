@@ -5,4 +5,5 @@ import com.company.model.domain.tourPackage.FoodSystem;
 
 public interface FoodSystemDAO extends GenericDAO<FoodSystem, Long> {
 
+    FoodSystem findByName(String name);
 }

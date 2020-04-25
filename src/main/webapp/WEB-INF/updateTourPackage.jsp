@@ -13,20 +13,20 @@
             <table cellspacing="15">
                 <tr>
                     <td>
-                        <f:label path="type">Type</f:label>
-                        <f:select path="type">
+                        <f:label path="valueOfType">Type</f:label>
+                        <f:select path="valueOfType">
                             <f:options items="${sessionScope.types}"/>
                         </f:select>
                     </td>
                     <td>
-                        <f:label path="foodSystem">Food System</f:label>
-                        <f:select path="foodSystem">
+                        <f:label path="valueOfFoodSystem">Food System</f:label>
+                        <f:select path="valueOfFoodSystem">
                             <f:options items="${sessionScope.foodSystemList}"/>
                         </f:select>
                     </td>
                     <td>
-                        <f:label path="transport">Transport</f:label>
-                        <f:select path="transport">
+                        <f:label path="valueOfTransport">Transport</f:label>
+                        <f:select path="valueOfTransport">
                             <f:options items="${sessionScope.transports}"/>
                         </f:select>
                     </td>
@@ -38,10 +38,10 @@
                 <tr>
                     <td>
                         <br/>
-                        <div><f:errors path="days" /></div>
+                        <div><f:errors path="day" /></div>
                         <div>
-                            <f:label path="days">Days</f:label>
-                            <f:input type="number" path="days" maxlength="6" min="1"/>
+                            <f:label path="day">Days</f:label>
+                            <f:input type="number" path="day" maxlength="6" min="1"/>
                         </div>
 
                     </td>
@@ -55,10 +55,10 @@
                     </td>
                     <td>
                         <br/>
-                        <div><f:errors path="name" /></div>
+                        <div><f:errors path="description" /></div>
                         <div>
-                            <f:label path="name">Description</f:label>
-                            <f:input type="text" path="name" maxlength="30"/>
+                            <f:label path="description">Description</f:label>
+                            <f:input type="text" path="description" maxlength="30"/>
                         </div>
                     </td>
                 </tr>

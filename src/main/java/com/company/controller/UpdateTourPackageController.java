@@ -1,6 +1,8 @@
 package com.company.controller;
 
+import com.company.controller.utils.ModelTourPackage;
 import com.company.model.domain.tourPackage.TourPackage;
+import com.company.service.facade.FacadeTourPackage;
 import com.company.service.tourPackage.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,15 +21,15 @@ import javax.validation.Valid;
 
 @Controller
 public class UpdateTourPackageController {
-    private TourPackageService tourPackageService;
+    private FacadeTourPackage facadeTourPackage;
 
     @Autowired
-    @Qualifier("tourPackageIdValidator")
-    private Validator tourPackageIdValidator;
+    @Qualifier("modelTourPackageIdValidator")
+    private Validator modelTourPackageIdValidator;
 
     @Autowired
-    public UpdateTourPackageController(TourPackageService tourPackageService) {
-        this.tourPackageService = tourPackageService;
+    public UpdateTourPackageController(FacadeTourPackage facadeTourPackage) {
+        this.facadeTourPackage = facadeTourPackage;
     }
 
     @RequestMapping({"admin/update/tourPackage/","admin/update/tourPackage/{page}"})
@@ -37,7 +39,7 @@ public class UpdateTourPackageController {
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
             tourPackagesListHolder = new PagedListHolder<>();
-            tourPackagesListHolder.setSource(tourPackageService.getTourPackages());
+            tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
             request.getSession().setAttribute("tourPackagesForUpdate", tourPackagesListHolder);
         }else if(page.equals("prev")) {
@@ -51,7 +53,7 @@ public class UpdateTourPackageController {
             tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForUpdate");
             tourPackagesListHolder.setPage(pageNum - 1);
         }
-        model.addAttribute("updateTourPackage", new TourPackage());
+        model.addAttribute("updateTourPackage", new ModelTourPackage());
         return "updateTourPackage";
     }
 
@@ -59,13 +61,13 @@ public class UpdateTourPackageController {
     public String updateTourPackages(
             @Valid
             @ModelAttribute("updateTourPackage")
-                    TourPackage tourPackage,
+                    ModelTourPackage modelTourPackage,
             BindingResult result) {
-        tourPackageIdValidator.validate(tourPackage, result);
+        modelTourPackageIdValidator.validate(modelTourPackage, result);
         if(result.hasErrors()) {
             return "updateTourPackage";
         }
-        tourPackageService.updateTourPackage(tourPackage);
+        facadeTourPackage.updateTourPackage(modelTourPackage);
         return "redirect:/admin";
     }
 }

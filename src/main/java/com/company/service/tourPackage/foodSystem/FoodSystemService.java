@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface FoodSystemService {
     List<FoodSystem> getAllFoodSystems();
+
+    FoodSystem getFoodSystemByName(String name);
 }

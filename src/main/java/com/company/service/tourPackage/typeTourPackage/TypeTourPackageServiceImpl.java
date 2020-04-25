@@ -20,4 +20,9 @@ public class TypeTourPackageServiceImpl implements TypeTourPackageService {
     public List<TypeTourPackage> getAllTypes() {
         return typeTourPackageDAO.findAll();
     }
+
+    @Override
+    public TypeTourPackage getTypeTourPackageByName(String name) {
+        return typeTourPackageDAO.findByName(name);
+    }
 }

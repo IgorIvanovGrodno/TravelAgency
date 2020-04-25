@@ -44,13 +44,11 @@ public class TourPackageServiceImpl implements TourPackageService {
     }
 
     @Override
-    public void deleteTourPackage(TourPackage tourPackage) {
-        tourPackageDAO.makeTransient(tourPackage);
+    public void deleteTourPackage(Long id) {
+        tourPackageDAO.deleteById(id);
     }
 
     private List<TourPackage> sortListTourPackages(List<TourPackage> listTourPackages) {
         return listTourPackages.stream().sorted().collect(Collectors.toList());
     }
-
-
 }

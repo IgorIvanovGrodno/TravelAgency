@@ -1,5 +1,6 @@
 package com.company.service.facade;
 
+import com.company.controller.utils.ModelTourPackage;
 import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
@@ -21,10 +22,10 @@ public interface FacadeTourPackage {
 
     TourPackage getTourPackage(Long id);
 
-    Long createTourPackage(TourPackage tourPackage);
+    TourPackage createTourPackage(ModelTourPackage modelTourPackage);
 
-    void updateTourPackage(TourPackage tourPackage);
+    void updateTourPackage(ModelTourPackage modelTourPackage);
 
-    void deleteTourPackage(TourPackage tourPackage);
+    void deleteTourPackage(Long id);
 
 }

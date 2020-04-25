@@ -31,27 +31,21 @@
                             <tr>
                                 <td>
                                     <f:radiobutton  path="id" value="${tour.id}"/>
-                                    <f:input type="hidden" path="name" value="${tour.name}"/>
                                     <c:out value="${tour.name}"/>
                                 </td>
                                 <td>
-                                    <f:input type="hidden" path="type" value="${tour.type}"/>
                                    <c:out value="${tour.type}"/>
                                 </td>
                                 <td>
-                                    <f:input type="hidden" path="foodSystem" value="${tour.foodSystem}"/>
                                         <c:out value="${tour.foodSystem}"/>
                                 </td>
                                 <td>
-                                    <f:input type="hidden" path="transport" value="${tour.transport}"/>
                                         <c:out value="${tour.transport}"/>
                                 </td>
                                 <td>
-                                    <f:input type="hidden" path="days" value="${tour.days}"/>
                                         <c:out value="${tour.days}"/>
                                 </td>
                                 <td>
-                                    <f:input type="hidden" path="price" value="${tour.price}"/>
                                         <c:out value="${tour.price}"/>
                                 </td>
                             </tr>

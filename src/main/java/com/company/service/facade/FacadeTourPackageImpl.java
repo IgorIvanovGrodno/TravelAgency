@@ -1,5 +1,6 @@
 package com.company.service.facade;
 
+import com.company.controller.utils.ModelTourPackage;
 import com.company.controller.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
@@ -60,17 +61,32 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
     }
 
     @Override
-    public Long createTourPackage(TourPackage tourPackage) {
-        return tourPackageService.createTourPackage(tourPackage).getId();
+    public TourPackage createTourPackage(ModelTourPackage modelTourPackage) {
+        TourPackage tourPackage = getTourPackageAccordingToSelectedParameters(modelTourPackage);
+        return tourPackageService.createTourPackage(tourPackage);
     }
 
     @Override
-    public void updateTourPackage(TourPackage tourPackage) {
+    public void updateTourPackage(ModelTourPackage modelTourPackage) {
+        TourPackage tourPackage = getTourPackageAccordingToSelectedParameters(modelTourPackage);
         tourPackageService.updateTourPackage(tourPackage);
     }
 
     @Override
-    public void deleteTourPackage(TourPackage tourPackage) {
-        tourPackageService.deleteTourPackage(tourPackage);
+    public void deleteTourPackage(Long id) {
+        tourPackageService.deleteTourPackage(id);
+    }
+
+    private TourPackage getTourPackageAccordingToSelectedParameters(ModelTourPackage selectedParameters) {
+        TourPackage tourPackage = new TourPackage();
+        if(selectedParameters.getId()!=null) tourPackage.setId(selectedParameters.getId());
+        tourPackage.setDays(Integer.parseInt(selectedParameters.getDay()));
+        tourPackage.setName(selectedParameters.getDescription());
+        tourPackage.setPrice(Integer.parseInt(selectedParameters.getPrice()));
+        tourPackage.setStatusHot(selectedParameters.isStatusHot());
+        tourPackage.setTransport(transportService.getTransportByName(selectedParameters.getValueOfTransport()));
+        tourPackage.setType(typeTourPackageService.getTypeTourPackageByName(selectedParameters.getValueOfType()));
+        tourPackage.setFoodSystem(foodSystemService.getFoodSystemByName(selectedParameters.getValueOfFoodSystem()));
+        return tourPackage;
     }
 }

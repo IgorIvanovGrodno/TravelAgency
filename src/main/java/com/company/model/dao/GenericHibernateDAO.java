@@ -55,7 +55,7 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
 
     @SuppressWarnings("unchecked")
     public T makePersistent(T entity) {
-        getSession().save(entity);
+        getSession().saveOrUpdate(entity);
         return entity;
     }
 

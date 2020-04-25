@@ -22,7 +22,7 @@ public class Transport implements Serializable {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "transport", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "transport", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TourPackage> tourPackage;
 
     public Transport() {
