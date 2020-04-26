@@ -2,7 +2,6 @@ package com.company.model.service.tourPackage.typeTourPackage;
 
 import com.company.exceptions.ServiceException;
 import com.company.model.dao.tourPackage.typeTourPackage.TypeTourPackageDAO;
-import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.tourPackage.TypeTourPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

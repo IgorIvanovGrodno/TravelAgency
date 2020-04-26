@@ -5,6 +5,8 @@ import com.company.model.domain.order.StatusOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class StatusOrderServiceImpl implements StatusOrderService {
     private StatusOrderDAO statusOrderDAO;
@@ -16,6 +18,7 @@ public class StatusOrderServiceImpl implements StatusOrderService {
 
     @Override
     public StatusOrder getStatusForNewOrder() {
-        return statusOrderDAO.findById(1L);
+        Optional<StatusOrder> optionalStatusOrder = Optional.of(statusOrderDAO.findById(1L));
+        return optionalStatusOrder.orElse(new StatusOrder());
     }
 }

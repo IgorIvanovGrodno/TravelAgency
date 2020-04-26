@@ -3,7 +3,6 @@ package com.company.model.service.tourPackage.transport;
 import com.company.exceptions.ServiceException;
 import com.company.model.dao.tourPackage.transport.TransportDAO;
 import com.company.model.domain.tourPackage.Transport;
-import com.company.model.domain.tourPackage.TypeTourPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
