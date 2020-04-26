@@ -4,10 +4,8 @@ import com.company.exceptions.ServiceException;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
-import com.company.model.domain.user.User;
 import com.company.model.service.facade.FacadeOrder;
 import com.company.model.service.facade.FacadeTourPackage;
-import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -23,7 +21,6 @@ import java.security.Principal;
 @Controller
 public class OrderController {
     private FacadeTourPackage facadeTourPackage;
-    private UserService userService;
     private FacadeOrder facadeOrder;
 
     @Autowired
@@ -31,9 +28,8 @@ public class OrderController {
     private Validator tourPackageIdValidator;
 
     @Autowired
-    public OrderController(FacadeTourPackage facadeTourPackage, UserService userService, FacadeOrder facadeOrder) {
+    public OrderController(FacadeTourPackage facadeTourPackage, FacadeOrder facadeOrder) {
         this.facadeTourPackage = facadeTourPackage;
-        this.userService = userService;
         this.facadeOrder = facadeOrder;
     }
 
@@ -78,8 +74,7 @@ public class OrderController {
             modelAndView.addObject("totalPrice", totalCost);
             return modelAndView;
         }
-        User currentUser = userService.getUserByLogin(principal.getName());
-        facadeOrder.makePayment(order, tourPackageOrder, currentUser, totalCost);
+        facadeOrder.makePayment(order, tourPackageOrder, principal.getName(), totalCost);
         modelAndView.setViewName("redirect:/user");
         return modelAndView;
     }

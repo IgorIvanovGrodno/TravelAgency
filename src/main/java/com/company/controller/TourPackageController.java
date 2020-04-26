@@ -4,6 +4,7 @@ import com.company.exceptions.ServiceException;
 import com.company.utils.ModelTourPackage;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.service.facade.FacadeTourPackage;
+import com.company.utils.UtilController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
@@ -42,16 +43,8 @@ public class TourPackageController {
             tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
             request.getSession().setAttribute("tourPackagesForUpdate", tourPackagesListHolder);
-        }else if(page.equals("prev")) {
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForUpdate");
-            tourPackagesListHolder.previousPage();
-        }else if(page.equals("next")) {
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForUpdate");
-            tourPackagesListHolder.nextPage();
         }else {
-            int pageNum = Integer.parseInt(page);
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForUpdate");
-            tourPackagesListHolder.setPage(pageNum - 1);
+            UtilController.pagination(request, page, "tourPackagesForUpdate");
         }
         model.addAttribute("updateTourPackage", new ModelTourPackage());
         return "updateTourPackage";
@@ -81,17 +74,7 @@ public class TourPackageController {
             tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
             request.getSession().setAttribute("tourPackagesForDelete", tourPackagesListHolder);
-        }else if(page.equals("prev")) {
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForDelete");
-            tourPackagesListHolder.previousPage();
-        }else if(page.equals("next")) {
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForDelete");
-            tourPackagesListHolder.nextPage();
-        }else {
-            int pageNum = Integer.parseInt(page);
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForDelete");
-            tourPackagesListHolder.setPage(pageNum - 1);
-        }
+        }else {UtilController.pagination(request, page, "tourPackagesForDelete");}
         model.addAttribute("deleteTourPackage", new ModelTourPackage());
         return "deleteTourPackage";
     }
@@ -124,7 +107,7 @@ public class TourPackageController {
         if(result.hasErrors()) {
             return "createTourPackage";
         }
-        TourPackage addedTourPackage = facadeTourPackage.createTourPackage(modelTourPackage);
+        facadeTourPackage.createTourPackage(modelTourPackage);
         return "redirect:/admin";
     }
 }

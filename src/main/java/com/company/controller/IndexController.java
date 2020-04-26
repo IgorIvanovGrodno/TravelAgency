@@ -5,6 +5,7 @@ import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.service.facade.FacadeTourPackage;
 import com.company.model.service.user.UserService;
+import com.company.utils.UtilController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Collection;
 
 @Controller
@@ -43,7 +45,8 @@ public class IndexController {
                                 @ModelAttribute("selectsParameters")
                                 ParametersSelectedForTourPackages parametersSelectedForTourPackages,
                                @ModelAttribute("tourPackageForOrder")
-                               TourPackage tourPackageForOrder
+                               TourPackage tourPackageForOrder,
+                               Principal principal
                                ) throws ServiceException {
 
         PagedListHolder<TourPackage> tourPackagesListHolder;
@@ -55,16 +58,8 @@ public class IndexController {
             request.getSession().setAttribute("types", facadeTourPackage.getTypesOfTours());
             request.getSession().setAttribute("transports", facadeTourPackage.getTransportsOfTours());
             request.getSession().setAttribute("foodSystemList", facadeTourPackage.getFoodSystemsOfTours());
-        }else if(page.equals("prev")) {
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
-            tourPackagesListHolder.previousPage();
-        }else if(page.equals("next")) {
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
-            tourPackagesListHolder.nextPage();
         }else {
-            int pageNum = Integer.parseInt(page);
-            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
-            tourPackagesListHolder.setPage(pageNum - 1);
+            UtilController.pagination(request, page, "tourPackages");
         }
         model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
         model.addAttribute("tourPackageForOrder", tourPackageForOrder);
@@ -91,7 +86,6 @@ public class IndexController {
         tourPackagesListHolder.setSource(facadeTourPackage.getSelectedTourPackages(parametersSelectedForTourPackages));
         tourPackagesListHolder.setPage(0);
         setDiscountForAuthorizedUser(model);
-
         return "index";
     }
 

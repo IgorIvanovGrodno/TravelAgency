@@ -3,6 +3,7 @@ package com.company.controller;
 import com.company.exceptions.ServiceException;
 import com.company.model.domain.order.Order;
 import com.company.model.service.user.UserService;
+import com.company.utils.UtilController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
@@ -33,16 +34,8 @@ public class UserCabinetController {
             ordersListHolder.setSource( userService.getUsersOrders(principal.getName()));
             ordersListHolder.setPageSize(5);
             request.getSession().setAttribute("usersOrders", ordersListHolder);
-        }else if(page.equals("prev")) {
-            ordersListHolder = (PagedListHolder<Order>) request.getSession().getAttribute("usersOrders");
-            ordersListHolder.previousPage();
-        }else if(page.equals("next")) {
-            ordersListHolder = (PagedListHolder<Order>) request.getSession().getAttribute("usersOrders");
-            ordersListHolder.nextPage();
         }else {
-            int pageNum = Integer.parseInt(page);
-            ordersListHolder = (PagedListHolder<Order>) request.getSession().getAttribute("usersOrders");
-            ordersListHolder.setPage(pageNum - 1);
+            UtilController.pagination(request, page, "usersOrders");
         }
         return "userCabinet";
     }

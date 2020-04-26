@@ -59,7 +59,7 @@
                                     <span>Prev</span>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:url value="admin/set/discount/prev" var="url" />
+                                    <c:url value="/admin/set/discount/prev" var="url" />
                                     <a href='<c:out value="${url}" />'>Prev</a>
                                 </c:otherwise>
                             </c:choose>
@@ -70,7 +70,7 @@
                                         <span>${tagStatus.index}</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <c:url value="admin/set/discount/${tagStatus.index}" var="url" />
+                                        <c:url value="/admin/set/discount/${tagStatus.index}" var="url" />
                                         <a href='<c:out value="${url}" />'>${tagStatus.index}</a>
                                     </c:otherwise>
                                 </c:choose>
@@ -81,7 +81,7 @@
                                     <span>Next</span>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:url value="admin/set/discount/next" var="url" />
+                                    <c:url value="/admin/set/discount/next" var="url" />
                                     <a href='<c:out value="${url}" />'>Next</a>
                                 </c:otherwise>
                             </c:choose>

@@ -7,22 +7,28 @@ import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
 import com.company.model.service.order.OrderService;
 import com.company.model.service.order.statusOrder.StatusOrderService;
+import com.company.model.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FacadeOrderImpl implements FacadeOrder {
     private OrderService orderService;
     private StatusOrderService statusOrderService;
+    private UserService userService;
 
-    public FacadeOrderImpl(OrderService orderService, StatusOrderService statusOrderService) {
+    @Autowired
+    public FacadeOrderImpl(OrderService orderService, StatusOrderService statusOrderService, UserService userService) {
         this.orderService = orderService;
         this.statusOrderService = statusOrderService;
+        this.userService = userService;
     }
 
     @Override
-    public void makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost) throws ServiceException {
-        if(order==null||tourPackageOrder==null||currentUser==null) throw new ServiceException("Incorrect input data for payment");
+    public void makePayment(Order order, TourPackage tourPackageOrder, String loginUser, long totalCost) throws ServiceException {
+        if(order==null||tourPackageOrder==null|| loginUser ==null) throw new ServiceException("Incorrect input data for payment");
         StatusOrder statusOrder = statusOrderService.getStatusForNewOrder();
-        orderService.makePayment(order, tourPackageOrder, currentUser, totalCost, statusOrder);
+        User user = userService.getUserByLogin(loginUser);
+        orderService.makePayment(order, tourPackageOrder, user, totalCost, statusOrder);
     }
 }
