@@ -88,7 +88,7 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
         return totalPrice;
     }
 
-    private TourPackage getTourPackageAccordingToSelectedParameters(ModelTourPackage selectedParameters) {
+    private TourPackage getTourPackageAccordingToSelectedParameters(ModelTourPackage selectedParameters) throws ServiceException {
         TourPackage tourPackage = new TourPackage();
         if(selectedParameters.getId()!=null) tourPackage.setId(selectedParameters.getId());
         tourPackage.setDays(Integer.parseInt(selectedParameters.getDay()));
