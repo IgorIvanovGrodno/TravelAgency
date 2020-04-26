@@ -1,5 +1,6 @@
 package com.company.utils.validators;
 
+import com.company.exceptions.ServiceException;
 import com.company.model.domain.user.User;
 import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class UserRegistrationValidatorImpl implements UserRegistrationValidator 
 
     }
 
-    public void validate(Object o, String repeatPassword, Errors errors) {
+    public void validate(Object o, String repeatPassword, Errors errors) throws ServiceException {
         User user=(User) o;
 
         String firstName=user.getFirstName();

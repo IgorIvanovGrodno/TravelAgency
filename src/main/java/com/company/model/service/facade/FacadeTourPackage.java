@@ -1,5 +1,6 @@
 package com.company.model.service.facade;
 
+import com.company.exceptions.ServiceException;
 import com.company.utils.ModelTourPackage;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.FoodSystem;
@@ -19,15 +20,15 @@ public interface FacadeTourPackage {
 
     List<TourPackage> getTourPackages();
 
-    List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages);
+    List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) throws ServiceException;
 
-    TourPackage getTourPackage(Long id);
+    TourPackage getTourPackage(Long id) throws ServiceException;
 
-    TourPackage createTourPackage(ModelTourPackage modelTourPackage);
+    TourPackage createTourPackage(ModelTourPackage modelTourPackage) throws ServiceException;
 
-    void updateTourPackage(ModelTourPackage modelTourPackage);
+    void updateTourPackage(ModelTourPackage modelTourPackage) throws ServiceException;
 
-    void deleteTourPackage(Long id);
+    void deleteTourPackage(Long id) throws ServiceException;
 
-    double getTotalPrice(int price, Principal principal);
+    double getTotalPrice(int price, Principal principal) throws ServiceException;
 }

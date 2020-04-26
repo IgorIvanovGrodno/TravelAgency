@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.exceptions.ServiceException;
 import com.company.utils.ModelTourPackage;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.service.facade.FacadeTourPackage;
@@ -61,7 +62,7 @@ public class TourPackageController {
             @Valid
             @ModelAttribute("updateTourPackage")
                     ModelTourPackage modelTourPackage,
-            BindingResult result) {
+            BindingResult result) throws ServiceException {
         modelTourPackageIdValidator.validate(modelTourPackage, result);
         if(result.hasErrors()) {
             return "updateTourPackage";
@@ -99,7 +100,7 @@ public class TourPackageController {
     public String deleteTourPackages(
             @ModelAttribute("deleteTourPackage")
                     ModelTourPackage modelTourPackage,
-            BindingResult result) {
+            BindingResult result) throws ServiceException {
         modelTourPackageIdValidator.validate(modelTourPackage, result);
         if(result.hasErrors()) {
             return "deleteTourPackage";
@@ -119,7 +120,7 @@ public class TourPackageController {
                                         @Valid
                                         @ModelAttribute("newTourPackage")
                                                 ModelTourPackage modelTourPackage,
-                                        BindingResult result) {
+                                        BindingResult result) throws ServiceException {
         if(result.hasErrors()) {
             return "createTourPackage";
         }

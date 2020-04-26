@@ -1,5 +1,6 @@
 package com.company.model.service.facade;
 
+import com.company.exceptions.ServiceException;
 import com.company.utils.ModelTourPackage;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.FoodSystem;
@@ -55,34 +56,34 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
     }
 
     @Override
-    public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
+    public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) throws ServiceException {
         return tourPackageService.getSelectedTourPackages(parametersSelectedForTourPackages);
     }
 
     @Override
-    public TourPackage getTourPackage(Long id) {
+    public TourPackage getTourPackage(Long id) throws ServiceException {
         return tourPackageService.getTourPackage(id);
     }
 
     @Override
-    public TourPackage createTourPackage(ModelTourPackage modelTourPackage) {
+    public TourPackage createTourPackage(ModelTourPackage modelTourPackage) throws ServiceException {
         TourPackage tourPackage = getTourPackageAccordingToSelectedParameters(modelTourPackage);
         return tourPackageService.createTourPackage(tourPackage);
     }
 
     @Override
-    public void updateTourPackage(ModelTourPackage modelTourPackage) {
+    public void updateTourPackage(ModelTourPackage modelTourPackage) throws ServiceException {
         TourPackage tourPackage = getTourPackageAccordingToSelectedParameters(modelTourPackage);
         tourPackageService.updateTourPackage(tourPackage);
     }
 
     @Override
-    public void deleteTourPackage(Long id) {
+    public void deleteTourPackage(Long id) throws ServiceException {
         tourPackageService.deleteTourPackage(id);
     }
 
     @Override
-    public double getTotalPrice(int price, Principal principal) {
+    public double getTotalPrice(int price, Principal principal) throws ServiceException {
         double totalPrice =price*(1-userService.getDiscount(principal)*0.01);
         return totalPrice;
     }

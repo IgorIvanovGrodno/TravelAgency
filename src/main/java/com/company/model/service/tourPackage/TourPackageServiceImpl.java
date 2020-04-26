@@ -1,12 +1,15 @@
 package com.company.model.service.tourPackage;
 
+import com.company.exceptions.ServiceException;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.dao.tourPackage.TourPackageDAO;
 import com.company.model.domain.tourPackage.TourPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,31 +23,40 @@ public class TourPackageServiceImpl implements TourPackageService {
 
     @Override
     public List<TourPackage> getTourPackages() {
-        return sortListTourPackages(tourPackageDAO.findAll());
+        Optional<List<TourPackage>> optionalTourPackages = Optional.of(tourPackageDAO.findAll());
+        return sortListTourPackages(optionalTourPackages.orElse(new ArrayList<>()));
     }
 
     @Override
-    public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
-        return sortListTourPackages(tourPackageDAO.getSelectedTourPackages(parametersSelectedForTourPackages));
+    public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) throws ServiceException {
+        if(parametersSelectedForTourPackages==null) throw new ServiceException("Incorrect data of selected parameters for tour package");
+        Optional<List<TourPackage>> optionalTourPackages = Optional.of(tourPackageDAO.getSelectedTourPackages(parametersSelectedForTourPackages));
+        return sortListTourPackages(optionalTourPackages.orElse(new ArrayList<>()));
     }
 
     @Override
-    public TourPackage getTourPackage(Long id) {
-        return tourPackageDAO.findById(id);
+    public TourPackage getTourPackage(Long id) throws ServiceException {
+        if(id==null) throw new ServiceException("Incorrect id of tour package");
+        Optional<TourPackage> optionalTourPackage = Optional.of(tourPackageDAO.findById(id));
+        return optionalTourPackage.orElse(new TourPackage());
     }
 
     @Override
-    public TourPackage createTourPackage(TourPackage tourPackage) {
-        return tourPackageDAO.makePersistent(tourPackage);
+    public TourPackage createTourPackage(TourPackage tourPackage) throws ServiceException {
+        if(tourPackage==null) throw new ServiceException("Incorrect data of tour package");
+        Optional<TourPackage> optionalTourPackage = Optional.of(tourPackageDAO.makePersistent(tourPackage));
+        return optionalTourPackage.orElse(new TourPackage());
     }
 
     @Override
-    public void updateTourPackage(TourPackage tourPackage) {
+    public void updateTourPackage(TourPackage tourPackage) throws ServiceException {
+        if(tourPackage==null) throw new ServiceException("Incorrect data of tour package");
         tourPackageDAO.makePersistent(tourPackage);
     }
 
     @Override
-    public void deleteTourPackage(Long id) {
+    public void deleteTourPackage(Long id) throws ServiceException {
+        if(id==null) throw new ServiceException("Incorrect id of tour package");
         tourPackageDAO.deleteById(id);
     }
 

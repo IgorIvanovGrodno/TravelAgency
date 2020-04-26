@@ -42,7 +42,7 @@ public class OrderController {
                                 @ModelAttribute("tourPackageForOrder")TourPackage tourPackageForOrder,
                                 BindingResult result,
                                 Principal principal
-                                ) {
+                                ) throws ServiceException {
         tourPackageIdValidator.validate(tourPackageForOrder, result);
         ModelAndView modelAndView = new ModelAndView();
         if(result.hasErrors()){
