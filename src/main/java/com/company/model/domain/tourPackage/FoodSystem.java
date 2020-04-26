@@ -22,7 +22,7 @@ public class FoodSystem implements Serializable {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "foodSystem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "foodSystem", cascade = CascadeType.ALL)
     private List<TourPackage> tourPackage;
 
     public FoodSystem() {
