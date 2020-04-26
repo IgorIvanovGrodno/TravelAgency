@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.exceptions.ControllerException;
 import com.company.exceptions.ServiceException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,6 +19,14 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(ServiceException.class)
     public ModelAndView handleServiceException(Exception ex) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("message", ex.getMessage());
+        modelAndView.setViewName("genericError");
+        return modelAndView;
+    }
+
+    @ExceptionHandler(ControllerException.class)
+    public ModelAndView handleControllerException(Exception ex) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", ex.getMessage());
         modelAndView.setViewName("genericError");

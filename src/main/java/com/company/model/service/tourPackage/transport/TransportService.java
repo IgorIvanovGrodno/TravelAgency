@@ -5,9 +5,10 @@ import com.company.exceptions.ServiceException;
 import com.company.model.domain.tourPackage.Transport;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TransportService {
-    List<Transport> getAllTransports();
+    Optional<List<Transport>> getAllTransports();
 
-    Transport getTransportByName(String name) throws ServiceException;
+    Optional<Transport> getTransportByName(String name) throws ServiceException;
 }

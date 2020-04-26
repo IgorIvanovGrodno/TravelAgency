@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.exceptions.ControllerException;
 import com.company.exceptions.ServiceException;
 import com.company.model.domain.user.User;
 import com.company.model.service.user.UserService;
@@ -40,11 +41,11 @@ public class AdminController {
     @RequestMapping({"admin/set/discount/", "admin/set/discount/{page}"})
     public String showSetDiscountPage(Model model,
                                       @PathVariable(required=false, name="page") String page,
-                                      HttpServletRequest request) {
+                                      HttpServletRequest request) throws ControllerException {
         PagedListHolder<User> usersListHolder;
         if(page == null) {
             usersListHolder = new PagedListHolder<>();
-            usersListHolder.setSource(userService.getAllUsers());
+            usersListHolder.setSource(userService.getAllUsers().orElseThrow(()->new ControllerException("Null list of users")));
             usersListHolder.setPageSize(5);
             request.getSession().setAttribute("usersForSetDiscount", usersListHolder);
         }else {

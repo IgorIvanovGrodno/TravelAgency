@@ -30,9 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        Optional<List<User>> optionalList = Optional.of(userDAO.findAll());
-        return optionalList.orElse(new ArrayList<>());
+    public Optional<List<User>> getAllUsers() {
+        return Optional.of(userDAO.findAll());
     }
 
     @Override
@@ -43,10 +42,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByLogin(String loginUser) throws ServiceException {
+    public Optional<User> getUserByLogin(String loginUser) throws ServiceException {
         if(loginUser==null) throw new ServiceException("Incorrect input data of user's login");
-        Optional<User> optionalUser = Optional.of(userDAO.getUserByLogin(loginUser));
-        return optionalUser.orElse(new User());
+        return Optional.of(userDAO.getUserByLogin(loginUser));
     }
 
     @Override
@@ -73,8 +71,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Order> getUsersOrders(String login) throws ServiceException {
-        User user = getUserByLogin(login);
-        return user.getOrders().stream().sorted((order1, order2)->{return (int) (order2.getId()-order1.getId());}).collect(Collectors.toList());
+        Optional<User> optionalUser = getUserByLogin(login);
+        if(optionalUser.isPresent()){
+            return optionalUser.get().getOrders().stream().sorted((order1, order2)->{return (int) (order2.getId()-order1.getId());}).collect(Collectors.toList());
+        }else {
+            return new ArrayList<>();
+        }
     }
 
     @Override

@@ -17,8 +17,7 @@ public class StatusOrderServiceImpl implements StatusOrderService {
     }
 
     @Override
-    public StatusOrder getStatusForNewOrder() {
-        Optional<StatusOrder> optionalStatusOrder = Optional.of(statusOrderDAO.findById(1L));
-        return optionalStatusOrder.orElse(new StatusOrder());
+    public Optional<StatusOrder> getStatusForNewOrder() {
+        return Optional.of(statusOrderDAO.findById(1L));
     }
 }

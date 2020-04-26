@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Order makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost, StatusOrder statusOrder) throws ServiceException {
+    public Optional<Order> makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost, StatusOrder statusOrder) throws ServiceException {
         if(order==null
                 ||tourPackageOrder==null
                 ||currentUser==null
@@ -34,7 +34,6 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalCost(totalCost);
         order.setStatus(statusOrder);
         order.setCreateDate(new Date());
-        Optional<Order> optionalOrder=Optional.of(orderDAO.makePersistent(order));
-        return optionalOrder.orElse(new Order());
+        return Optional.of(orderDAO.makePersistent(order));
     }
 }

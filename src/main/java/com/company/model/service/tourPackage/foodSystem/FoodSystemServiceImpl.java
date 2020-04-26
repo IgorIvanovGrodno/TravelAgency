@@ -6,7 +6,6 @@ import com.company.model.domain.tourPackage.FoodSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,15 +19,13 @@ public class FoodSystemServiceImpl implements FoodSystemService {
     }
 
     @Override
-    public List<FoodSystem> getAllFoodSystems() {
-        Optional<List<FoodSystem>> optionalFoodSystem = Optional.of(foodSystemDAO.findAll());
-        return optionalFoodSystem.orElse(new ArrayList<>());
+    public Optional<List<FoodSystem>> getAllFoodSystems() {
+       return Optional.of(foodSystemDAO.findAll());
     }
 
     @Override
-    public FoodSystem getFoodSystemByName(String name) throws ServiceException {
+    public Optional<FoodSystem> getFoodSystemByName(String name) throws ServiceException {
         if (name==null) throw new ServiceException("Incorrect value of food system");
-        Optional<FoodSystem> optionalFoodSystem = Optional.of(foodSystemDAO.findByName(name));
-        return optionalFoodSystem.orElse(new FoodSystem());
+        return Optional.of(foodSystemDAO.findByName(name));
     }
 }

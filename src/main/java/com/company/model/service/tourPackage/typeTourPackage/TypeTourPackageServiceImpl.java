@@ -6,7 +6,6 @@ import com.company.model.domain.tourPackage.TypeTourPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,15 +19,13 @@ public class TypeTourPackageServiceImpl implements TypeTourPackageService {
     }
 
     @Override
-    public List<TypeTourPackage> getAllTypes() {
-        Optional<List<TypeTourPackage>> optionalTypeTourPackages = Optional.of(typeTourPackageDAO.findAll());
-        return optionalTypeTourPackages.orElse(new ArrayList<>());
+    public Optional<List<TypeTourPackage>> getAllTypes() {
+        return Optional.of(typeTourPackageDAO.findAll());
     }
 
     @Override
-    public TypeTourPackage getTypeTourPackageByName(String name) throws ServiceException {
+    public Optional<TypeTourPackage> getTypeTourPackageByName(String name) throws ServiceException {
         if(name==null) throw new ServiceException("Incorrect name of type tour of tour package");
-        Optional<TypeTourPackage> optionalTypeTourPackage = Optional.of(typeTourPackageDAO.findByName(name));
-        return optionalTypeTourPackage.orElse(new TypeTourPackage());
+        return Optional.of(typeTourPackageDAO.findByName(name));
     }
 }

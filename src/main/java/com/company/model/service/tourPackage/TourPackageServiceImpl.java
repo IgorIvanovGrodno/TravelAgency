@@ -35,17 +35,15 @@ public class TourPackageServiceImpl implements TourPackageService {
     }
 
     @Override
-    public TourPackage getTourPackage(Long id) throws ServiceException {
+    public Optional<TourPackage> getTourPackage(Long id) throws ServiceException {
         if(id==null) throw new ServiceException("Incorrect id of tour package");
-        Optional<TourPackage> optionalTourPackage = Optional.of(tourPackageDAO.findById(id));
-        return optionalTourPackage.orElse(new TourPackage());
+        return Optional.of(tourPackageDAO.findById(id));
     }
 
     @Override
-    public TourPackage createTourPackage(TourPackage tourPackage) throws ServiceException {
+    public Optional<TourPackage> createTourPackage(TourPackage tourPackage) throws ServiceException {
         if(tourPackage==null) throw new ServiceException("Incorrect data of tour package");
-        Optional<TourPackage> optionalTourPackage = Optional.of(tourPackageDAO.makePersistent(tourPackage));
-        return optionalTourPackage.orElse(new TourPackage());
+        return Optional.of(tourPackageDAO.makePersistent(tourPackage));
     }
 
     @Override

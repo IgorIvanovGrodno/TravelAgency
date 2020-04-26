@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.exceptions.ControllerException;
 import com.company.exceptions.ServiceException;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.order.Order;
@@ -38,7 +39,7 @@ public class OrderController {
                                 @ModelAttribute("tourPackageForOrder")TourPackage tourPackageForOrder,
                                 BindingResult result,
                                 Principal principal
-                                ) throws ServiceException {
+                                ) throws ServiceException, ControllerException {
         tourPackageIdValidator.validate(tourPackageForOrder, result);
         ModelAndView modelAndView = new ModelAndView();
         if(result.hasErrors()){
@@ -48,7 +49,7 @@ public class OrderController {
             return modelAndView;
         }
         Order order = new Order();
-        TourPackage tourPackage = facadeTourPackage.getTourPackage(tourPackageForOrder.getId());
+        TourPackage tourPackage = facadeTourPackage.getTourPackage(tourPackageForOrder.getId()).orElseThrow(()->new ControllerException("Not found tour package"));
         double totalPrice = facadeTourPackage.getTotalPrice(tourPackage.getPrice(), principal);
         request.getSession().setAttribute("tourPackageForOrder", tourPackage);
         modelAndView.addObject("totalPrice", (long)totalPrice);

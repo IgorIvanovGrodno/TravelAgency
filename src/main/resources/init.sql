@@ -25,8 +25,7 @@ insert into transport(name)
 values ('AIRPLANE')
      ,('TRAIN')
      ,('SHIP')
-     ,('BUS')
-     ,('RELAXATION');
+     ,('BUS');
 
 CREATE TABLE food_system
 (

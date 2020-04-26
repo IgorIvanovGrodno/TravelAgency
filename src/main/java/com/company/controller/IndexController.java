@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.exceptions.ControllerException;
 import com.company.exceptions.ServiceException;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.TourPackage;
@@ -47,7 +48,7 @@ public class IndexController {
                                @ModelAttribute("tourPackageForOrder")
                                TourPackage tourPackageForOrder,
                                Principal principal
-                               ) throws ServiceException {
+                               ) throws ServiceException, ControllerException {
 
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
@@ -55,9 +56,9 @@ public class IndexController {
             tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
             request.getSession().setAttribute("tourPackages", tourPackagesListHolder);
-            request.getSession().setAttribute("types", facadeTourPackage.getTypesOfTours());
-            request.getSession().setAttribute("transports", facadeTourPackage.getTransportsOfTours());
-            request.getSession().setAttribute("foodSystemList", facadeTourPackage.getFoodSystemsOfTours());
+            request.getSession().setAttribute("types", facadeTourPackage.getTypesOfTours().orElseThrow(()->new ControllerException("Not found types of tour package")));
+            request.getSession().setAttribute("transports", facadeTourPackage.getTransportsOfTours().orElseThrow(()->new ControllerException("Not found transports of tour package")));
+            request.getSession().setAttribute("foodSystemList", facadeTourPackage.getFoodSystemsOfTours().orElseThrow(()->new ControllerException("Not found food systems of tour package")));
         }else {
             UtilController.pagination(request, page, "tourPackages");
         }
@@ -76,7 +77,7 @@ public class IndexController {
                                          BindingResult result,
                                          @ModelAttribute("tourPackageForOrder")
                                                  TourPackage tourPackageForOrder
-                                         ) throws ServiceException {
+                                         ) throws ServiceException, ControllerException {
 
         selectedParameterValidator.validate(parametersSelectedForTourPackages, result);
         if(result.hasErrors()) {
@@ -94,14 +95,14 @@ public class IndexController {
         return "authorization";
     }
 
-    private void setDiscountForAuthorizedUser(Model model) throws ServiceException {
+    private void setDiscountForAuthorizedUser(Model model) throws ServiceException, ControllerException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication!=null&&authentication.isAuthenticated()) {
             Collection<? extends GrantedAuthority> authorities
                     = authentication.getAuthorities();
             for (GrantedAuthority grantedAuthority : authorities) {
                 if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-                    model.addAttribute("discount", userService.getUserByLogin(authentication.getName()).getDiscount());
+                    model.addAttribute("discount", userService.getUserByLogin(authentication.getName()).orElseThrow(()->new ControllerException("Not found user")).getDiscount());
                     break;
                 }
             }

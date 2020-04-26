@@ -4,9 +4,10 @@ import com.company.exceptions.ServiceException;
 import com.company.model.domain.tourPackage.FoodSystem;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FoodSystemService {
-    List<FoodSystem> getAllFoodSystems();
+    Optional<List<FoodSystem>> getAllFoodSystems();
 
-    FoodSystem getFoodSystemByName(String name) throws ServiceException;
+    Optional<FoodSystem> getFoodSystemByName(String name) throws ServiceException;
 }

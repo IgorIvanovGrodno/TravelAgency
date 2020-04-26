@@ -10,21 +10,22 @@ import com.company.model.domain.tourPackage.Transport;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 public interface FacadeTourPackage {
-    List<TypeTourPackage> getTypesOfTours();
+    Optional<List<TypeTourPackage>> getTypesOfTours();
 
-    List<Transport> getTransportsOfTours();
+    Optional<List<Transport>> getTransportsOfTours();
 
-    List<FoodSystem> getFoodSystemsOfTours();
+    Optional<List<FoodSystem>> getFoodSystemsOfTours();
 
     List<TourPackage> getTourPackages();
 
     List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) throws ServiceException;
 
-    TourPackage getTourPackage(Long id) throws ServiceException;
+    Optional<TourPackage> getTourPackage(Long id) throws ServiceException;
 
-    TourPackage createTourPackage(ModelTourPackage modelTourPackage) throws ServiceException;
+    Optional<TourPackage> createTourPackage(ModelTourPackage modelTourPackage) throws ServiceException;
 
     void updateTourPackage(ModelTourPackage modelTourPackage) throws ServiceException;
 

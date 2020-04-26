@@ -4,9 +4,10 @@ import com.company.exceptions.ServiceException;
 import com.company.model.domain.tourPackage.TypeTourPackage;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TypeTourPackageService {
-    List<TypeTourPackage> getAllTypes();
+    Optional<List<TypeTourPackage>> getAllTypes();
 
-    TypeTourPackage getTypeTourPackageByName(String name) throws ServiceException;
+    Optional<TypeTourPackage> getTypeTourPackageByName(String name) throws ServiceException;
 }

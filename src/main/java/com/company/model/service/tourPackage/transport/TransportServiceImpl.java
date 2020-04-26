@@ -6,7 +6,6 @@ import com.company.model.domain.tourPackage.Transport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,15 +19,14 @@ public class TransportServiceImpl implements TransportService {
     }
 
     @Override
-    public List<Transport> getAllTransports() {
-        Optional<List<Transport>> optionalTransport = Optional.of(transportDAO.findAll());
-        return optionalTransport.orElse(new ArrayList<>());
+    public Optional<List<Transport>> getAllTransports() {
+       return Optional.of(transportDAO.findAll());
+
     }
 
     @Override
-    public Transport getTransportByName(String name) throws ServiceException {
+    public Optional<Transport> getTransportByName(String name) throws ServiceException {
         if(name==null) throw new ServiceException("Incorrect value of type tour of transport");
-        Optional<Transport> optionalTransport = Optional.of(transportDAO.findByName(name));
-        return optionalTransport.orElse(new Transport());
+        return Optional.of(transportDAO.findByName(name));
     }
 }

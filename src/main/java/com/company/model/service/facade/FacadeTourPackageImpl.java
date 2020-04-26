@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class FacadeTourPackageImpl implements FacadeTourPackage {
@@ -36,17 +37,17 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
     }
 
     @Override
-    public List<TypeTourPackage> getTypesOfTours(){
+    public Optional<List<TypeTourPackage>> getTypesOfTours(){
         return typeTourPackageService.getAllTypes();
     }
 
     @Override
-    public List<Transport> getTransportsOfTours() {
+    public Optional<List<Transport>> getTransportsOfTours() {
         return transportService.getAllTransports();
     }
 
     @Override
-    public List<FoodSystem> getFoodSystemsOfTours() {
+    public Optional<List<FoodSystem>> getFoodSystemsOfTours() {
         return foodSystemService.getAllFoodSystems();
     }
 
@@ -61,12 +62,12 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
     }
 
     @Override
-    public TourPackage getTourPackage(Long id) throws ServiceException {
+    public Optional<TourPackage> getTourPackage(Long id) throws ServiceException {
         return tourPackageService.getTourPackage(id);
     }
 
     @Override
-    public TourPackage createTourPackage(ModelTourPackage modelTourPackage) throws ServiceException {
+    public Optional<TourPackage> createTourPackage(ModelTourPackage modelTourPackage) throws ServiceException {
         TourPackage tourPackage = getTourPackageAccordingToSelectedParameters(modelTourPackage);
         return tourPackageService.createTourPackage(tourPackage);
     }
@@ -95,9 +96,9 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
         tourPackage.setName(selectedParameters.getDescription());
         tourPackage.setPrice(Integer.parseInt(selectedParameters.getPrice()));
         tourPackage.setStatusHot(selectedParameters.isStatusHot());
-        tourPackage.setTransport(transportService.getTransportByName(selectedParameters.getValueOfTransport()));
-        tourPackage.setType(typeTourPackageService.getTypeTourPackageByName(selectedParameters.getValueOfType()));
-        tourPackage.setFoodSystem(foodSystemService.getFoodSystemByName(selectedParameters.getValueOfFoodSystem()));
+        tourPackage.setTransport(transportService.getTransportByName(selectedParameters.getValueOfTransport()).orElseThrow(()->new ServiceException("Not found transport")));
+        tourPackage.setType(typeTourPackageService.getTypeTourPackageByName(selectedParameters.getValueOfType()).orElseThrow(()->new ServiceException("Not found type of tour package")));
+        tourPackage.setFoodSystem(foodSystemService.getFoodSystemByName(selectedParameters.getValueOfFoodSystem()).orElseThrow(()->new ServiceException("Not found food system")));
         return tourPackage;
     }
 }
