@@ -1,4 +1,4 @@
-package com.company.service.tourPackage.typeTourPackage;
+package com.company.model.service.tourPackage.typeTourPackage;
 
 import com.company.model.dao.tourPackage.typeTourPackage.TypeTourPackageDAO;
 import com.company.model.domain.tourPackage.TypeTourPackage;

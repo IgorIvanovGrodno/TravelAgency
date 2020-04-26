@@ -1,4 +1,4 @@
-package com.company.service.tourPackage;
+package com.company.model.service.tourPackage;
 
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.TourPackage;

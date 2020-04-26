@@ -42,12 +42,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     public SimpleMappingExceptionResolver
     createSimpleMappingExceptionResolver() {
         SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
-
-        Properties mappings = new Properties();
-       // mappings.setProperty("InvalidCreditCardException", "creditCardError");
-        //simpleMappingExceptionResolver.setExceptionMappings(mappings);
         simpleMappingExceptionResolver.setDefaultErrorView("genericError");
-        //simpleMappingExceptionResolver.setWarnLogCategory("example.MvcLogger");
         return simpleMappingExceptionResolver;
     }
 

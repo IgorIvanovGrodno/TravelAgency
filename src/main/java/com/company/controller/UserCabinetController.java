@@ -1,7 +1,8 @@
 package com.company.controller;
 
+import com.company.exceptions.ServiceException;
 import com.company.model.domain.order.Order;
-import com.company.service.user.UserService;
+import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class UserCabinetController {
     public String showPageUser(
             @PathVariable(required=false, name="page") String page,
             HttpServletRequest request,
-            Principal principal) {
+            Principal principal) throws ServiceException {
 
         PagedListHolder<Order> ordersListHolder;
         if(page == null) {

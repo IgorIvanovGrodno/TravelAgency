@@ -2,7 +2,7 @@ package com.company.controller;
 
 import com.company.utils.ModelTourPackage;
 import com.company.model.domain.tourPackage.TourPackage;
-import com.company.service.facade.FacadeTourPackage;
+import com.company.model.service.facade.FacadeTourPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;

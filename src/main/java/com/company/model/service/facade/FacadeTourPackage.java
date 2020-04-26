@@ -1,4 +1,4 @@
-package com.company.service.facade;
+package com.company.model.service.facade;
 
 import com.company.utils.ModelTourPackage;
 import com.company.utils.ParametersSelectedForTourPackages;

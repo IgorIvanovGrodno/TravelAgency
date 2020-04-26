@@ -1,12 +1,13 @@
 package com.company.controller;
 
+import com.company.exceptions.ServiceException;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
-import com.company.service.facade.FacadeOrder;
-import com.company.service.facade.FacadeTourPackage;
-import com.company.service.user.UserService;
+import com.company.model.service.facade.FacadeOrder;
+import com.company.model.service.facade.FacadeTourPackage;
+import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,7 @@ public class OrderController {
             @ModelAttribute("order") Order order,
             BindingResult result,
             @RequestParam long totalCost,
-            Principal principal) {
+            Principal principal) throws ServiceException {
 
         ModelAndView modelAndView = new ModelAndView();
         TourPackage tourPackageOrder = (TourPackage) request.getSession().getAttribute("tourPackageForOrder");

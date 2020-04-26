@@ -1,6 +1,6 @@
-package com.company.service.user;
+package com.company.model.service.user;
 
-import com.company.exceptions.SetDiscountException;
+import com.company.exceptions.ServiceException;
 import com.company.model.dao.user.UserDAO;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.user.User;
@@ -11,7 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,24 +31,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userDAO.findAll();
+        Optional<List<User>> optionalList = Optional.of(userDAO.findAll());
+        return optionalList.orElse(new ArrayList<>());
     }
 
     @Override
-    public void setDiscount(User user) throws SetDiscountException {
-        //if(user==null||user.getId()==null) throw NullUserException();
+    public void setDiscount(User user) throws ServiceException {
+        if(user==null||user.getId()==null) throw new ServiceException("Incorrect input data of user");
         int result =userDAO.setDiscountById(user.getId(), user.getDiscount());
-        if(result<=0) throw new SetDiscountException();
-
+        if(result<=0) throw new ServiceException("Failed to set discount");
     }
 
     @Override
-    public User getUserByLogin(String loginUser) {
-        return userDAO.getUserByLogin(loginUser);
+    public User getUserByLogin(String loginUser) throws ServiceException {
+        if(loginUser==null) throw new ServiceException("Incorrect input data of user's login");
+        Optional<User> optionalUser = Optional.of(userDAO.getUserByLogin(loginUser));
+        return optionalUser.orElse(new User());
     }
 
     @Override
-    public boolean isExistUserWithLogin(String login) {
+    public boolean isExistUserWithLogin(String login) throws ServiceException {
+        if(login==null) throw new ServiceException("Incorrect input data of user's login");
         try{
             User user = userDAO.getUserByLogin(login);
             return user==null?false:true;
@@ -56,7 +61,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(User user) {
+    public void register(User user) throws ServiceException {
+        if(user==null) throw new ServiceException("Incorrect input data of user");
         user.getAuthorization().setRole("ROLE_USER");
         String hashedPassword = passwordEncoder.encode(user.getAuthorization().getPassword());
         user.getAuthorization().setPassword(hashedPassword);
@@ -66,14 +72,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Order> getUsersOrders(String login) {
+    public List<Order> getUsersOrders(String login) throws ServiceException {
         User user = getUserByLogin(login);
         return user.getOrders().stream().sorted((order1, order2)->{return (int) (order2.getId()-order1.getId());}).collect(Collectors.toList());
     }
 
     @Override
-    public int getDiscount(Principal principal) {
-        User user = userDAO.getUserByLogin(principal.getName());
-        return user.getDiscount();
+    public int getDiscount(Principal principal) throws ServiceException {
+        if(principal==null) throw new ServiceException("Incorrect data of authorization");
+        Optional<User> optionalUser = Optional.of(userDAO.getUserByLogin(principal.getName()));
+        return optionalUser.orElse(new User()).getDiscount();
     }
 }

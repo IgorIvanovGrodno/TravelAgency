@@ -1,8 +1,8 @@
 package com.company.controller;
 
-import com.company.exceptions.SetDiscountException;
+import com.company.exceptions.ServiceException;
 import com.company.model.domain.user.User;
-import com.company.service.user.UserService;
+import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 @Controller
 public class SetDiscountController {
@@ -63,7 +62,7 @@ public class SetDiscountController {
             @ModelAttribute("userWithUpdateDiscount")
                     User user,
             BindingResult result
-            ) throws SetDiscountException {
+            ) throws ServiceException {
         userIdValidator.validate(user, result);
         if(result.hasErrors()){
             return "setDiscount";
@@ -71,5 +70,7 @@ public class SetDiscountController {
         userService.setDiscount(user);
         return "redirect:/admin";
     }
+
+
 
 }

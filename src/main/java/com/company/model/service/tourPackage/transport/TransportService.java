@@ -1,4 +1,4 @@
-package com.company.service.tourPackage.transport;
+package com.company.model.service.tourPackage.transport;
 
 
 import com.company.model.domain.tourPackage.Transport;

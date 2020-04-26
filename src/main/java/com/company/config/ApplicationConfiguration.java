@@ -20,7 +20,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:dataSource.properties", "classpath:hibernate.properties"})
-@ComponentScan({"com.company.config", "com.company.service", "com.company.model.dao"})
+@ComponentScan({"com.company.config", "com.company.model.service", "com.company.model.dao"})
 public class ApplicationConfiguration {
 
     @Autowired

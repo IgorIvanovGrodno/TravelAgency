@@ -1,8 +1,9 @@
 package com.company.controller;
 
+import com.company.exceptions.ServiceException;
 import com.company.utils.validators.UserRegistrationValidator;
 import com.company.model.domain.user.User;
-import com.company.service.user.UserService;
+import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class RegistrationController {
     public String registerNewUser(Model model,
                     @ModelAttribute("registeredUser") User user,
                     BindingResult result,
-                    @RequestParam String passwordRepeat){
+                    @RequestParam String passwordRepeat) throws ServiceException {
         userRegistrationValidator.validate(user, passwordRepeat, result);
         if(result.hasErrors()) {
             return "registration";

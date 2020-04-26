@@ -1,4 +1,4 @@
-package com.company.service.order.statusOrder;
+package com.company.model.service.order.statusOrder;
 
 import com.company.model.domain.order.StatusOrder;
 

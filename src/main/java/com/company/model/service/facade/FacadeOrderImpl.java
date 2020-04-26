@@ -1,11 +1,12 @@
-package com.company.service.facade;
+package com.company.model.service.facade;
 
+import com.company.exceptions.ServiceException;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.order.StatusOrder;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
-import com.company.service.order.OrderService;
-import com.company.service.order.statusOrder.StatusOrderService;
+import com.company.model.service.order.OrderService;
+import com.company.model.service.order.statusOrder.StatusOrderService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,8 +20,9 @@ public class FacadeOrderImpl implements FacadeOrder {
     }
 
     @Override
-    public long makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost) {
+    public void makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost) throws ServiceException {
+        if(order==null||tourPackageOrder==null||currentUser==null) throw new ServiceException("Incorrect input data for payment");
         StatusOrder statusOrder = statusOrderService.getStatusForNewOrder();
-        return orderService.makePayment(order, tourPackageOrder, currentUser, totalCost,statusOrder).getId();
+        orderService.makePayment(order, tourPackageOrder, currentUser, totalCost, statusOrder);
     }
 }

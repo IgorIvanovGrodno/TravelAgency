@@ -1,4 +1,4 @@
-package com.company.service.tourPackage.foodSystem;
+package com.company.model.service.tourPackage.foodSystem;
 
 import com.company.model.dao.tourPackage.foodSystem.FoodSystemDAO;
 import com.company.model.domain.tourPackage.FoodSystem;

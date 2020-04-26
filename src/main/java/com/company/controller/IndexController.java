@@ -1,9 +1,10 @@
 package com.company.controller;
 
+import com.company.exceptions.ServiceException;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.TourPackage;
-import com.company.service.facade.FacadeTourPackage;
-import com.company.service.user.UserService;
+import com.company.model.service.facade.FacadeTourPackage;
+import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
@@ -43,7 +44,7 @@ public class IndexController {
                                 ParametersSelectedForTourPackages parametersSelectedForTourPackages,
                                @ModelAttribute("tourPackageForOrder")
                                TourPackage tourPackageForOrder
-                               ) {
+                               ) throws ServiceException {
 
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
@@ -80,7 +81,7 @@ public class IndexController {
                                          BindingResult result,
                                          @ModelAttribute("tourPackageForOrder")
                                                  TourPackage tourPackageForOrder
-                                         ) {
+                                         ) throws ServiceException {
 
         selectedParameterValidator.validate(parametersSelectedForTourPackages, result);
         if(result.hasErrors()) {
@@ -99,7 +100,7 @@ public class IndexController {
         return "authorization";
     }
 
-    private void setDiscountForAuthorizedUser(Model model){
+    private void setDiscountForAuthorizedUser(Model model) throws ServiceException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication!=null&&authentication.isAuthenticated()) {
             Collection<? extends GrantedAuthority> authorities

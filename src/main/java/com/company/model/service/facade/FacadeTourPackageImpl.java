@@ -1,4 +1,4 @@
-package com.company.service.facade;
+package com.company.model.service.facade;
 
 import com.company.utils.ModelTourPackage;
 import com.company.utils.ParametersSelectedForTourPackages;
@@ -6,11 +6,11 @@ import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.tourPackage.TypeTourPackage;
 import com.company.model.domain.tourPackage.Transport;
-import com.company.service.tourPackage.TourPackageService;
-import com.company.service.tourPackage.foodSystem.FoodSystemService;
-import com.company.service.tourPackage.transport.TransportService;
-import com.company.service.tourPackage.typeTourPackage.TypeTourPackageService;
-import com.company.service.user.UserService;
+import com.company.model.service.tourPackage.TourPackageService;
+import com.company.model.service.tourPackage.foodSystem.FoodSystemService;
+import com.company.model.service.tourPackage.transport.TransportService;
+import com.company.model.service.tourPackage.typeTourPackage.TypeTourPackageService;
+import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

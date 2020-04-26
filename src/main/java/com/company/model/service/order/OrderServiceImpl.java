@@ -1,4 +1,4 @@
-package com.company.service.order;
+package com.company.model.service.order;
 
 import com.company.model.dao.order.OrderDAO;
 import com.company.model.domain.order.Order;

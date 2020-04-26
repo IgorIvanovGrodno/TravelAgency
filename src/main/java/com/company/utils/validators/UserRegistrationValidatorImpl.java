@@ -1,8 +1,7 @@
 package com.company.utils.validators;
 
 import com.company.model.domain.user.User;
-import com.company.service.user.UserService;
-import com.company.utils.validators.UserRegistrationValidator;
+import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
