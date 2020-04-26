@@ -1,9 +1,8 @@
 package com.company.controller;
 
-import com.company.controller.utils.ModelTourPackage;
+import com.company.utils.ModelTourPackage;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.service.facade.FacadeTourPackage;
-import com.company.service.tourPackage.TourPackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
-public class UpdateTourPackageController {
+public class TourPackageController {
     private FacadeTourPackage facadeTourPackage;
 
     @Autowired
@@ -28,7 +27,7 @@ public class UpdateTourPackageController {
     private Validator modelTourPackageIdValidator;
 
     @Autowired
-    public UpdateTourPackageController(FacadeTourPackage facadeTourPackage) {
+    public TourPackageController(FacadeTourPackage facadeTourPackage) {
         this.facadeTourPackage = facadeTourPackage;
     }
 
@@ -68,6 +67,63 @@ public class UpdateTourPackageController {
             return "updateTourPackage";
         }
         facadeTourPackage.updateTourPackage(modelTourPackage);
+        return "redirect:/admin";
+    }
+
+    @RequestMapping({"admin/delete/","admin/delete/{page}"})
+    public String showDeleteTourPackagePage(Model model,
+                                            @PathVariable(required=false, name="page") String page,
+                                            HttpServletRequest request) {
+        PagedListHolder<TourPackage> tourPackagesListHolder;
+        if(page == null) {
+            tourPackagesListHolder = new PagedListHolder<>();
+            tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
+            tourPackagesListHolder.setPageSize(5);
+            request.getSession().setAttribute("tourPackagesForDelete", tourPackagesListHolder);
+        }else if(page.equals("prev")) {
+            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForDelete");
+            tourPackagesListHolder.previousPage();
+        }else if(page.equals("next")) {
+            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForDelete");
+            tourPackagesListHolder.nextPage();
+        }else {
+            int pageNum = Integer.parseInt(page);
+            tourPackagesListHolder = (PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackagesForDelete");
+            tourPackagesListHolder.setPage(pageNum - 1);
+        }
+        model.addAttribute("deleteTourPackage", new ModelTourPackage());
+        return "deleteTourPackage";
+    }
+
+    @RequestMapping(value = "admin/delete/tourPackage", method = RequestMethod.GET)
+    public String deleteTourPackages(
+            @ModelAttribute("deleteTourPackage")
+                    ModelTourPackage modelTourPackage,
+            BindingResult result) {
+        modelTourPackageIdValidator.validate(modelTourPackage, result);
+        if(result.hasErrors()) {
+            return "deleteTourPackage";
+        }
+        facadeTourPackage.deleteTourPackage(modelTourPackage.getId());
+        return "redirect:/admin";
+    }
+
+    @RequestMapping({"admin/create/**"})
+    public String showCreateTourPackagePage(Model model) {
+        model.addAttribute("newTourPackage", new ModelTourPackage());
+        return "createTourPackage";
+    }
+
+    @RequestMapping(value = {"admin/create/tourPackage"}, method = RequestMethod.GET)
+    public String createTourPackagePage(Model model,
+                                        @Valid
+                                        @ModelAttribute("newTourPackage")
+                                                ModelTourPackage modelTourPackage,
+                                        BindingResult result) {
+        if(result.hasErrors()) {
+            return "createTourPackage";
+        }
+        TourPackage addedTourPackage = facadeTourPackage.createTourPackage(modelTourPackage);
         return "redirect:/admin";
     }
 }

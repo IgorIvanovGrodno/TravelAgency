@@ -1,7 +1,7 @@
 package com.company.service.facade;
 
-import com.company.controller.utils.ModelTourPackage;
-import com.company.controller.utils.ParametersSelectedForTourPackages;
+import com.company.utils.ModelTourPackage;
+import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.tourPackage.TypeTourPackage;
@@ -12,12 +12,12 @@ import com.company.service.tourPackage.transport.TransportService;
 import com.company.service.tourPackage.typeTourPackage.TypeTourPackageService;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.security.Principal;
 import java.util.List;
 
-@Service
+@Component
 public class FacadeTourPackageImpl implements FacadeTourPackage {
     private FoodSystemService foodSystemService;
     private TransportService transportService;

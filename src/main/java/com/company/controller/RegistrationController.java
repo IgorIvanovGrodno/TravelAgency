@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.controller.utils.UserRegistrationValidator;
+import com.company.utils.validators.UserRegistrationValidator;
 import com.company.model.domain.user.User;
 import com.company.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

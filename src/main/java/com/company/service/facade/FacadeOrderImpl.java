@@ -6,9 +6,9 @@ import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
 import com.company.service.order.OrderService;
 import com.company.service.order.statusOrder.StatusOrderService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class FacadeOrderImpl implements FacadeOrder {
     private OrderService orderService;
     private StatusOrderService statusOrderService;

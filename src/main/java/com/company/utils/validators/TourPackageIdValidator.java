@@ -1,21 +1,21 @@
-package com.company.controller.utils;
+package com.company.utils.validators;
 
 import com.company.model.domain.tourPackage.TourPackage;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-@Component("modelTourPackageIdValidator")
-public class ModelTourPackageIdValidator implements Validator {
+@Component("tourPackageIdValidator")
+public class TourPackageIdValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return ModelTourPackage.class.equals(aClass);
+        return TourPackage.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        ModelTourPackage modelTourPackage=(ModelTourPackage) o;
-        if(modelTourPackage.getId()==null){
+        TourPackage tourPackage=(TourPackage) o;
+        if(tourPackage.getId()==null){
             errors.rejectValue("id", "null.id.tour.package");
         }
     }

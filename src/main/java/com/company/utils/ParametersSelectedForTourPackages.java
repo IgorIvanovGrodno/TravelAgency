@@ -1,6 +1,5 @@
-package com.company.controller.utils;
+package com.company.utils;
 
-import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 

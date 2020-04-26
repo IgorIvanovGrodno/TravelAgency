@@ -1,4 +1,4 @@
-package com.company.controller.utils;
+package com.company.utils.validators;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

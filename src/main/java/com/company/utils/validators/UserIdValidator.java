@@ -1,4 +1,4 @@
-package com.company.controller.utils;
+package com.company.utils.validators;
 
 import com.company.model.domain.user.User;
 import org.springframework.stereotype.Component;

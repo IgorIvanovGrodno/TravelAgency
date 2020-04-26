@@ -1,7 +1,7 @@
 package com.company.service.facade;
 
-import com.company.controller.utils.ModelTourPackage;
-import com.company.controller.utils.ParametersSelectedForTourPackages;
+import com.company.utils.ModelTourPackage;
+import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.tourPackage.TypeTourPackage;

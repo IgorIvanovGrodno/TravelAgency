@@ -5,16 +5,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.util.Properties;
+
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.company.controller"})
+@ComponentScan(basePackages = {"com.company.controller", "com.company.utils"})
 public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
@@ -35,6 +37,19 @@ public class WebConfiguration implements WebMvcConfigurer {
         TilesViewResolver viewResolver = new TilesViewResolver();
         registry.viewResolver(viewResolver);
     }*/
+
+    @Bean(name="simpleMappingExceptionResolver")
+    public SimpleMappingExceptionResolver
+    createSimpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+
+        Properties mappings = new Properties();
+       // mappings.setProperty("InvalidCreditCardException", "creditCardError");
+        //simpleMappingExceptionResolver.setExceptionMappings(mappings);
+        simpleMappingExceptionResolver.setDefaultErrorView("genericError");
+        //simpleMappingExceptionResolver.setWarnLogCategory("example.MvcLogger");
+        return simpleMappingExceptionResolver;
+    }
 
     @Bean
     public InternalResourceViewResolver jspViewResolver() {

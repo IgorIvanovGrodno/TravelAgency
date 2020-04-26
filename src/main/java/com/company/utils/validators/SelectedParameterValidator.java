@@ -1,5 +1,6 @@
-package com.company.controller.utils;
+package com.company.utils.validators;
 
+import com.company.utils.ParametersSelectedForTourPackages;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

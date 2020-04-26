@@ -1,4 +1,4 @@
-package com.company.controller.utils;
+package com.company.utils;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;

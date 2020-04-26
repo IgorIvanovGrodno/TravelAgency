@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.controller.utils.ParametersSelectedForTourPackages;
+import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.service.facade.FacadeTourPackage;
 import com.company.service.user.UserService;
