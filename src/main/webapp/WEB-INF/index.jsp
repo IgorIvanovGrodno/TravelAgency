@@ -173,7 +173,7 @@
                         <td>${tour.days}</td>
                         <td>${tour.price}</td>
                         <sec:authorize access="hasRole('ROLE_USER')">
-                            <td>${tour.price*(1-discount/100)}</td>
+                            <td>${tour.price*(1-sessionScope.discount/100)}</td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>

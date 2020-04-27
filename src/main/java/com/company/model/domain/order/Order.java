@@ -26,7 +26,7 @@ public class Order implements Serializable{
     private String numberCard;
 
     @Column(name = "total_cost")
-    private Long totalCost;
+    private Double totalCost;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -47,7 +47,7 @@ public class Order implements Serializable{
     public Order() {
     }
 
-    public Order(String numberCard, Long totalCost) {
+    public Order(String numberCard, Double totalCost) {
         this.numberCard = numberCard;
         this.totalCost = totalCost;
     }
@@ -68,11 +68,11 @@ public class Order implements Serializable{
         this.numberCard = numberCard;
     }
 
-    public Long getTotalCost() {
+    public Double getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(Long totalCost) {
+    public void setTotalCost(Double totalCost) {
         this.totalCost = totalCost;
     }
 

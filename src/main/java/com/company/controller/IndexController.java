@@ -64,7 +64,7 @@ public class IndexController {
         }
         model.addAttribute("selectsParameters", parametersSelectedForTourPackages);
         model.addAttribute("tourPackageForOrder", tourPackageForOrder);
-        setDiscountForAuthorizedUser(model);
+        setDiscountForAuthorizedUser(request);
         return "index";
     }
 
@@ -86,7 +86,6 @@ public class IndexController {
         PagedListHolder<TourPackage> tourPackagesListHolder=(PagedListHolder<TourPackage>) request.getSession().getAttribute("tourPackages");
         tourPackagesListHolder.setSource(facadeTourPackage.getSelectedTourPackages(parametersSelectedForTourPackages));
         tourPackagesListHolder.setPage(0);
-        setDiscountForAuthorizedUser(model);
         return "index";
     }
 
@@ -95,14 +94,14 @@ public class IndexController {
         return "authorization";
     }
 
-    private void setDiscountForAuthorizedUser(Model model) throws ServiceException, ControllerException {
+    private void setDiscountForAuthorizedUser(HttpServletRequest request) throws ServiceException, ControllerException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication!=null&&authentication.isAuthenticated()) {
             Collection<? extends GrantedAuthority> authorities
                     = authentication.getAuthorities();
             for (GrantedAuthority grantedAuthority : authorities) {
                 if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-                    model.addAttribute("discount", userService.getUserByLogin(authentication.getName()).orElseThrow(()->new ControllerException("Not found user")).getDiscount());
+                    request.getSession().setAttribute("discount", userService.getUserByLogin(authentication.getName()).orElseThrow(()->new ControllerException("Not found user")).getDiscount());
                     break;
                 }
             }

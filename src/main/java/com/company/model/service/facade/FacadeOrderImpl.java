@@ -25,10 +25,10 @@ public class FacadeOrderImpl implements FacadeOrder {
     }
 
     @Override
-    public void makePayment(Order order, TourPackage tourPackageOrder, String loginUser, long totalCost) throws ServiceException {
+    public void makePayment(Order order, TourPackage tourPackageOrder, String loginUser) throws ServiceException {
         if(order==null||tourPackageOrder==null|| loginUser ==null) throw new ServiceException("Incorrect input data for payment");
         StatusOrder statusOrder = statusOrderService.getStatusForNewOrder().orElseThrow(()->new ServiceException("Not found status order"));
         User user = userService.getUserByLogin(loginUser).orElseThrow(()->new ServiceException("Not found user"));
-        orderService.makePayment(order, tourPackageOrder, user, totalCost, statusOrder);
+        orderService.makePayment(order, tourPackageOrder, user, statusOrder);
     }
 }

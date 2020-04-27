@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -23,17 +22,15 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Optional<Order> makePayment(Order order, TourPackage tourPackageOrder, User currentUser, long totalCost, StatusOrder statusOrder) throws ServiceException {
+    public void makePayment(Order order, TourPackage tourPackageOrder, User currentUser, StatusOrder statusOrder) throws ServiceException {
         if(order==null
                 ||tourPackageOrder==null
                 ||currentUser==null
-                ||statusOrder==null
-                ||totalCost<0) throw new ServiceException("Incorrect input data for payment");
+                ||statusOrder==null) throw new ServiceException("Incorrect input data for payment");
         order.setTourPackage(tourPackageOrder);
         order.setUser(currentUser);
-        order.setTotalCost(totalCost);
         order.setStatus(statusOrder);
         order.setCreateDate(new Date());
-        return Optional.of(orderDAO.makePersistent(order));
+        orderDAO.makePersistent(order);
     }
 }

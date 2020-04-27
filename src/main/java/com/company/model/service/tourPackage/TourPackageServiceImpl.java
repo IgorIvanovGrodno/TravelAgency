@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TourPackageServiceImpl implements TourPackageService {
@@ -24,14 +23,14 @@ public class TourPackageServiceImpl implements TourPackageService {
     @Override
     public List<TourPackage> getTourPackages() {
         Optional<List<TourPackage>> optionalTourPackages = Optional.of(tourPackageDAO.findAll());
-        return sortListTourPackages(optionalTourPackages.orElse(new ArrayList<>()));
+        return optionalTourPackages.orElse(new ArrayList<>());
     }
 
     @Override
     public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) throws ServiceException {
         if(parametersSelectedForTourPackages==null) throw new ServiceException("Incorrect data of selected parameters for tour package");
         Optional<List<TourPackage>> optionalTourPackages = Optional.of(tourPackageDAO.getSelectedTourPackages(parametersSelectedForTourPackages));
-        return sortListTourPackages(optionalTourPackages.orElse(new ArrayList<>()));
+        return optionalTourPackages.orElse(new ArrayList<>());
     }
 
     @Override
@@ -56,9 +55,5 @@ public class TourPackageServiceImpl implements TourPackageService {
     public void deleteTourPackage(Long id) throws ServiceException {
         if(id==null) throw new ServiceException("Incorrect id of tour package");
         tourPackageDAO.deleteById(id);
-    }
-
-    private List<TourPackage> sortListTourPackages(List<TourPackage> listTourPackages) {
-        return listTourPackages.stream().sorted().collect(Collectors.toList());
     }
 }

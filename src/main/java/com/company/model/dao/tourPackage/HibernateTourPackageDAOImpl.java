@@ -25,10 +25,17 @@ public class HibernateTourPackageDAOImpl extends GenericHibernateDAO<TourPackage
     }
 
     @Override
+    public List<TourPackage> findAll() {
+        Query<TourPackage> query =getSession().createQuery("from TourPackage T order by T.type.name, T.price").setCacheable(true);
+        return query.getResultList();
+    }
+
+    @Override
     public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery<TourPackage> query = builder.createQuery(TourPackage.class);
         Root<TourPackage> root = query.from(TourPackage.class);
+        query.orderBy(builder.asc(root.get("type").get("name")),builder.asc(root.get("price")));
         List<Predicate> predicatesList = createPredicatesFromParametersSelectedForTourPackages(builder, parametersSelectedForTourPackages, root);
         Predicate[] predicates = predicatesList.toArray(new Predicate[predicatesList.size()]);
         query.select(root).where(predicates);

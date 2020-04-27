@@ -83,12 +83,12 @@ values ('The best shopping tour', 1, 1, 1, 3, 300, false )
      , ('Very very cooling cruise', 2, 2, 2, 15, 1000, true)
      , ('The best shopping tour', 3, 3, 3, 5, 300, true )
      , ('Very very cooling cruise', 4, 4, 4, 5, 1000, false)
-     , ('The best shopping tour', 5, 5, 5, 10, 300, false )
+     , ('The best shopping tour', 5, 5, 1, 10, 300, false )
      , ('Very very cooling cruise', 5, 1, 1, 15, 1000, false)
      ,('The best shopping tour', 4, 6, 2, 20, 300, false )
      , ('Very very cooling cruise', 3, 6, 3, 15, 1000, false)
      ,('The best shopping tour', 2, 1, 4, 2, 300, false )
-     , ('Very very cooling cruise', 1, 2, 5, 30, 1000, false);
+     , ('Very very cooling cruise', 1, 2, 4, 30, 1000, false);
 
 CREATE TABLE client
 (
@@ -129,8 +129,8 @@ CREATE TABLE client_order
     client_id           BIGINT(20)         NOT NULL,
     tour_package_id     BIGINT(20)         NOT NULL,
     number_card         INT(4)             NOT NULL,
-    total_cost          BIGINT(20)         NOT NULL,
-    create_date          DATETIME           NOT NULL,
+    total_cost          DOUBLE             NOT NULL,
+    create_date         DATETIME           NOT NULL,
     status              BIGINT             NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE,

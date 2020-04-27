@@ -5,5 +5,5 @@ import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;
 
 public interface FacadeOrder {
-    void makePayment(Order order, TourPackage tourPackageOrder, String loginUser, long totalCost) throws ServiceException;
+    void makePayment(Order order, TourPackage tourPackageOrder, String loginUser) throws ServiceException;
 }
