@@ -10,9 +10,6 @@ import com.company.utils.UtilController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Collection;
 
 @Controller
 public class IndexController {
@@ -77,7 +73,7 @@ public class IndexController {
                                          BindingResult result,
                                          @ModelAttribute("tourPackageForOrder")
                                                  TourPackage tourPackageForOrder
-                                         ) throws ServiceException, ControllerException {
+                                         ) throws ServiceException {
 
         selectedParameterValidator.validate(parametersSelectedForTourPackages, result);
         if(result.hasErrors()) {
@@ -95,17 +91,8 @@ public class IndexController {
     }
 
     private void setDiscountForAuthorizedUser(HttpServletRequest request) throws ServiceException, ControllerException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication!=null&&authentication.isAuthenticated()) {
-            Collection<? extends GrantedAuthority> authorities
-                    = authentication.getAuthorities();
-            for (GrantedAuthority grantedAuthority : authorities) {
-                if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-                    request.getSession().setAttribute("discount", userService.getUserByLogin(authentication.getName()).orElseThrow(()->new ControllerException("Not found user")).getDiscount());
-                    break;
-                }
-            }
+        if(request.isUserInRole("ROLE_USER")) {
+            request.getSession().setAttribute("discount", userService.getUserByLogin(request.getUserPrincipal().getName()).orElseThrow(()->new ControllerException("Not found user")).getDiscount());
         }
-
     }
 }
