@@ -65,17 +65,41 @@ public class HibernateTourPackageDAOImpl extends GenericHibernateDAO<TourPackage
         if(!parametersSelectedForTourPackages.getValueOfTransport().isEmpty())
             predicates.add(builder.equal(root.get("transport").get("name"), parametersSelectedForTourPackages.getValueOfTransport()));
 
-        if(!(parametersSelectedForTourPackages.getMinDay().isEmpty()||parametersSelectedForTourPackages.getMaxDay().isEmpty()))
-        predicates.add(builder.between(root.get("days")
-                , Integer.parseInt(parametersSelectedForTourPackages.getMinDay())
-                , Integer.parseInt(parametersSelectedForTourPackages.getMaxDay())
-        ));
+        if(!(parametersSelectedForTourPackages.getMinDay().isEmpty()||parametersSelectedForTourPackages.getMaxDay().isEmpty())){
+            predicates.add(builder.between(root.get("days")
+                    , Integer.parseInt(parametersSelectedForTourPackages.getMinDay())
+                    , Integer.parseInt(parametersSelectedForTourPackages.getMaxDay())
+            ));
+        }else{
+            if(!parametersSelectedForTourPackages.getMinDay().isEmpty()){
+                predicates.add(builder.gt(root.get("days")
+                        , Integer.parseInt(parametersSelectedForTourPackages.getMinDay())
+                ));
+            }
+            if(!parametersSelectedForTourPackages.getMaxDay().isEmpty()){
+                predicates.add(builder.lt(root.get("days")
+                        , Integer.parseInt(parametersSelectedForTourPackages.getMaxDay())
+                ));
+            }
+        }
 
-        if(!(parametersSelectedForTourPackages.getMinPrice().isEmpty()||parametersSelectedForTourPackages.getMaxPrice().isEmpty()))
-        predicates.add(builder.between(root.get("price")
-                , Integer.parseInt(parametersSelectedForTourPackages.getMinPrice())
-                , Integer.parseInt(parametersSelectedForTourPackages.getMaxPrice())
-        ));
+        if(!(parametersSelectedForTourPackages.getMinPrice().isEmpty()||parametersSelectedForTourPackages.getMaxPrice().isEmpty())){
+            predicates.add(builder.between(root.get("price")
+                    , Integer.parseInt(parametersSelectedForTourPackages.getMinPrice())
+                    , Integer.parseInt(parametersSelectedForTourPackages.getMaxPrice())
+            ));
+        }else{
+            if(!parametersSelectedForTourPackages.getMinPrice().isEmpty()){
+                predicates.add(builder.gt(root.get("price")
+                        , Integer.parseInt(parametersSelectedForTourPackages.getMinPrice())
+                ));
+            }
+            if(!parametersSelectedForTourPackages.getMaxPrice().isEmpty()){
+                predicates.add(builder.lt(root.get("price")
+                        , Integer.parseInt(parametersSelectedForTourPackages.getMaxPrice())
+                ));
+            }
+        }
 
         if(parametersSelectedForTourPackages.isStatusHot())
             predicates.add(builder.equal(root.get("statusHot"), parametersSelectedForTourPackages.isStatusHot()));
