@@ -24,8 +24,8 @@ public class FoodSystemServiceImpl implements FoodSystemService {
     }
 
     @Override
-    public Optional<FoodSystem> getFoodSystemByName(String name) throws ServiceException {
-        if (name==null) throw new ServiceException("Incorrect value of food system");
-        return Optional.of(foodSystemDAO.findByName(name));
+    public Optional<FoodSystem> getFoodSystemById(Long idOfFoodSystem) throws ServiceException {
+        if (idOfFoodSystem==null) throw new ServiceException("Incorrect value of food system");
+        return Optional.of(foodSystemDAO.findById(idOfFoodSystem));
     }
 }

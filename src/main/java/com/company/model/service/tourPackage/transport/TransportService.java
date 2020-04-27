@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TransportService {
+
     Optional<List<Transport>> getAllTransports();
 
-    Optional<Transport> getTransportByName(String name) throws ServiceException;
+    Optional<Transport> getTransportById(Long idOfTransport) throws ServiceException;
 }

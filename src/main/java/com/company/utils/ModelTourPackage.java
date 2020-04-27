@@ -7,9 +7,9 @@ public class ModelTourPackage {
     private Long id;
     @NotEmpty(message = "Description shouldn't be empty!")
     private String description;
-    private String valueOfFoodSystem;
-    private String valueOfTransport;
-    private String valueOfType;
+    private Long idOfFoodSystem;
+    private Long idOfTransport;
+    private Long idOfType;
     private boolean statusHot;
     @NotEmpty(message = "Please, enter count of days!")
     private String day;
@@ -33,28 +33,28 @@ public class ModelTourPackage {
         this.description = description;
     }
 
-    public String getValueOfFoodSystem() {
-        return valueOfFoodSystem;
+    public Long getIdOfFoodSystem() {
+        return idOfFoodSystem;
     }
 
-    public void setValueOfFoodSystem(String valueOfFoodSystem) {
-        this.valueOfFoodSystem = valueOfFoodSystem;
+    public void setIdOfFoodSystem(Long idOfFoodSystem) {
+        this.idOfFoodSystem = idOfFoodSystem;
     }
 
-    public String getValueOfTransport() {
-        return valueOfTransport;
+    public Long getIdOfTransport() {
+        return idOfTransport;
     }
 
-    public void setValueOfTransport(String valueOfTransport) {
-        this.valueOfTransport = valueOfTransport;
+    public void setIdOfTransport(Long idOfTransport) {
+        this.idOfTransport = idOfTransport;
     }
 
-    public String getValueOfType() {
-        return valueOfType;
+    public Long getIdOfType() {
+        return idOfType;
     }
 
-    public void setValueOfType(String valueOfType) {
-        this.valueOfType = valueOfType;
+    public void setIdOfType(Long idOfType) {
+        this.idOfType = idOfType;
     }
 
     public boolean isStatusHot() {
@@ -88,16 +88,16 @@ public class ModelTourPackage {
         ModelTourPackage that = (ModelTourPackage) o;
         return statusHot == that.statusHot &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(valueOfFoodSystem, that.valueOfFoodSystem) &&
-                Objects.equals(valueOfTransport, that.valueOfTransport) &&
-                Objects.equals(valueOfType, that.valueOfType) &&
+                Objects.equals(idOfFoodSystem, that.idOfFoodSystem) &&
+                Objects.equals(idOfTransport, that.idOfTransport) &&
+                Objects.equals(idOfType, that.idOfType) &&
                 Objects.equals(day, that.day) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, valueOfFoodSystem, valueOfTransport, valueOfType, statusHot, day, price);
+        return Objects.hash(description, idOfFoodSystem, idOfTransport, idOfType, statusHot, day, price);
     }
 
     @Override
@@ -105,9 +105,9 @@ public class ModelTourPackage {
         return "ModelTourPackage{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", valueOfFoodSystem='" + valueOfFoodSystem + '\'' +
-                ", valueOfTransport='" + valueOfTransport + '\'' +
-                ", valueOfType='" + valueOfType + '\'' +
+                ", valueOfFoodSystem='" + idOfFoodSystem + '\'' +
+                ", valueOfTransport='" + idOfTransport + '\'' +
+                ", valueOfType='" + idOfType + '\'' +
                 ", statusHot=" + statusHot +
                 ", day='" + day + '\'' +
                 ", price='" + price + '\'' +

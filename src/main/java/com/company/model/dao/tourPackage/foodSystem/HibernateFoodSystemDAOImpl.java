@@ -20,11 +20,4 @@ public class HibernateFoodSystemDAOImpl extends GenericHibernateDAO<FoodSystem, 
         super(sessionFactory);
     }
 
-
-    @Override
-    public FoodSystem findByName(String name) {
-        TypedQuery<FoodSystem> query = getSession().createQuery("from FoodSystem where name=:name").setCacheable(true);
-        query.setParameter("name", name);
-        return query.getSingleResult();
-    }
 }

@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface FoodSystemService {
     Optional<List<FoodSystem>> getAllFoodSystems();
 
-    Optional<FoodSystem> getFoodSystemByName(String name) throws ServiceException;
+    Optional<FoodSystem> getFoodSystemById(Long idOfFoodSystem) throws ServiceException;
 }

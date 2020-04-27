@@ -24,8 +24,8 @@ public class TypeTourPackageServiceImpl implements TypeTourPackageService {
     }
 
     @Override
-    public Optional<TypeTourPackage> getTypeTourPackageByName(String name) throws ServiceException {
-        if(name==null) throw new ServiceException("Incorrect name of type tour of tour package");
-        return Optional.of(typeTourPackageDAO.findByName(name));
+    public Optional<TypeTourPackage> getTypeTourPackageById(Long idOfType) throws ServiceException {
+        if(idOfType==null) throw new ServiceException("Incorrect name of type tour of tour package");
+        return Optional.of(typeTourPackageDAO.findById(idOfType));
     }
 }

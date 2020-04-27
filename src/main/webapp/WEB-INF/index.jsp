@@ -69,23 +69,23 @@
                 <tr>
                     <td>
                         <p>Type</p>
-                    <f:select path="valueOfType">
+                    <f:select path="idOfType">
                         <f:option value="">--Select--</f:option>
-                        <f:options items="${sessionScope.types}"/>
+                        <f:options itemValue="id" items="${sessionScope.types}"/>
                     </f:select>
                     </td>
                     <td>
                         <p>Food System</p>
-                        <f:select path="valueOfFoodSystem">
+                        <f:select path="idOfFoodSystem">
                             <f:option value="">--Select--</f:option>
-                            <f:options items="${sessionScope.foodSystemList}"/>
+                            <f:options itemValue="id" items="${sessionScope.foodSystemList}"/>
                         </f:select>
                     </td>
                     <td>
                         <p>Transport</p>
-                        <f:select path="valueOfTransport">
+                        <f:select path="idOfTransport">
                             <f:option value="">--Select--</f:option>
-                            <f:options items="${sessionScope.transports}"/>
+                            <f:options itemValue="id" items="${sessionScope.transports}"/>
                         </f:select>
                     </td>
                     <td>

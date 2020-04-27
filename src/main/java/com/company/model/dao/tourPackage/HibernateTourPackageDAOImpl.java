@@ -56,14 +56,14 @@ public class HibernateTourPackageDAOImpl extends GenericHibernateDAO<TourPackage
             , Root<TourPackage> root){
         List<Predicate> predicates = new ArrayList<>();
 
-        if(!parametersSelectedForTourPackages.getValueOfType().isEmpty())
-            predicates.add(builder.equal(root.get("type").get("name"), parametersSelectedForTourPackages.getValueOfType()));
+        if(parametersSelectedForTourPackages.getIdOfType()!=null)
+            predicates.add(builder.equal(root.get("type").get("id"), parametersSelectedForTourPackages.getIdOfType()));
 
-        if(!parametersSelectedForTourPackages.getValueOfFoodSystem().isEmpty())
-            predicates.add(builder.equal(root.get("foodSystem").get("name"), parametersSelectedForTourPackages.getValueOfFoodSystem()));
+        if(parametersSelectedForTourPackages.getIdOfFoodSystem()!=null)
+            predicates.add(builder.equal(root.get("foodSystem").get("id"), parametersSelectedForTourPackages.getIdOfFoodSystem()));
 
-        if(!parametersSelectedForTourPackages.getValueOfTransport().isEmpty())
-            predicates.add(builder.equal(root.get("transport").get("name"), parametersSelectedForTourPackages.getValueOfTransport()));
+        if(parametersSelectedForTourPackages.getIdOfTransport()!=null)
+            predicates.add(builder.equal(root.get("transport").get("id"), parametersSelectedForTourPackages.getIdOfTransport()));
 
         if(!(parametersSelectedForTourPackages.getMinDay().isEmpty()||parametersSelectedForTourPackages.getMaxDay().isEmpty())){
             predicates.add(builder.between(root.get("days")

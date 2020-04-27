@@ -4,9 +4,9 @@ import java.util.Objects;
 
 
 public class ParametersSelectedForTourPackages {
-    private String valueOfFoodSystem;
-    private String valueOfTransport;
-    private String valueOfType;
+    private Long idOfFoodSystem;
+    private Long idOfTransport;
+    private Long idOfType;
     private boolean statusHot;
     private String minDay;
     private String maxDay;
@@ -57,28 +57,28 @@ public class ParametersSelectedForTourPackages {
         this.statusHot = statusHot;
     }
 
-    public String getValueOfType() {
-        return valueOfType;
+    public Long getIdOfType() {
+        return idOfType;
     }
 
-    public void setValueOfType(String valueOfType) {
-        this.valueOfType = valueOfType;
+    public void setIdOfType(Long idOfType) {
+        this.idOfType = idOfType;
     }
 
-    public String getValueOfFoodSystem() {
-        return valueOfFoodSystem;
+    public Long getIdOfFoodSystem() {
+        return idOfFoodSystem;
     }
 
-    public void setValueOfFoodSystem(String valueOfFoodSystem) {
-        this.valueOfFoodSystem = valueOfFoodSystem;
+    public void setIdOfFoodSystem(Long idOfFoodSystem) {
+        this.idOfFoodSystem = idOfFoodSystem;
     }
 
-    public String getValueOfTransport() {
-        return valueOfTransport;
+    public Long getIdOfTransport() {
+        return idOfTransport;
     }
 
-    public void setValueOfTransport(String valueOfTransport) {
-        this.valueOfTransport = valueOfTransport;
+    public void setIdOfTransport(Long idOfTransport) {
+        this.idOfTransport = idOfTransport;
     }
 
     @Override
@@ -87,9 +87,9 @@ public class ParametersSelectedForTourPackages {
         if (o == null || getClass() != o.getClass()) return false;
         ParametersSelectedForTourPackages that = (ParametersSelectedForTourPackages) o;
         return statusHot == that.statusHot &&
-                Objects.equals(valueOfFoodSystem, that.valueOfFoodSystem) &&
-                Objects.equals(valueOfTransport, that.valueOfTransport) &&
-                Objects.equals(valueOfType, that.valueOfType) &&
+                Objects.equals(idOfFoodSystem, that.idOfFoodSystem) &&
+                Objects.equals(idOfTransport, that.idOfTransport) &&
+                Objects.equals(idOfType, that.idOfType) &&
                 Objects.equals(minDay, that.minDay) &&
                 Objects.equals(maxDay, that.maxDay) &&
                 Objects.equals(minPrice, that.minPrice) &&
@@ -98,15 +98,15 @@ public class ParametersSelectedForTourPackages {
 
     @Override
     public int hashCode() {
-        return Objects.hash(valueOfFoodSystem, valueOfTransport, valueOfType, statusHot, minDay, maxDay, minPrice, maxPrice);
+        return Objects.hash(idOfFoodSystem, idOfTransport, idOfType, statusHot, minDay, maxDay, minPrice, maxPrice);
     }
 
     @Override
     public String toString() {
         return "ParametersSelectedForTourPackages{" +
-                "valueOfFoodSystem='" + valueOfFoodSystem + '\'' +
-                ", valueOfTransport='" + valueOfTransport + '\'' +
-                ", valueOfType='" + valueOfType + '\'' +
+                "valueOfFoodSystem='" + idOfFoodSystem + '\'' +
+                ", valueOfTransport='" + idOfTransport + '\'' +
+                ", valueOfType='" + idOfType + '\'' +
                 ", statusHot=" + statusHot +
                 ", minDay='" + minDay + '\'' +
                 ", maxDay='" + maxDay + '\'' +

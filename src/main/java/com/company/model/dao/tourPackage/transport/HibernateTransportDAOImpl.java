@@ -19,13 +19,5 @@ public class HibernateTransportDAOImpl extends GenericHibernateDAO<Transport, Lo
     @Autowired
     public HibernateTransportDAOImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
-
-    }
-
-    @Override
-    public Transport findByName(String name) {
-        TypedQuery<Transport> query = getSession().createQuery("from Transport where name=:name").setCacheable(true);
-        query.setParameter("name", name);
-        return query.getSingleResult();
     }
 }

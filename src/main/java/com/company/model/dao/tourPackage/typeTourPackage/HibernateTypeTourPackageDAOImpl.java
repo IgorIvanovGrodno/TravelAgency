@@ -18,13 +18,6 @@ public class HibernateTypeTourPackageDAOImpl extends GenericHibernateDAO<TypeTou
     @Autowired
     public HibernateTypeTourPackageDAOImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
-
     }
 
-    @Override
-    public TypeTourPackage findByName(String name) {
-        TypedQuery<TypeTourPackage> query = getSession().createQuery("from TypeTourPackage where name=:name").setCacheable(true);
-        query.setParameter("name", name);
-        return query.getSingleResult();
-    }
 }

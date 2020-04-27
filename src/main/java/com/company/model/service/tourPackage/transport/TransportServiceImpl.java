@@ -25,8 +25,8 @@ public class TransportServiceImpl implements TransportService {
     }
 
     @Override
-    public Optional<Transport> getTransportByName(String name) throws ServiceException {
-        if(name==null) throw new ServiceException("Incorrect value of type tour of transport");
-        return Optional.of(transportDAO.findByName(name));
+    public Optional<Transport> getTransportById(Long idOfTransport) throws ServiceException {
+        if(idOfTransport==null) throw new ServiceException("Incorrect value of type tour of transport");
+        return Optional.of(transportDAO.findById(idOfTransport));
     }
 }

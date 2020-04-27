@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TypeTourPackageService {
+
     Optional<List<TypeTourPackage>> getAllTypes();
 
-    Optional<TypeTourPackage> getTypeTourPackageByName(String name) throws ServiceException;
+    Optional<TypeTourPackage> getTypeTourPackageById(Long idOfType) throws ServiceException;
 }

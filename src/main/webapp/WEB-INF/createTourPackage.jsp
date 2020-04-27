@@ -16,21 +16,21 @@
             <table cellspacing="15">
                 <tr>
                     <td>
-                        <f:label path="valueOfType">Type</f:label>
-                        <f:select path="valueOfType">
-                            <f:options items="${sessionScope.types}"/>
+                        <f:label path="idOfType">Type</f:label>
+                        <f:select path="idOfType">
+                            <f:options itemValue="id" items="${sessionScope.types}"/>
                         </f:select>
                     </td>
                     <td>
-                        <f:label path="valueOfFoodSystem">Food System</f:label>
-                        <f:select path="valueOfFoodSystem">
-                            <f:options items="${sessionScope.foodSystemList}"/>
+                        <f:label path="idOfFoodSystem">Food System</f:label>
+                        <f:select path="idOfFoodSystem">
+                            <f:options itemValue="id" items="${sessionScope.foodSystemList}"/>
                         </f:select>
                     </td>
                     <td>
-                        <f:label path="valueOfTransport">Transport</f:label>
-                        <f:select path="valueOfTransport">
-                            <f:options items="${sessionScope.transports}"/>
+                        <f:label path="idOfTransport">Transport</f:label>
+                        <f:select path="idOfTransport">
+                            <f:options itemValue="id" items="${sessionScope.transports}"/>
                         </f:select>
                     </td>
                     <td>

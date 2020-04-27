@@ -96,9 +96,9 @@ public class FacadeTourPackageImpl implements FacadeTourPackage {
         tourPackage.setName(selectedParameters.getDescription());
         tourPackage.setPrice(Integer.parseInt(selectedParameters.getPrice()));
         tourPackage.setStatusHot(selectedParameters.isStatusHot());
-        tourPackage.setTransport(transportService.getTransportByName(selectedParameters.getValueOfTransport()).orElseThrow(()->new ServiceException("Not found transport")));
-        tourPackage.setType(typeTourPackageService.getTypeTourPackageByName(selectedParameters.getValueOfType()).orElseThrow(()->new ServiceException("Not found type of tour package")));
-        tourPackage.setFoodSystem(foodSystemService.getFoodSystemByName(selectedParameters.getValueOfFoodSystem()).orElseThrow(()->new ServiceException("Not found food system")));
+        tourPackage.setTransport(transportService.getTransportById(selectedParameters.getIdOfTransport()).orElseThrow(()->new ServiceException("Not found transport")));
+        tourPackage.setType(typeTourPackageService.getTypeTourPackageById(selectedParameters.getIdOfType()).orElseThrow(()->new ServiceException("Not found type of tour package")));
+        tourPackage.setFoodSystem(foodSystemService.getFoodSystemById(selectedParameters.getIdOfFoodSystem()).orElseThrow(()->new ServiceException("Not found food system")));
         return tourPackage;
     }
 }
