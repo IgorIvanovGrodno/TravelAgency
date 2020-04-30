@@ -1,0 +1,36 @@
+.sidebar{
+    width: 250px;
+    float: left;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    list-style-position: inside;
+    padding: 10px;
+}
+
+nav li:hover {
+    background-color: darkgray;
+}
+
+.aside-menu li {
+    font-weight: 300;
+    list-style-type: square;
+    border-top: 1px solid #e7e7e7;
+}
+
+.aside-menu li:first-child {
+    border: none;
+}
+
+.aside-menu a {
+    color: #8f8f8f;
+}

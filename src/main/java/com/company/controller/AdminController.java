@@ -52,7 +52,7 @@ public class AdminController {
             UtilController.pagination(request, page, "usersForSetDiscount");
         }
         model.addAttribute("userWithUpdateDiscount", new User());
-        return "setDiscount";
+        return "set_discount";
     }
 
     @RequestMapping(value = "admin/set/discount/set", method = RequestMethod.GET)
@@ -62,9 +62,9 @@ public class AdminController {
     ) throws ServiceException {
         userIdValidator.validate(user, result);
         if(result.hasErrors()){
-            return "setDiscount";
+            return "set_discount";
         }
         userService.setDiscount(user);
-        return "redirect:/admin";
+        return "admin";
     }
 }

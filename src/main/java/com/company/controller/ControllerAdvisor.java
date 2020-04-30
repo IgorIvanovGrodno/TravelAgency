@@ -21,7 +21,7 @@ public class ControllerAdvisor {
     public ModelAndView handleServiceException(Exception ex) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", ex.getMessage());
-        modelAndView.setViewName("genericError");
+        modelAndView.setViewName("generic_error");
         return modelAndView;
     }
 
@@ -29,7 +29,7 @@ public class ControllerAdvisor {
     public ModelAndView handleControllerException(Exception ex) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", ex.getMessage());
-        modelAndView.setViewName("genericError");
+        modelAndView.setViewName("generic_error");
         return modelAndView;
     }
 }

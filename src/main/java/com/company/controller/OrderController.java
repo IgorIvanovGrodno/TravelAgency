@@ -2,7 +2,6 @@ package com.company.controller;
 
 import com.company.exceptions.ControllerException;
 import com.company.exceptions.ServiceException;
-import com.company.utils.OrderModel;
 import com.company.utils.ParametersSelectedForTourPackages;
 import com.company.model.domain.order.Order;
 import com.company.model.domain.tourPackage.TourPackage;

@@ -1,0 +1,43 @@
+body {
+    color: #8f8f8f;
+    font: 20px Tahoma, sans-serif;
+    background-color: #f8f8f8;
+    border-top: 5px solid #7e7e7e;
+    margin: 0;
+}
+
+#wrapper{
+    width: 1000px;
+    margin: auto;
+    background-color: white;
+    color: black;
+}
+.textSelectedParameter{
+
+    text-align: center;
+    font-size: 200%;
+}
+#selectField{
+    margin: 0px 200px 0px 200px;
+}
+
+.headOfListTours{
+    color: darkorange;
+}
+
+.adminWrapper{
+    position: relative;
+    min-height: 100%;
+}
+
+.adminContent {
+    background-color: white;
+    font: 20px Tahoma, sans-serif;
+    color: black;
+    min-height: 100%;
+    padding-bottom: 110px;
+}
+
+.bodyAdmin{
+    height: 100%;
+}

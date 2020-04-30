@@ -37,6 +37,6 @@ public class UserCabinetController {
         }else {
             UtilController.pagination(request, page, "usersOrders");
         }
-        return "userCabinet";
+        return "user_cabinet";
     }
 }
