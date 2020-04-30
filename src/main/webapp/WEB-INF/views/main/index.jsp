@@ -42,7 +42,7 @@
                         <td>
                             <p>Days between</p>
                             <br/>
-                            <div><f:errors path="minDay" /></div>
+                            <div><f:errors cssClass="errorMessage" path="minDay" /></div>
                             <div>
                                 <f:label path="minDay">minDay</f:label>
                                 <f:input id="minD" type="number" path="minDay" maxlength="6" min="0"/>
@@ -58,7 +58,7 @@
                         <td>
                             <p>Price between</p>
                             <br/>
-                            <div><f:errors path="minPrice" /></div>
+                            <div><f:errors cssClass="errorMessage" path="minPrice" /></div>
                             <div>
                                 <f:label path="minPrice">minPrice</f:label>
                                 <f:input type="number" path="minPrice" maxlength="10" min="0"/>
@@ -104,7 +104,7 @@
 
             <%--@elvariable id="tourPackageForOrder" type="com.company.model.domain.tourPackage.TourPackage"--%>
             <f:form action="/user/order" modelAttribute="tourPackageForOrder" method="get" align="center">
-                <div><f:errors path="id" /></div>
+                <div><f:errors cssClass="errorMessage" path="id" /></div>
                 <c:forEach var="tour" items="${tourPageList.pageList}">
                     <tr>
                         <td>

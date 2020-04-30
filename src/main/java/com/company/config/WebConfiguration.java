@@ -1,9 +1,11 @@
 package com.company.config;
 
+import com.company.utils.logger.LoggingAspect;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 @EnableWebMvc
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages = {"com.company.controller", "com.company.utils"})
 public class WebConfiguration implements WebMvcConfigurer {
 
@@ -28,6 +31,11 @@ public class WebConfiguration implements WebMvcConfigurer {
         return tilesConfigurer;
     }
 
+    @Bean
+    public LoggingAspect loggingAspect(){
+        return new LoggingAspect();
+    }
+
    @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         TilesViewResolver viewResolver = new TilesViewResolver();
@@ -38,18 +46,9 @@ public class WebConfiguration implements WebMvcConfigurer {
     public SimpleMappingExceptionResolver
     createSimpleMappingExceptionResolver() {
         SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
-        simpleMappingExceptionResolver.setDefaultErrorView("genericError");
+        simpleMappingExceptionResolver.setDefaultErrorView("generic_error");
         return simpleMappingExceptionResolver;
     }
-
-   /* @Bean
-    public InternalResourceViewResolver jspViewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }*/
 
     @Bean
     public MessageSource messageSource() {

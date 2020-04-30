@@ -46,6 +46,7 @@ public class IndexController {
                                Principal principal
                                ) throws ServiceException, ControllerException {
 
+
         PagedListHolder<TourPackage> tourPackagesListHolder;
         if(page == null) {
             tourPackagesListHolder = new PagedListHolder<>();

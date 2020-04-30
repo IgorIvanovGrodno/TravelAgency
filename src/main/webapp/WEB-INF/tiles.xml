@@ -28,10 +28,14 @@
     </definition>
 
 
-    <definition name="registration" template="/WEB-INF/views/authorization/registration.jsp">
+    <definition name="registration" template="/WEB-INF/views/authorization/auth_template.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/authorization/registration.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
     </definition>
 
-    <definition name="authorization" template="/WEB-INF/views/authorization/authorization.jsp">
+    <definition name="authorization" template="/WEB-INF/views/authorization/auth_template.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/authorization/authorization.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
     </definition>
 
     <definition name="admin" template="/WEB-INF/views/admin/admin.jsp">
@@ -61,10 +65,14 @@
         <put-attribute name="body" value="/WEB-INF/views/user/user_cabinet.jsp"/>
     </definition>
 
-    <definition name="404" template="/WEB-INF/views/error/404.jsp">
+    <definition name="404" template="/WEB-INF/views/error/error_template.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/error/404.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
     </definition>
 
-    <definition name="generic_error" template="/WEB-INF/views/error/generic_error.jsp">
+    <definition name="generic_error" template="/WEB-INF/views/error/error_template.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/error/generic_error.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
     </definition>
 
 </tiles-definitions>
