@@ -1,4 +1,4 @@
 <div>
-    Hello admin
+    
 </div>
 

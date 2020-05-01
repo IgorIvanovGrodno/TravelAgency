@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="wrapper">
     <c:set value="${sessionScope.tourPackages}" var="tourPageList" />
     <%-- Field filter --%>

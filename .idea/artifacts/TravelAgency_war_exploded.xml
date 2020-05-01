@@ -70,6 +70,9 @@
           <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-jsp:1.0.7" />
           <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-api:1.0.7" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.9.5" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjtools:1.9.5" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">

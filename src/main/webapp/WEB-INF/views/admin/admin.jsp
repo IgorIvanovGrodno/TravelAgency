@@ -6,6 +6,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>Admin</title>
         <link type="text/css" rel="stylesheet" href="<c:url value="/resources/CSS/button.css" />" />
         <link type="text/css" rel="stylesheet" href="<c:url value="/resources/CSS/footer.css" />" />

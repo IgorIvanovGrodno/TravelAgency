@@ -8,7 +8,7 @@
 <html xmlns:jsp="http://java.sun.com/JSP/Page">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Authorization</title>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/CSS/footer.css" />" />
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/CSS/styles.css" />" />

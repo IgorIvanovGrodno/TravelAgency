@@ -9,8 +9,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+
+import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
@@ -53,8 +57,30 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:messages");
+        messageSource.setBasename("classpath:/locales/messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+
+    @Bean(name = "localeChangeInterceptor")
+    public LocaleChangeInterceptor getLocaleChangeInterceptor() {
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("languageVar");
+        return localeChangeInterceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(getLocaleChangeInterceptor()).addPathPatterns("/*");
+    }
+
+    @Bean(name = "localeResolver")
+    public CookieLocaleResolver getLocaleResolver() {
+        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+        cookieLocaleResolver.setDefaultLocale(new Locale("ru"));
+        cookieLocaleResolver.setCookieMaxAge(100000);
+        return cookieLocaleResolver;
+    }
+
+
 }
