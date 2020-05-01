@@ -3,15 +3,9 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<html>
-<head>
-    <title>Admin</title>
-</head>
-<body>
     <%--@elvariable id="userWithUpdateDiscount" type="User"--%>
-    <f:form modelAttribute="userWithUpdateDiscount" action="set" method="get">
+    <f:form cssClass="form" modelAttribute="userWithUpdateDiscount" action="set" method="get">
         <fieldset>
-
             <table cellspacing="15">
                 <tr>
                     <td>
@@ -25,7 +19,6 @@
                 </tr>
             </table>
 
-            <%-- отображение users--%>
             <div align="center">
                 <table cellspacing="15" align="center">
                     <thead>
@@ -55,7 +48,7 @@
                         <td></td>
                         <td>
                             <c:choose>
-                                <%-- кнопка предыдущая страница --%>
+
                                 <c:when test="${users.firstPage}">
                                     <span><spring:message key="index.prev"/></span>
                                 </c:when>
@@ -66,7 +59,7 @@
                             </c:choose>
                             <c:forEach begin="1" end="${users.pageCount}" step="1"  varStatus="tagStatus">
                                 <c:choose>
-                                    <%-- Нумерация страниц --%>
+
                                     <c:when test="${(users.page + 1) == tagStatus.index}">
                                         <span>${tagStatus.index}</span>
                                     </c:when>
@@ -76,7 +69,7 @@
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
-                            <%-- кнопка следующая страница --%>
+
                             <c:choose>
                                 <c:when test="${users.lastPage}">
                                     <span><spring:message key="index.next"/></span>
@@ -93,5 +86,4 @@
             </div>
         </fieldset>
     </f:form>
-</body>
-</html>
+

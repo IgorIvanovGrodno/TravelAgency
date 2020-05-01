@@ -1,10 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="header">
 
-        <div>
+        <div class="lang">
             <a class="headerLocale" href="/?languageVar=en">English</a>
             <a class="headerLocale" href="/?languageVar=ru">Русский</a>
         </div>

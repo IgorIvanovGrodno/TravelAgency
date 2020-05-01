@@ -33,8 +33,7 @@ body {
 .adminContent {
     font: 20px Tahoma, sans-serif;
     color: black;
-    min-height: 100%;
-    padding-bottom: 110px;
+    height: 500px;
 }
 
 .bodyAdmin{
@@ -77,4 +76,8 @@ body {
 
 .errorMessage{
     color: red;
+}
+
+.form{
+    display: inline-block;
 }

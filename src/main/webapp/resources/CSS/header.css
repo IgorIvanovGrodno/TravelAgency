@@ -39,3 +39,7 @@ a.headerLocale:hover{
     padding: 30px 10px;
     margin: 0;
 }
+
+.lang{
+    height: 100px;
+}

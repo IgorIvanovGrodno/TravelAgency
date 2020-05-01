@@ -25,10 +25,12 @@ nav li:hover {
     font-weight: 300;
     list-style-type: square;
     border-top: 1px solid #e7e7e7;
+    align-content: center;
 }
 
 .aside-menu li:first-child {
     border: none;
+    align-items: center;
 }
 
 .aside-menu a {

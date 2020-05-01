@@ -4,6 +4,6 @@
 <h1><spring:message key="error.first.line"/></h1>
 <h1><spring:message key="error.second.line"/></h1>
 <h3><spring:message key="error.third.line"/></h3>
-<h4><spring:message key="error.phone"></h4>
+<h4><spring:message key="error.phone"/></h4>
 </div>
 

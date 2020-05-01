@@ -3,9 +3,9 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div align="center">
-    <h2 >Create tour package</h2>
+    <h2 ><spring:message key="create.tour.package"/></h2>
     <%--@elvariable id="newTourPackage" type="com.company.utils.ModelTourPackage"--%>
-    <f:form modelAttribute="newTourPackage" action="tourPackage" method="get">
+    <f:form cssClass="form" modelAttribute="newTourPackage" action="tourPackage" method="get">
         <fieldset>
             <table cellspacing="15">
                 <tr>
@@ -67,8 +67,4 @@
             </table>
         </fieldset>
     </f:form>
-
 </div>
-
-</body>
-</html>

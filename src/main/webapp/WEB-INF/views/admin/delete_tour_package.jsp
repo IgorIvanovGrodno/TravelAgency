@@ -3,18 +3,16 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sping" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-<head>
-    <title>Admin</title>
-</head>
-<body>
-<%-- Parameters --%>
+
 <%--@elvariable id="deleteTourPackage" type="com.company.utils.ModelTourPackage"--%>
-<f:form modelAttribute="deleteTourPackage" action="tourPackage" method="get">
+<f:form cssClass="form" modelAttribute="deleteTourPackage" action="tourPackage" method="get">
     <fieldset>
-        <table cellspacing="15">
+
 
                 <div align="center">
+
+                    <input type="submit" value="Delete"/>
+
                     <table cellspacing="15" align="center">
                         <thead>
                         <div><f:errors path="id" /></div>
@@ -94,14 +92,6 @@
                         </tfoot>
                     </table>
                 </div>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Delete"/></td>
-                <td></td>
-            </tr>
-        </table>
     </fieldset>
 </f:form>
-</body>
-</html>
+
