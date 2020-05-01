@@ -1,13 +1,14 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
     <title>Admin</title>
 </head>
 <body>
+    <%--@elvariable id="userWithUpdateDiscount" type="User"--%>
     <f:form modelAttribute="userWithUpdateDiscount" action="set" method="get">
         <fieldset>
 
@@ -15,7 +16,7 @@
                 <tr>
                     <td>
                         <f:errors path="discount" />
-                        <f:label path="discount">Set discount</f:label>
+                        <f:label path="discount"><spring:message key="set.discount"/></f:label>
                         <f:input type="number" path="discount" maxlength="6" min="0"/>
                     </td>
                     <td>
@@ -29,8 +30,8 @@
                 <table cellspacing="15" align="center">
                     <thead>
                     <tr style="color: darkorange">
-                        <td><p>name</p></td>
-                        <td><p>discount</p></td>
+                        <td><p><spring:message key="user.name"/></p></td>
+                        <td><p><spring:message key="user.discount"/></p></td>
                     </tr>
                     <tr>
                         <div>
@@ -56,11 +57,11 @@
                             <c:choose>
                                 <%-- кнопка предыдущая страница --%>
                                 <c:when test="${users.firstPage}">
-                                    <span>Prev</span>
+                                    <span><spring:message key="index.prev"/></span>
                                 </c:when>
                                 <c:otherwise>
                                     <c:url value="/admin/set/discount/prev" var="url" />
-                                    <a href='<c:out value="${url}" />'>Prev</a>
+                                    <a href='<c:out value="${url}" />'><spring:message key="index.prev"/></a>
                                 </c:otherwise>
                             </c:choose>
                             <c:forEach begin="1" end="${users.pageCount}" step="1"  varStatus="tagStatus">
@@ -78,11 +79,11 @@
                             <%-- кнопка следующая страница --%>
                             <c:choose>
                                 <c:when test="${users.lastPage}">
-                                    <span>Next</span>
+                                    <span><spring:message key="index.next"/></span>
                                 </c:when>
                                 <c:otherwise>
                                     <c:url value="/admin/set/discount/next" var="url" />
-                                    <a href='<c:out value="${url}" />'>Next</a>
+                                    <a href='<c:out value="${url}" />'><spring:message key="index.next"/></a>
                                 </c:otherwise>
                             </c:choose>
                         </td>
