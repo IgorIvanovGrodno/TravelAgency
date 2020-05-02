@@ -3,15 +3,10 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Order</title>
-</head>
-<body>
-    <h1>Order</h1>
-    <c:set var="tourPackageForOrder" value="${sessionScope.tourPackageForOrder}"/>
-    <div align="center">
+
+    <div class="order" align="center">
+        <h1><spring:message key="order"/></h1>
+        <c:set var="tourPackageForOrder" value="${sessionScope.tourPackageForOrder}"/>
         <table>
             <tr>
                 <%--@elvariable id="order" type="Order"--%>
@@ -21,7 +16,7 @@
 
                             <tr>
                                 <td>
-                                    <div><f:errors path="numberCard" /></div>
+                                    <div><f:errors cssClass="errorMessage" path="numberCard" /></div>
                                     <f:label path="numberCard"><spring:message key="order.number.card"/></f:label>
                                     <f:input type="text" path="numberCard"/>
                                     <input type="submit" value="Pay">
@@ -64,5 +59,3 @@
             </tr>
         </table>
     </div>
-</body>
-</html>

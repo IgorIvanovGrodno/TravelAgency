@@ -4,7 +4,7 @@ package com.company.utils;
 import javax.validation.constraints.Pattern;
 
 public class OrderModel {
-    @Pattern(regexp = "\\d{4}", message = "Please, enter correct number of card (4 digits)")
+    @Pattern(regexp = "\\d{4}", message = "{validator.card.number}")
     private String numberCard;
     private Double totalCost;
 

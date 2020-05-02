@@ -5,15 +5,15 @@ import java.util.Objects;
 
 public class ModelTourPackage {
     private Long id;
-    @NotEmpty(message = "Description shouldn't be empty!")
+    @NotEmpty(message = "{validator.not.empty.description}")
     private String description;
     private Long idOfFoodSystem;
     private Long idOfTransport;
     private Long idOfType;
     private boolean statusHot;
-    @NotEmpty(message = "Please, enter count of days!")
+    @NotEmpty(message = "{validator.not.empty}")
     private String day;
-    @NotEmpty(message = "Please, enter price!")
+    @NotEmpty(message = "{validator.not.empty}")
     private String price;
 
 

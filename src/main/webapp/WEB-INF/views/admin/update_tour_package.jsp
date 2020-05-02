@@ -34,7 +34,7 @@
                 <tr>
                     <td>
                         <br/>
-                        <div><f:errors path="day" /></div>
+                        <div><f:errors cssClass="errorMessage" path="day" /></div>
                         <div>
                             <f:label path="day"><spring:message key="index.days"/></f:label>
                             <f:input type="number" path="day" maxlength="6" min="1"/>
@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         <br/>
-                        <div><f:errors path="price" /></div>
+                        <div><f:errors cssClass="errorMessage" path="price" /></div>
                         <div>
                             <f:label path="price"><spring:message key="index.price"/></f:label>
                             <f:input type="number" path="price" maxlength="10" min="1"/>
@@ -51,7 +51,7 @@
                     </td>
                     <td>
                         <br/>
-                        <div><f:errors path="description" /></div>
+                        <div><f:errors cssClass="errorMessage" path="description" /></div>
                         <div>
                             <f:label path="description"><spring:message key="index.description"/></f:label>
                             <f:input type="text" path="description" maxlength="30"/>
@@ -68,7 +68,7 @@
             <div align="center">
                 <table cellspacing="15" align="center">
                     <thead>
-                    <div><f:errors path="id" /></div>
+                    <div><f:errors cssClass="errorMessage" path="id" /></div>
                     <tr style="color: darkorange">
                         <td><p><spring:message key="index.description"/></p></td>
                         <td><p><spring:message key="index.type"/></p></td>

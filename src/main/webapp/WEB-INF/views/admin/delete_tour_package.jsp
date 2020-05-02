@@ -15,7 +15,7 @@
 
                     <table cellspacing="15" align="center">
                         <thead>
-                        <div><f:errors path="id" /></div>
+                        <div><f:errors cssClass="errorMessage" path="id" /></div>
                         <tr style="color: darkorange">
                             <td><p><sping:message key="index.description"/></p></td>
                             <td><p><spring:message key="index.type"/></p></td>

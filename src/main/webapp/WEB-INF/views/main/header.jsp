@@ -4,7 +4,7 @@
 
 <div class="header">
 
-        <div class="lang">
+        <div align="center" class="lang">
             <a class="headerLocale" href="/?languageVar=en">English</a>
             <a class="headerLocale" href="/?languageVar=ru">Русский</a>
         </div>
@@ -13,7 +13,7 @@
             <h3 class="hello"><spring:message key="header.hello"/> <sec:authentication property="principal.username" />!</h3>
         </sec:authorize>
 
-        <div align="center">
+        <div class="top-menu" align="center">
 
             <ul class="top-menu">
                 <sec:authorize access="!isAuthenticated()">

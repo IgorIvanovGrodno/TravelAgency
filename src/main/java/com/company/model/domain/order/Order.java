@@ -21,7 +21,7 @@ public class Order implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "\\d{4}", message = "Please, enter correct number of card (4 digits)")
+    @Pattern(regexp = "\\d{4}", message = "{validator.card.number}")
     @Column(name = "number_card")
     private String numberCard;
 

@@ -9,7 +9,7 @@
             <table cellspacing="15">
                 <tr>
                     <td>
-                        <f:errors path="discount" />
+                        <f:errors cssClass="errorMessage" path="discount" />
                         <f:label path="discount"><spring:message key="set.discount"/></f:label>
                         <f:input type="number" path="discount" maxlength="6" min="0"/>
                     </td>
@@ -28,7 +28,7 @@
                     </tr>
                     <tr>
                         <div>
-                            <f:errors path="id" />
+                            <f:errors cssClass="errorMessage" path="id" />
                         </div>
                     </tr>
                     </thead>
