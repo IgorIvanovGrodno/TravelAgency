@@ -50,7 +50,7 @@ public class TourPackageController {
         return "update_tour_package";
     }
 
-    @RequestMapping(value = "admin/update/tourPackage/update", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/update/tourPackage/update", method = RequestMethod.POST)
     public String updateTourPackages(
             @Valid
             @ModelAttribute("updateTourPackage")
@@ -79,7 +79,7 @@ public class TourPackageController {
         return "delete_tour_package";
     }
 
-    @RequestMapping(value = "admin/delete/tourPackage", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/delete/tourPackage", method = RequestMethod.POST)
     public String deleteTourPackages(
             @ModelAttribute("deleteTourPackage")
                     ModelTourPackage modelTourPackage,
@@ -98,8 +98,8 @@ public class TourPackageController {
         return "create_tour_package";
     }
 
-    @RequestMapping(value = {"admin/create/tourPackage"}, method = RequestMethod.GET)
-    public String createTourPackagePage(Model model,
+    @RequestMapping(value = {"admin/create/tourPackage"}, method = RequestMethod.POST)
+    public String createTourPackagePage(
                                         @Valid
                                         @ModelAttribute("newTourPackage")
                                                 ModelTourPackage modelTourPackage,

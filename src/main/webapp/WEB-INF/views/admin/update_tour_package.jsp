@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     <%--@elvariable id="updateTourPackage" type="com.company.utils.ModelTourPackage"--%>
-    <f:form cssClass="form" modelAttribute="updateTourPackage" action="update" method="get">
+    <f:form cssClass="form" modelAttribute="updateTourPackage" action="update" method="post">
         <fieldset>
             <table cellspacing="15">
                 <tr>

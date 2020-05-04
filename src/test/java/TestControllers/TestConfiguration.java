@@ -1,5 +1,8 @@
+package TestControllers;
+
 import com.company.model.service.facade.FacadeOrder;
 import com.company.model.service.facade.FacadeTourPackage;
+import com.company.model.service.facade.FacadeTourPackageImpl;
 import com.company.model.service.user.UserService;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +18,7 @@ public class TestConfiguration {
 
     @Bean
     public FacadeTourPackage facadeTourPackageMock(){
-        return Mockito.mock(FacadeTourPackage.class);
+        return Mockito.mock(FacadeTourPackageImpl.class);
     }
 
     @Bean

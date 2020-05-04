@@ -38,7 +38,7 @@ public class AdminController {
         return "admin";
     }
 
-    @RequestMapping({"admin/set/discount/", "admin/set/discount/{page}"})
+    @RequestMapping({"/admin/set/discount/", "/admin/set/discount/{page}"})
     public String showSetDiscountPage(Model model,
                                       @PathVariable(required=false, name="page") String page,
                                       HttpServletRequest request) throws ControllerException {
@@ -55,7 +55,7 @@ public class AdminController {
         return "set_discount";
     }
 
-    @RequestMapping(value = "admin/set/discount/set", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/set/discount/set", method = RequestMethod.POST)
     public String updateUser(
             @ModelAttribute("userWithUpdateDiscount") User user,
             BindingResult result

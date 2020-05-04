@@ -22,27 +22,27 @@ public class TourPackageServiceImpl implements TourPackageService {
 
     @Override
     public List<TourPackage> getTourPackages() {
-        Optional<List<TourPackage>> optionalTourPackages = Optional.of(tourPackageDAO.findAll());
+        Optional<List<TourPackage>> optionalTourPackages = Optional.ofNullable(tourPackageDAO.findAll());
         return optionalTourPackages.orElse(new ArrayList<>());
     }
 
     @Override
     public List<TourPackage> getSelectedTourPackages(ParametersSelectedForTourPackages parametersSelectedForTourPackages) throws ServiceException {
         if(parametersSelectedForTourPackages==null) throw new ServiceException("Incorrect data of selected parameters for tour package");
-        Optional<List<TourPackage>> optionalTourPackages = Optional.of(tourPackageDAO.getSelectedTourPackages(parametersSelectedForTourPackages));
+        Optional<List<TourPackage>> optionalTourPackages = Optional.ofNullable(tourPackageDAO.getSelectedTourPackages(parametersSelectedForTourPackages));
         return optionalTourPackages.orElse(new ArrayList<>());
     }
 
     @Override
     public Optional<TourPackage> getTourPackage(Long id) throws ServiceException {
         if(id==null) throw new ServiceException("Incorrect id of tour package");
-        return Optional.of(tourPackageDAO.findById(id));
+        return Optional.ofNullable(tourPackageDAO.findById(id));
     }
 
     @Override
     public Optional<TourPackage> createTourPackage(TourPackage tourPackage) throws ServiceException {
         if(tourPackage==null) throw new ServiceException("Incorrect data of tour package");
-        return Optional.of(tourPackageDAO.makePersistent(tourPackage));
+        return Optional.ofNullable(tourPackageDAO.makePersistent(tourPackage));
     }
 
     @Override

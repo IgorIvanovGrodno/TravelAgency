@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--@elvariable id="deleteTourPackage" type="com.company.utils.ModelTourPackage"--%>
-<f:form cssClass="form" modelAttribute="deleteTourPackage" action="tourPackage" method="get">
+<f:form cssClass="form" modelAttribute="deleteTourPackage" action="tourPackage" method="post">
     <fieldset>
 
 

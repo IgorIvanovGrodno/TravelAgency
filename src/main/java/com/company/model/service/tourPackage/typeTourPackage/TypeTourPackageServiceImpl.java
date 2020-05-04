@@ -20,12 +20,12 @@ public class TypeTourPackageServiceImpl implements TypeTourPackageService {
 
     @Override
     public Optional<List<TypeTourPackage>> getAllTypes() {
-        return Optional.of(typeTourPackageDAO.findAll());
+        return Optional.ofNullable(typeTourPackageDAO.findAll());
     }
 
     @Override
     public Optional<TypeTourPackage> getTypeTourPackageById(Long idOfType) throws ServiceException {
         if(idOfType==null) throw new ServiceException("Incorrect name of type tour of tour package");
-        return Optional.of(typeTourPackageDAO.findById(idOfType));
+        return Optional.ofNullable(typeTourPackageDAO.findById(idOfType));
     }
 }

@@ -31,7 +31,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registration/user", method = RequestMethod.POST)
-    public String registerNewUser(Model model,
+    public String registerNewUser(
                     @ModelAttribute("registeredUser") User user,
                     BindingResult result,
                     @RequestParam String passwordRepeat) throws ServiceException {
