@@ -136,7 +136,7 @@ public class User implements Serializable {
                 ", secondName='" + secondName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", authorization=" + authorization +
+                ", authorization=" + authorization.getLogin() +
                 ", orders=" + orders +
                 '}';
     }

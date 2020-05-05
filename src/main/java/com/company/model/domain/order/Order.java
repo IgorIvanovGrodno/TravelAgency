@@ -133,7 +133,6 @@ public class Order implements Serializable{
                 "id=" + id +
                 ", numberCard='" + numberCard + '\'' +
                 ", totalCost=" + totalCost +
-                ", user=" + user +
                 ", tourPackage=" + tourPackage +
                 ", status=" + status +
                 ", createDate=" + createDate +

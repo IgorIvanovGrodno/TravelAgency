@@ -85,4 +85,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = Optional.ofNullable(userDAO.getUserByLogin(principal.getName()));
         return optionalUser.orElse(new User()).getDiscount();
     }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 }

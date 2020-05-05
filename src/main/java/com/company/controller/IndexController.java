@@ -46,7 +46,7 @@ public class IndexController {
 
 
         PagedListHolder<TourPackage> tourPackagesListHolder;
-        if(page == null) {
+        if(page == null||page.isEmpty()||page.equals("favicon")) {
             tourPackagesListHolder = new PagedListHolder<>();
             tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
