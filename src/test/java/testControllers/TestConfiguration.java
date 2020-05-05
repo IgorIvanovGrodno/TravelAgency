@@ -18,7 +18,7 @@ public class TestConfiguration {
 
     @Bean
     public FacadeTourPackage facadeTourPackageMock(){
-        return Mockito.mock(FacadeTourPackageImpl.class);
+        return Mockito.mock(FacadeTourPackage.class);
     }
 
     @Bean

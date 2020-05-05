@@ -49,7 +49,6 @@ public class TestRegistrationController {
 
     @Test
     public void shouldReturnAuthorizationViewAndCallMethodOfService_whenPassRequest() throws Exception {
-        Mockito.verify(userServiceMock).register(Mockito.any());
         mockMvc.perform(MockMvcRequestBuilders.post("/registration/user")
                 .param("passwordRepeat", "1")
                 .param("firstName", "1")
@@ -63,6 +62,7 @@ public class TestRegistrationController {
                 .param("authorization.active", "true"))
                 .andExpect(MockMvcResultMatchers.view().name("authorization"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("registeredUser"));
+        Mockito.verify(userServiceMock).register(Mockito.any());
     }
 
     @Test

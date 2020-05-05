@@ -100,7 +100,6 @@ public class TestOrderController {
     @Test
     public  void shouldRedirectToUserCabinetViewAndCallMethodOfFacadeOrder_whenPassRequest() throws Exception {
         Principal principal = Mockito.mock(Principal.class);
-        Mockito.verify(facadeOrderMock).makePayment(Mockito.any(), Mockito.any(), Mockito.anyString());
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("tourPackageForOrder", new TourPackage());
         mockMvc.perform(MockMvcRequestBuilders.get("/user/order/pay").session(session).principal(principal)
@@ -108,12 +107,12 @@ public class TestOrderController {
                 .param("numberCard","1234")
                 .param("totalCost","1"))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/user"));
+        Mockito.verify(facadeOrderMock).makePayment(Mockito.any(), Mockito.any(), Mockito.anyString());
     }
 
     @Test
     public  void shouldReturnOrderViewAndModelExpectedAttributes_whenPassRequestWithIncorrectNumberCard() throws Exception {
         Principal principal = Mockito.mock(Principal.class);
-        Mockito.verify(facadeOrderMock, Mockito.never()).makePayment(Mockito.any(), Mockito.any(), Mockito.anyString());
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("tourPackageForOrder", new TourPackage());
         mockMvc.perform(MockMvcRequestBuilders.get("/user/order/pay").session(session).principal(principal)
@@ -123,5 +122,6 @@ public class TestOrderController {
                 .andExpect(MockMvcResultMatchers.model().attributeExists("tourPackageForOrder"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("totalPrice"))
                 .andExpect(MockMvcResultMatchers.view().name("order"));
+        Mockito.verify(facadeOrderMock, Mockito.never()).makePayment(Mockito.any(), Mockito.any(), Mockito.anyString());
     }
 }

@@ -228,7 +228,7 @@ public class TestIndexController {
 
         Mockito.when(facadeTourPackageMock.getSelectedTourPackages(Mockito.any()))
                 .thenReturn(expectedListTourPackages);
-        Mockito.verify(facadeTourPackageMock).getSelectedTourPackages(Mockito.any());
+
 
         mockMvc.perform(MockMvcRequestBuilders.get("/select").session(session)
                 .param("idOfFoodSystem", "1")
@@ -241,6 +241,8 @@ public class TestIndexController {
                 .param("maxPrice", ""))
                 .andExpect(MockMvcResultMatchers.view().name("index"));
 
+        Mockito.verify(facadeTourPackageMock).getSelectedTourPackages(Mockito.any());
+
     }
 
     @Test
@@ -252,7 +254,6 @@ public class TestIndexController {
 
         Mockito.when(facadeTourPackageMock.getSelectedTourPackages(Mockito.any()))
                 .thenReturn(expectedListTourPackages);
-        Mockito.verify(facadeTourPackageMock, Mockito.never()).getSelectedTourPackages(Mockito.any());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/select").session(session)
                 .param("idOfFoodSystem", "1")
@@ -264,5 +265,7 @@ public class TestIndexController {
                 .param("minPrice", "")
                 .param("maxPrice", ""))
                 .andExpect(MockMvcResultMatchers.view().name("index"));
+
+        Mockito.verify(facadeTourPackageMock, Mockito.never()).getSelectedTourPackages(Mockito.any());
     }
 }
