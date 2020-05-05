@@ -1,4 +1,4 @@
-package TestServices;
+package testServices;
 
 import com.company.exceptions.ServiceException;
 import com.company.model.dao.order.OrderDAO;

@@ -1,4 +1,4 @@
-package TestServices;
+package testServices;
 
 import com.company.model.dao.order.statusOrder.StatusOrderDAO;
 import com.company.model.domain.order.StatusOrder;

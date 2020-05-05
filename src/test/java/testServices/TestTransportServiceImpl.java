@@ -1,12 +1,10 @@
-package TestServices;
+package testServices;
 
 import com.company.exceptions.ServiceException;
 import com.company.model.dao.tourPackage.transport.TransportDAO;
 import com.company.model.domain.tourPackage.Transport;
-import com.company.model.domain.tourPackage.TypeTourPackage;
 import com.company.model.service.tourPackage.transport.TransportService;
 import com.company.model.service.tourPackage.transport.TransportServiceImpl;
-import com.company.model.service.tourPackage.typeTourPackage.TypeTourPackageServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

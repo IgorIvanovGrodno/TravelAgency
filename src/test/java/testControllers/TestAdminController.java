@@ -1,4 +1,4 @@
-package TestControllers;
+package testControllers;
 
 import com.company.config.WebConfiguration;
 import com.company.model.domain.user.User;

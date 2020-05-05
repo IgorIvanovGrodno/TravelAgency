@@ -1,4 +1,4 @@
-package TestServices;
+package testServices;
 
 
 import com.company.exceptions.ServiceException;

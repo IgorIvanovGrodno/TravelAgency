@@ -1,4 +1,4 @@
-package TestControllers;
+package testControllers;
 
 import com.company.model.service.facade.FacadeOrder;
 import com.company.model.service.facade.FacadeTourPackage;
