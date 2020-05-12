@@ -1,81 +1,66 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
-<html>
-<head>
-    <title>Registration</title>
-</head>
-<body>
-    <h1>Form registration</h1>
-    <div align="center">
-        <fieldset>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div class="contentVerticalCenter">
+    <h1><spring:message key="registration"/></h1>
+            <%--@elvariable id="registeredUser" type="User"--%>
             <f:form action="/registration/user" modelAttribute="registeredUser" method="post">
+            <fieldset  class="field">
                 <table>
-                    <tbody>
                     <tr>
                         <td>
-                            <br/>
-                            <div><f:errors path="authorization.login" /></div>
-                            <f:label path="authorization.login">Login:</f:label>
+                            <div><f:errors cssClass="errorMessage" path="authorization.login" /></div>
+                            <f:label path="authorization.login"><spring:message key="login"/></f:label>
                         </td>
                         <td><f:input type="text" path="authorization.login" maxlength="10"/></td>
-                        <br/>
                     </tr>
                     <tr>
                         <td>
                             <br/>
-                            <div><f:errors path="authorization.password" /></div>
-                            <f:label path="authorization.password">Password:</f:label>
+                            <div><f:errors cssClass="errorMessage" path="authorization.password" /></div>
+                            <f:label path="authorization.password"><spring:message key="password"/></f:label>
                         </td>
                         <td><f:input type="password" path="authorization.password" maxlength="10"/></td>
-                        <br/>
                     </tr>
                     <tr>
-                        <td>Password repeat:</td>
+                        <td><spring:message key="password.repeat"/></td>
                         <td><input type="password" name="passwordRepeat" maxlength="10"/></td>
-                        <br/>
+
                     </tr>
                     <tr>
                         <td>
                             <br/>
-                            <div><f:errors path="firstName" /></div>
-                            <f:label path="firstName">First Name:</f:label>
+                            <div><f:errors cssClass="errorMessage" path="firstName" /></div>
+                            <f:label path="firstName"><spring:message key="first.name"/></f:label>
                         </td>
                         <td><f:input type="text" path="firstName" maxlength="10"/></td>
-                        <br/>
                     </tr>
                     <tr>
                         <td>
                             <br/>
-                            <div><f:errors path="secondName" /></div>
-                            <f:label path="secondName">Second Name:</f:label>
+                            <div><f:errors cssClass="errorMessage" path="secondName" /></div>
+                            <f:label path="secondName"><spring:message key="second.name"/></f:label>
                         </td>
                         <td><f:input type="text" path="secondName" maxlength="10"/></td>
-                        <br/>
                     </tr>
                     <tr>
                         <td>
                             <br/>
-                            <div><f:errors path="phoneNumber" /></div>
-                            <f:label path="phoneNumber">Phone number:</f:label>
+                            <div><f:errors cssClass="errorMessage" path="phoneNumber" /></div>
+                            <f:label path="phoneNumber"><spring:message key="phone.number"/></f:label>
                         </td>
                         <td> <f:input type="tel" path="phoneNumber" maxlength="13"/></td>
-                        <br/>
                     </tr>
                     <tr>
                         <td>
                             <br/>
-                            <div><f:errors path="email" /></div>
-                            <f:label path="email">E-mail:</f:label>
+                            <div><f:errors cssClass="errorMessage" path="email" /></div>
+                            <f:label path="email"><spring:message key="email"/></f:label>
                         </td>
                         <td><f:input type="email" path="email" maxlength="30"/></td>
                     </tr>
-                    </tbody>
-                    <tfoot>
                         <input type="submit" value="Registration"/>
-                    </tfoot>
                 </table>
+            </fieldset>
             </f:form>
-        </fieldset>
-    </div>
-</body>
-</html>
+</div>

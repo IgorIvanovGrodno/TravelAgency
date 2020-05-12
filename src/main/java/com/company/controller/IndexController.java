@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
 public class IndexController {
@@ -42,12 +41,12 @@ public class IndexController {
                                 @ModelAttribute("selectsParameters")
                                 ParametersSelectedForTourPackages parametersSelectedForTourPackages,
                                @ModelAttribute("tourPackageForOrder")
-                               TourPackage tourPackageForOrder,
-                               Principal principal
+                               TourPackage tourPackageForOrder
                                ) throws ServiceException, ControllerException {
 
+
         PagedListHolder<TourPackage> tourPackagesListHolder;
-        if(page == null) {
+        if(page == null||page.isEmpty()||page.equals("favicon")) {
             tourPackagesListHolder = new PagedListHolder<>();
             tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
@@ -65,8 +64,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/select", method = RequestMethod.GET)
-    public String showSelectTourPackages(Model model,
-                                         HttpServletRequest request,
+    public String showSelectTourPackages(HttpServletRequest request,
                                          @Valid
                                          @ModelAttribute("selectsParameters")
                                          ParametersSelectedForTourPackages parametersSelectedForTourPackages,

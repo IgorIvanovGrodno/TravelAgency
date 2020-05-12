@@ -20,13 +20,13 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public Optional<List<Transport>> getAllTransports() {
-       return Optional.of(transportDAO.findAll());
+       return Optional.ofNullable(transportDAO.findAll());
 
     }
 
     @Override
     public Optional<Transport> getTransportById(Long idOfTransport) throws ServiceException {
         if(idOfTransport==null) throw new ServiceException("Incorrect value of type tour of transport");
-        return Optional.of(transportDAO.findById(idOfTransport));
+        return Optional.ofNullable(transportDAO.findById(idOfTransport));
     }
 }

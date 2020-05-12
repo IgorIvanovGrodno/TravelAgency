@@ -1,5 +1,5 @@
-a.buttonTour {
-    font-weight: 700;
+a.buttonHeader{
+    font-weight: 600;
     color: black;
     text-decoration: none;
     padding: .8em 1em calc(.8em + 3px);
@@ -8,8 +8,14 @@ a.buttonTour {
     box-shadow: 0 -3px rgb(166, 149, 50) inset;
     transition: 0.2s;
 }
-a.buttonTour:hover { background: #EA9515; }
-a.buttonTour:active {
+a.buttonHeader:hover { background: #EA9515; }
+a.buttonHeader:active {
     background: rgba(255, 160, 28, 0.92);
     box-shadow: 0 3px rgb(166, 149, 50) inset;
+}
+
+div.blockForButton{
+    align-content: center;
+    width: 300px;
+    margin: 10px;
 }

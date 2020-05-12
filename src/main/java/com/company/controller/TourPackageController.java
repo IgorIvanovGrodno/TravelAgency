@@ -47,10 +47,10 @@ public class TourPackageController {
             UtilController.pagination(request, page, "tourPackagesForUpdate");
         }
         model.addAttribute("updateTourPackage", new ModelTourPackage());
-        return "updateTourPackage";
+        return "update_tour_package";
     }
 
-    @RequestMapping(value = "admin/update/tourPackage/update", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/update/tourPackage/update", method = RequestMethod.POST)
     public String updateTourPackages(
             @Valid
             @ModelAttribute("updateTourPackage")
@@ -58,10 +58,10 @@ public class TourPackageController {
             BindingResult result) throws ServiceException {
         modelTourPackageIdValidator.validate(modelTourPackage, result);
         if(result.hasErrors()) {
-            return "updateTourPackage";
+            return "update_tour_package";
         }
         facadeTourPackage.updateTourPackage(modelTourPackage);
-        return "redirect:/admin";
+        return "admin";
     }
 
     @RequestMapping({"admin/delete/","admin/delete/{page}"})
@@ -76,38 +76,38 @@ public class TourPackageController {
             request.getSession().setAttribute("tourPackagesForDelete", tourPackagesListHolder);
         }else {UtilController.pagination(request, page, "tourPackagesForDelete");}
         model.addAttribute("deleteTourPackage", new ModelTourPackage());
-        return "deleteTourPackage";
+        return "delete_tour_package";
     }
 
-    @RequestMapping(value = "admin/delete/tourPackage", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/delete/tourPackage", method = RequestMethod.POST)
     public String deleteTourPackages(
             @ModelAttribute("deleteTourPackage")
                     ModelTourPackage modelTourPackage,
             BindingResult result) throws ServiceException {
         modelTourPackageIdValidator.validate(modelTourPackage, result);
         if(result.hasErrors()) {
-            return "deleteTourPackage";
+            return "delete_tour_package";
         }
         facadeTourPackage.deleteTourPackage(modelTourPackage.getId());
-        return "redirect:/admin";
+        return "admin";
     }
 
     @RequestMapping({"admin/create/**"})
     public String showCreateTourPackagePage(Model model) {
         model.addAttribute("newTourPackage", new ModelTourPackage());
-        return "createTourPackage";
+        return "create_tour_package";
     }
 
-    @RequestMapping(value = {"admin/create/tourPackage"}, method = RequestMethod.GET)
-    public String createTourPackagePage(Model model,
+    @RequestMapping(value = {"admin/create/tourPackage"}, method = RequestMethod.POST)
+    public String createTourPackagePage(
                                         @Valid
                                         @ModelAttribute("newTourPackage")
                                                 ModelTourPackage modelTourPackage,
                                         BindingResult result) throws ServiceException {
         if(result.hasErrors()) {
-            return "createTourPackage";
+            return "create_tour_package";
         }
         facadeTourPackage.createTourPackage(modelTourPackage);
-        return "redirect:/admin";
+        return "admin";
     }
 }

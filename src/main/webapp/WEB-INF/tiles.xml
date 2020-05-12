@@ -1,0 +1,78 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <!-- GENERIC TEMPLATE -->
+    <definition name="generic" template="/WEB-INF/views/main/default_layout.jsp">
+        <put-attribute name="header" value=""/>
+        <put-attribute name="sidebar" value=""/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value=""/>
+    </definition>
+
+    <!-- MAIN TEMPLATE -->
+    <definition name="main" extends="generic">
+        <put-attribute name="header" value="/WEB-INF/views/main/header.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
+    </definition>
+
+    <!-- INDEX VIEW -->
+    <definition name="index" extends="main">
+        <put-attribute name="body" value="/WEB-INF/views/main/index.jsp"/>
+    </definition>
+
+
+    <definition name="order" extends="main">
+        <put-attribute name="body" value="/WEB-INF/views/order/order.jsp"/>
+    </definition>
+
+
+    <definition name="registration" template="/WEB-INF/views/authorization/auth_template.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/authorization/registration.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
+    </definition>
+
+    <definition name="authorization" template="/WEB-INF/views/authorization/auth_template.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/authorization/authorization.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
+    </definition>
+
+    <definition name="admin" template="/WEB-INF/views/admin/admin.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/main/header.jsp"/>
+        <put-attribute name="sidebar" value="/WEB-INF/views/admin/sidebar.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/hello_admin.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
+    </definition>
+
+    <definition name="create_tour_package" extends="admin">
+        <put-attribute name="body" value="/WEB-INF/views/admin/create_tour_package.jsp"/>
+    </definition>
+
+    <definition name="update_tour_package" extends="admin">
+        <put-attribute name="body" value="/WEB-INF/views/admin/update_tour_package.jsp"/>
+    </definition>
+
+    <definition name="delete_tour_package" extends="admin">
+        <put-attribute name="body" value="/WEB-INF/views/admin/delete_tour_package.jsp"/>
+    </definition>
+
+    <definition name="set_discount" extends="admin">
+        <put-attribute name="body" value="/WEB-INF/views/admin/set_discount.jsp"/>
+    </definition>
+
+    <definition name="user_cabinet" extends="main">
+        <put-attribute name="body" value="/WEB-INF/views/user/user_cabinet.jsp"/>
+    </definition>
+
+    <definition name="404" template="/WEB-INF/views/error/error_template.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/error/404.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
+    </definition>
+
+    <definition name="generic_error" template="/WEB-INF/views/error/error_template.jsp">
+        <put-attribute name="body" value="/WEB-INF/views/error/generic_error.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/main/footer.jsp"/>
+    </definition>
+
+</tiles-definitions>

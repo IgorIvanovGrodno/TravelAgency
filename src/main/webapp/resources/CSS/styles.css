@@ -1,0 +1,87 @@
+body {
+    color: #8f8f8f;
+    font: 20px Tahoma, sans-serif;
+    background-color: #f8f8f8;
+    border-top: 5px solid #7e7e7e;
+    margin: 0;
+}
+
+#wrapper{
+    width: 1000px;
+    margin: auto;
+    background-color: white;
+    color: black;
+}
+.textSelectedParameter{
+
+    text-align: center;
+    font-size: 200%;
+}
+#selectField{
+    margin: 0px 200px 0px 200px;
+}
+
+.headOfListTours{
+    color: darkorange;
+}
+
+.adminWrapper{
+    position: relative;
+    min-height: 100%;
+}
+
+.adminContent {
+    font: 20px Tahoma, sans-serif;
+    color: black;
+    height: 500px;
+}
+
+.bodyAdmin{
+    height: 100%;
+}
+
+.errorWrapper{
+    background-image: url("/resources/images/header-image.jpg");
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-color: #dfe2e7;
+    height: 1000px;
+    font-size: 200%;
+    color: #EA9515;
+    -webkit-text-stroke: 1px black;
+}
+
+.authWrapper{
+    background-image: url("/resources/images/header-image.jpg");
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-color: #dfe2e7;
+    height: 1000px;
+    font-size: 150%;
+    color: #EA9515;
+    -webkit-text-stroke: 0.5px black;
+}
+
+.contentVerticalCenter{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.field{
+    box-shadow: black;
+}
+
+.errorMessage{
+    color: red;
+}
+
+.form{
+    display: inline-block;
+}
+
+.order{
+    color: black;
+}

@@ -1,36 +1,30 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<%-- Authorization form--%>
-<div align="center">
-    <h2>Authorization</h2>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div class="contentVerticalCenter">
+    <h2><spring:message key="authorization"/></h2>
     <form action="<c:url value="/j_spring_security_check"/>" method="post" role="form">
-        <fieldset>
+        <fieldset class="field">
             <table cellspacing="0">
                 <tr>
                     <td>
                         <c:if test="${param.error != null}">
-                            <div id="error">
-                                <p>Incorrect authorization or password</p> <!-- Error field -->
+                            <div class="errorMessage" id="error">
+                                <p><spring:message key="incorrect.login.password"/></p> <!-- Error field -->
                             </div>
                         </c:if>
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="email">Login</label></th>
+                    <th><label for="email"><spring:message key="login"/></label></th>
                     <td><input id="email"
                                name="j_username"
                                type="text" /> <!-- Input login -->
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="password">Password</label></th>
+                    <th><label for="password"><spring:message key="password"/></label></th>
                     <td><input id="password"
                                name="j_password"
                                type="password" /> <!-- Input password -->
@@ -42,7 +36,7 @@
                                name="j_remember_me"
                                type="checkbox"/> <!-- Flag "remember me" -->
                         <label for="remember_me"
-                               class="inline">Remember me</label></td>
+                               class="inline"><spring:message key="remember.me"/></label></td>
                 </tr>
                 <tr>
                     <th></th>
@@ -52,5 +46,4 @@
         </fieldset>
     </form>
 </div>
-</body>
-</html>
+

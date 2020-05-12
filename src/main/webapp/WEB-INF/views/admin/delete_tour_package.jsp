@@ -1,28 +1,28 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
-<html>
-<head>
-    <title>Admin</title>
-</head>
-<body>
-<%-- Parameters --%>
-<f:form modelAttribute="deleteTourPackage" action="tourPackage" method="get">
+<%@ taglib prefix="sping" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%--@elvariable id="deleteTourPackage" type="com.company.utils.ModelTourPackage"--%>
+<f:form cssClass="form" modelAttribute="deleteTourPackage" action="tourPackage" method="post">
     <fieldset>
-        <table cellspacing="15">
+
 
                 <div align="center">
+
+                    <input type="submit" value="Delete"/>
+
                     <table cellspacing="15" align="center">
                         <thead>
-                        <div><f:errors path="id" /></div>
+                        <div><f:errors cssClass="errorMessage" path="id" /></div>
                         <tr style="color: darkorange">
-                            <td><p>Description</p></td>
-                            <td><p>Type</p></td>
-                            <td><p>Food System</p></td>
-                            <td><p>Transport</p></td>
-                            <td><p>Days</p></td>
-                            <td><p>Price</p></td>
+                            <td><p><sping:message key="index.description"/></p></td>
+                            <td><p><spring:message key="index.type"/></p></td>
+                            <td><p><spring:message key="index.food.system"/></p></td>
+                            <td><p><sping:message key="index.transport"/></p></td>
+                            <td><p><spring:message key="index.days"/></p></td>
+                            <td><p><spring:message key="index.price"/></p></td>
                         </tr>
                         </thead>
                         <tbody>
@@ -58,11 +58,11 @@
                                 <c:choose>
                                     <%-- кнопка предыдущая страница --%>
                                     <c:when test="${tourPageList.firstPage}">
-                                        <span>Prev</span>
+                                        <span><sping:message key="index.prev"/></span>
                                     </c:when>
                                     <c:otherwise>
                                         <c:url value="/admin/delete/prev" var="url" />
-                                        <a href='<c:out value="${url}" />'>Prev</a>
+                                        <a href='<c:out value="${url}" />'><sping:message key="index.prev"/></a>
                                     </c:otherwise>
                                 </c:choose>
                                 <c:forEach begin="1" end="${tourPageList.pageCount}" step="1"  varStatus="tagStatus">
@@ -80,11 +80,11 @@
                                     <%-- кнопка следующая страница --%>
                                 <c:choose>
                                     <c:when test="${tourPageList.lastPage}">
-                                        <span>Next</span>
+                                        <span><sping:message key="index.next"/></span>
                                     </c:when>
                                     <c:otherwise>
                                         <c:url value="/admin/delete/next" var="url" />
-                                        <a href='<c:out value="${url}" />'>Next</a>
+                                        <a href='<c:out value="${url}" />'><sping:message key="index.next"/></a>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
@@ -92,14 +92,6 @@
                         </tfoot>
                     </table>
                 </div>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Delete"/></td>
-                <td></td>
-            </tr>
-        </table>
     </fieldset>
 </f:form>
-</body>
-</html>
+

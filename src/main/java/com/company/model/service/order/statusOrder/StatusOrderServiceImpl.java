@@ -18,6 +18,6 @@ public class StatusOrderServiceImpl implements StatusOrderService {
 
     @Override
     public Optional<StatusOrder> getStatusForNewOrder() {
-        return Optional.of(statusOrderDAO.findById(1L));
+        return Optional.ofNullable(statusOrderDAO.findById(1L));
     }
 }

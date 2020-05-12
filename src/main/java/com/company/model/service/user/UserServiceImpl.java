@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<List<User>> getAllUsers() {
-        return Optional.of(userDAO.findAll());
+        return Optional.ofNullable(userDAO.findAll());
     }
 
     @Override
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getUserByLogin(String loginUser) throws ServiceException {
         if(loginUser==null) throw new ServiceException("Incorrect input data of user's login");
-        return Optional.of(userDAO.getUserByLogin(loginUser));
+        return Optional.ofNullable(userDAO.getUserByLogin(loginUser));
     }
 
     @Override
@@ -82,7 +82,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public int getDiscount(Principal principal) throws ServiceException {
         if(principal==null) throw new ServiceException("Incorrect data of authorization");
-        Optional<User> optionalUser = Optional.of(userDAO.getUserByLogin(principal.getName()));
+        Optional<User> optionalUser = Optional.ofNullable(userDAO.getUserByLogin(principal.getName()));
         return optionalUser.orElse(new User()).getDiscount();
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }

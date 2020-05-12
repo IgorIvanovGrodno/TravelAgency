@@ -77,7 +77,7 @@ public class LoggingAspect {
 
     @AfterThrowing(pointcut = "springBeanPointcut()", throwing = "exception")
     public void logError(JoinPoint joinPoint, Exception exception){
-        LOGGER.error("Error "+joinPoint+" message: "+exception.getMessage()+"\\r\\n"
+        LOGGER.error("Error "+joinPoint +"name Error:"+exception.getClass().getName()+" message: "+exception.getMessage()+"\\r\\n"
                 +"stack trace: "+ Arrays.stream(exception.getStackTrace()).collect(Collectors.toList())+"\\r\\n");
     }
 }
