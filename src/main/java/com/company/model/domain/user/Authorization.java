@@ -7,76 +7,177 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * This class contains information about authorization.
+ *
+ * @author Igor Ivanov
+ */
 @Entity
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "authorization")
-public class Authorization implements Serializable {
-    private static final long SERIAL_VERSION_UID=31L;
+public class Authorization implements Serializable
+{
+    /**
+     * This field is serial version identifier for serialization.
+     */
+    private static final long SERIAL_VERSION_UID = 31L;
 
+    /**
+     * This field is login and identifier for hibernate.
+     */
     @Id
     private String login;
 
+    /**
+     * This field is password.
+     */
     @Column
     private String password;
 
+    /**
+     * This field is role.
+     */
     @Column
     private String role;
 
+    /**
+     * This field is status person(active/no active).
+     */
     @Column
     private boolean active;
 
+    /**
+     * This field is user which associated with the authorization.
+     */
     @OneToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private User user;
 
-    public Authorization() {
+    /**
+     * Default constructor.
+     */
+    public Authorization()
+    {
     }
 
-    public String getLogin() {
+    /**
+     * This method return login.
+     *
+     * @return login.
+     */
+    public String getLogin()
+    {
         return login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public void setLogin(String login) {
+    /**
+     * This method set login.
+     *
+     * @param login - login.
+     */
+    public void setLogin(String login)
+    {
         this.login = login;
     }
 
-    public User getUser() {
+    /**
+     * This method return password.
+     *
+     * @return password.
+     */
+    public String getPassword()
+    {
+        return password;
+    }
+
+    /**
+     * This method set password.
+     *
+     * @param password - password.
+     */
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    /**
+     * This method return role.
+     *
+     * @return role.
+     */
+    public String getRole()
+    {
+        return role;
+    }
+
+    /**
+     * This method set role.
+     *
+     * @param role - role.
+     */
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
+
+    /**
+     * This method return user which associated with the authorization.
+     *
+     * @return user which associated with the authorization.
+     */
+    public User getUser()
+    {
         return user;
     }
 
-    public void setUser(User user) {
+    /**
+     * This method set user which associated with the authorization.
+     *
+     * @param user - user which associated with the authorization.
+     */
+    public void setUser(User user)
+    {
         this.user = user;
     }
 
-    public boolean isActive() {
+    /**
+     * This method return status person(active/no active).
+     *
+     * @return status person(active/no active).
+     */
+    public boolean isActive()
+    {
         return active;
     }
 
-    public void setActive(boolean active) {
+    /**
+     * This method set status person(active/no active).
+     *
+     * @param active - status person(active/no active).
+     */
+    public void setActive(boolean active)
+    {
         this.active = active;
     }
 
+    /**
+     * This method used for compare objects of authorization.
+     *
+     * @param o - another object.
+     * @return true if objects is equals, else - false.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
         Authorization authorization1 = (Authorization) o;
         return Objects.equals(login, authorization1.login) &&
                 Objects.equals(password, authorization1.password) &&
@@ -84,13 +185,25 @@ public class Authorization implements Serializable {
                 Objects.equals(user, authorization1.user);
     }
 
+    /**
+     * This method return hash of authorization's object.
+     *
+     * @return hash of authorization's object.
+     */
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(login, password, role, user);
     }
 
+    /**
+     * This method return string representation of authorization's object.
+     *
+     * @return string representation of authorization's object.
+     */
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Login{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +

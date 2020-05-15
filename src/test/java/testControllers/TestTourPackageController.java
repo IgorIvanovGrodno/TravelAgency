@@ -57,7 +57,7 @@ public class TestTourPackageController {
     }
 
     @Test
-    public void shouldReturnAdminViewAndShouldCallMethodOfFacadeTourPackage_whenPassRequest() throws Exception {
+    public void shouldReturnAdminView_whenPassRequestWithParams() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/create/tourPackage")
                 .param("description", "name")
                 .param("idOfFoodSystem", "1")
@@ -67,7 +67,6 @@ public class TestTourPackageController {
                 .param("day", "1")
                 .param("price", "1"))
                 .andExpect(MockMvcResultMatchers.view().name("admin"));
-       // Mockito.verify(facadeTourPackageMock).createTourPackage(Mockito.any());
     }
 
     @Test
@@ -146,7 +145,6 @@ public class TestTourPackageController {
                 .param("price","1")
                 .param("statusHot","true"))
                 .andExpect(MockMvcResultMatchers.view().name("admin"));
-        //Mockito.verify(facadeTourPackageMock).updateTourPackage(Mockito.any());
     }
 
     @Test
@@ -161,7 +159,6 @@ public class TestTourPackageController {
                 .param("price","")
                 .param("statusHot","true"))
                 .andExpect(MockMvcResultMatchers.view().name("update_tour_package"));
-       // Mockito.verify(facadeTourPackageMock).updateTourPackage(Mockito.any());
     }
 
     @Test
@@ -223,7 +220,6 @@ public class TestTourPackageController {
                 .param("price","1")
                 .param("statusHot","true"))
                 .andExpect(MockMvcResultMatchers.view().name("admin"));
-        //Mockito.verify(facadeTourPackageMock).deleteTourPackage(Mockito.any());
     }
 
     @Test
@@ -238,7 +234,6 @@ public class TestTourPackageController {
                 .param("price","")
                 .param("statusHot","true"))
                 .andExpect(MockMvcResultMatchers.view().name("delete_tour_package"));
-        // Mockito.verify(facadeTourPackageMock).deleteTourPackage(Mockito.any());
     }
 
 }

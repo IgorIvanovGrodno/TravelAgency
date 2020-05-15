@@ -27,6 +27,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.validateMockitoUsage;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {WebConfiguration.class, TestConfiguration.class})

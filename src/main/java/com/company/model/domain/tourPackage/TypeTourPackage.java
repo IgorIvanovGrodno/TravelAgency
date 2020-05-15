@@ -8,66 +8,150 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class contains information about type of tour package.
+ *
+ * @author Igor Ivanov
+ */
 @Entity
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "tour_type")
-public class TypeTourPackage implements Serializable {
-    private static final long SERIAL_VERSION_UID=23L;
+public class TypeTourPackage implements Serializable
+{
 
+    /**
+     * This field is serial version identifier for serialization.
+     */
+    private static final long SERIAL_VERSION_UID = 23L;
+
+    /**
+     * This field is identifier for hibernate.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * This field is name of tour package's type.
+     */
     @Column
     private String name;
 
+    /**
+     * This field is list of tour packages that have this type.
+     */
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     private List<TourPackage> tourPackage;
 
-    public TypeTourPackage() {
+    /**
+     * Default constructor.
+     */
+    public TypeTourPackage()
+    {
     }
 
-    public List<TourPackage> getTourPackage() {
+    /**
+     * This method return list of tour packages that have this type.
+     *
+     * @return list of tour packages that have this type.
+     */
+    public List<TourPackage> getTourPackage()
+    {
         return tourPackage;
     }
 
-    public void setTourPackage(List<TourPackage> tourPackage) {
+    /**
+     * This method set list of tour packages that have this type.
+     *
+     * @param tourPackage - list of tour packages that have this type.
+     */
+    public void setTourPackage(List<TourPackage> tourPackage)
+    {
         this.tourPackage = tourPackage;
     }
 
-    public String getName() {
+    /**
+     * This method return name of tour package's type.
+     *
+     * @return name of tour package's type.
+     */
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * This method set name of tour package's type.
+     *
+     * @param name - name of tour package's type.
+     */
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public Long getId() {
+    /**
+     * This method return identifier of tour package's type.
+     *
+     * @return identifier of tour package's type.
+     */
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     * This method set identifier of tour package's type.
+     *
+     * @param id - identifier of tour package's type.
+     */
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
+    /**
+     * This method used for compare objects of tour package's type.
+     *
+     * @param o - another object.
+     * @return true if objects is equals, else - false.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
         TypeTourPackage that = (TypeTourPackage) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name);
     }
 
+    /**
+     * This method return hash of tour package's type object.
+     *
+     * @return hash of tour package's type object.
+     */
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(id, name);
     }
 
+    /**
+     * This method return string representation of tour package's type object.
+     *
+     * @return string representation of tour package's type object.
+     */
     @Override
-    public String toString() {
-        return  name;
+    public String toString()
+    {
+        return name;
     }
 }
