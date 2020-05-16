@@ -13,39 +13,89 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+/**
+ * This class is common abstract repository class, that provides implementation CRUD operations with entities.
+ * It uses hibernate ORM for working with data base.
+ *
+ * @param <T>  - type of concrete repository.
+ * @param <ID> - identifier of concrete repository.
+ * @author Igor Ivanov
+ */
 @Transactional
-public abstract class GenericHibernateDAO<T, ID extends Serializable> implements GenericDAO<T, ID>  {
+public abstract class GenericHibernateDAO<T, ID extends Serializable> implements GenericDAO<T, ID>
+{
+    /**
+     * This field is class of concrete repository.
+     */
     private Class<T> persistentClass;
+
+    /**
+     * This field is hibernate's session factory.
+     */
     private SessionFactory sessionFactory;
 
-    public GenericHibernateDAO(SessionFactory sessionFactory) {
+    /**
+     * Constructor which receive and assign hibernate's session factory.
+     *
+     * @param sessionFactory hibernate's session factory.
+     */
+    public GenericHibernateDAO(SessionFactory sessionFactory)
+    {
         this.sessionFactory = sessionFactory;
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    protected Session getSession() {
+    /**
+     * This protected method return either current hibernate's session or open new session.
+     *
+     * @return hibernate's session.
+     */
+    protected Session getSession()
+    {
         Session session;
-        try {
+        try
+        {
             session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
+        }
+        catch (HibernateException e)
+        {
             session = sessionFactory.openSession();
         }
         return session;
     }
 
-    public Class<T> getPersistentClass() {
+    /**
+     * This method return class of concrete repository.
+     *
+     * @return class of concrete repository.
+     */
+    public Class<T> getPersistentClass()
+    {
         return persistentClass;
     }
 
+    /**
+     * This method finds entity by identifier.
+     *
+     * @param id - identifier.
+     * @return - entity.
+     */
     @SuppressWarnings("unchecked")
-    public T findById(ID id) {
+    public T findById(ID id)
+    {
         T entity = (T) getSession().get(getPersistentClass(), id);
         return entity;
     }
 
+    /**
+     * This method return all stored in repository entity.
+     *
+     * @return list of stored entities.
+     */
     @SuppressWarnings("unchecked")
-    public List<T> findAll() {
+    public List<T> findAll()
+    {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = builder.createQuery(persistentClass);
         Root<T> root = criteriaQuery.from(persistentClass);
@@ -55,21 +105,26 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
         return results;
     }
 
+    /**
+     * This method save entity in repository.
+     *
+     * @param entity - entity for saving.
+     * @return saved entity.
+     */
     @SuppressWarnings("unchecked")
-    public T makePersistent(T entity) {
+    public T makePersistent(T entity)
+    {
         getSession().saveOrUpdate(entity);
         return entity;
     }
 
-    public void makeTransient(T entity) {
+    /**
+     * This method delete entity in repository.
+     *
+     * @param entity - entity for deleting.
+     */
+    public void makeTransient(T entity)
+    {
         getSession().delete(entity);
-    }
-
-    public void flush() {
-        getSession().flush();
-    }
-
-    public void clear() {
-        getSession().clear();
     }
 }
