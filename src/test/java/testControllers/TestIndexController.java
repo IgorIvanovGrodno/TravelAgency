@@ -220,7 +220,7 @@ public class TestIndexController {
     }
 
     @Test
-    public void shouldReturnIndexViewAndCallMethodOfFacade_whenPassRequest() throws Exception {
+    public void shouldReturnIndexView_whenPassRequest() throws Exception {
         List<TourPackage> expectedListTourPackages = Arrays.asList(new TourPackage());
 
         MockHttpSession session = new MockHttpSession();
@@ -241,31 +241,6 @@ public class TestIndexController {
                 .param("maxPrice", ""))
                 .andExpect(MockMvcResultMatchers.view().name("index"));
 
-        Mockito.verify(facadeTourPackageMock).getSelectedTourPackages(Mockito.any());
-
     }
 
-    @Test
-    public void shouldReturnIndexViewAndNoCallMethodOfFacade_whenPassRequest() throws Exception {
-        List<TourPackage> expectedListTourPackages = Arrays.asList(new TourPackage());
-
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("tourPackages",new PagedListHolder<>());
-
-        Mockito.when(facadeTourPackageMock.getSelectedTourPackages(Mockito.any()))
-                .thenReturn(expectedListTourPackages);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/select").session(session)
-                .param("idOfFoodSystem", "1")
-                .param("idOfTransport", "1")
-                .param("idOfType", "1")
-                .param("statusHot", "false")
-                .param("minDay","3")
-                .param("maxDay", "1")
-                .param("minPrice", "")
-                .param("maxPrice", ""))
-                .andExpect(MockMvcResultMatchers.view().name("index"));
-
-        Mockito.verify(facadeTourPackageMock, Mockito.never()).getSelectedTourPackages(Mockito.any());
-    }
 }

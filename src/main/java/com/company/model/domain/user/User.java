@@ -9,108 +9,255 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * This class contains information about user.
+ *
+ * @author Igor Ivanov
+ */
 @Entity
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "client")
-public class User implements Serializable {
-    private static final long SERIAL_VERSION_UID=32L;
+public class User implements Serializable
+{
+    /**
+     * This field is serial version identifier for serialization.
+     */
+    private static final long SERIAL_VERSION_UID = 32L;
 
+    /**
+     * This field is identifier for hibernate.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * This field is user's discount.
+     */
     @Column
     private int discount;
 
+    /**
+     * This field is user's first name.
+     */
     @Column(name = "first_name")
     private String firstName;
 
+    /**
+     * This field is user's second name.
+     */
     @Column(name = "second_name")
     private String secondName;
 
+    /**
+     * This field is user's phone number.
+     */
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    /**
+     * This field is user's E-mail.
+     */
     @Column
     private String email;
 
+    /**
+     * This field is user's authorization information.
+     */
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Authorization authorization;
 
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    /**
+     * This field is user's orders.
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public User() {
+    /**
+     * Default constructor.
+     */
+    public User()
+    {
     }
 
-    public String getFirstName() {
+    /**
+     * This method return user's first name.
+     *
+     * @return user's first name.
+     */
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    /**
+     * This method set user's first name.
+     *
+     * @param firstName - user's first name.
+     */
+    public void setFirstName(String firstName)
+    {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
+    /**
+     * This method return user's second name.
+     *
+     * @return user's second name.
+     */
+    public String getSecondName()
+    {
         return secondName;
     }
 
-    public void setSecondName(String secondName) {
+    /**
+     * This method set user's second name.
+     *
+     * @param secondName - user's second name.
+     */
+    public void setSecondName(String secondName)
+    {
         this.secondName = secondName;
     }
 
-    public String getPhoneNumber() {
+    /**
+     * This method return user's phone number.
+     *
+     * @return user's phone number.
+     */
+    public String getPhoneNumber()
+    {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    /**
+     * This method set user's phone number.
+     *
+     * @param phoneNumber - user's phone number.
+     */
+    public void setPhoneNumber(String phoneNumber)
+    {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail() {
+    /**
+     * This method return user's E-mail.
+     *
+     * @return user's E-mail.
+     */
+    public String getEmail()
+    {
         return email;
     }
 
-    public void setEmail(String email) {
+    /**
+     * This method set user's E-mail.
+     *
+     * @param email - user's E-mail.
+     */
+    public void setEmail(String email)
+    {
         this.email = email;
     }
 
-    public Authorization getAuthorization() {
+    /**
+     * This method return user's authorization information.
+     *
+     * @return user's authorization information.
+     */
+    public Authorization getAuthorization()
+    {
         return authorization;
     }
 
-    public void setAuthorization(Authorization authorization) {
+    /**
+     * This method set user's authorization information.
+     *
+     * @param authorization - user's authorization information.
+     */
+    public void setAuthorization(Authorization authorization)
+    {
         this.authorization = authorization;
     }
-    public Long getId() {
+
+    /**
+     * This method return identifier for hibernate.
+     *
+     * @return identifier for hibernate.
+     */
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     * This method set identifier for hibernate.
+     *
+     * @param id - identifier for hibernate.
+     */
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public int getDiscount() {
+    /**
+     * This method return user's discount.
+     *
+     * @return user's discount.
+     */
+    public int getDiscount()
+    {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    /**
+     * This method set user's discount.
+     *
+     * @param discount - user's discount.
+     */
+    public void setDiscount(int discount)
+    {
         this.discount = discount;
     }
 
-    public List<Order> getOrders() {
+    /**
+     * This method return user's orders.
+     *
+     * @return user's orders.
+     */
+    public List<Order> getOrders()
+    {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    /**
+     * This method set user's orders.
+     *
+     * @param orders - user's orders.
+     */
+    public void setOrders(List<Order> orders)
+    {
         this.orders = orders;
     }
 
+    /**
+     * This method used for compare objects of users.
+     *
+     * @param o - another object.
+     * @return true if objects is equals, else - false.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
         User user = (User) o;
         return discount == user.discount &&
                 Objects.equals(id, user.id) &&
@@ -122,13 +269,25 @@ public class User implements Serializable {
                 Objects.equals(orders, user.orders);
     }
 
+    /**
+     * This method return hash of user's object.
+     *
+     * @return hash of user's object.
+     */
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(id, discount, firstName, secondName, phoneNumber, email, authorization, orders);
     }
 
+    /**
+     * This method return string representation of user's object.
+     *
+     * @return string representation of user's object.
+     */
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "User{" +
                 "id=" + id +
                 ", discount=" + discount +
@@ -136,7 +295,6 @@ public class User implements Serializable {
                 ", secondName='" + secondName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", authorization=" + authorization.getLogin() +
                 ", orders=" + orders +
                 '}';
     }
