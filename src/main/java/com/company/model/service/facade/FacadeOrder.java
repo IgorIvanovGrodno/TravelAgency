@@ -12,8 +12,8 @@ import com.company.model.domain.tourPackage.TourPackage;
 public interface FacadeOrder
 {
     /**
-     * This method receive order, tour package and user's login. It make payment with received parameters.
-     * It throw ServiceException if received parameters are incorrect.
+     * This method receives order, tour package and user's login. It makes payment with received parameters.
+     * It throws ServiceException when received parameters are incorrect.
      *
      * @param order            - order.
      * @param tourPackageOrder - tour package for order.
