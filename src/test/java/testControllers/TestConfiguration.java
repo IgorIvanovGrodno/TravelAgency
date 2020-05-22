@@ -7,21 +7,44 @@ import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * This class is configuration for integration controller tests.
+ *
+ * @author Igor Ivanov
+ */
 @Configuration
-public class TestConfiguration {
-
+public class TestConfiguration
+{
+    /**
+     * This method creates and returns mock of user's service.
+     *
+     * @return mock of user's service.
+     */
     @Bean
-    public UserService userServiceMock(){
+    public UserService userServiceMock()
+    {
         return Mockito.mock(UserService.class);
     }
 
+    /**
+     * This method creates and returns mock of tour package's facade.
+     *
+     * @return mock of tour package's facade.
+     */
     @Bean
-    public FacadeTourPackage facadeTourPackageMock(){
+    public FacadeTourPackage facadeTourPackageMock()
+    {
         return Mockito.mock(FacadeTourPackage.class);
     }
 
+    /**
+     * This method creates and returns mock of order's facade.
+     *
+     * @return mock of order's facade.
+     */
     @Bean
-    public FacadeOrder facadeOrderMock(){
+    public FacadeOrder facadeOrderMock()
+    {
         return Mockito.mock(FacadeOrder.class);
     }
 }
