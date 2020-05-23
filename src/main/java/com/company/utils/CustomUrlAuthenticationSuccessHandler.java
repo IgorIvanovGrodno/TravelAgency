@@ -13,68 +13,130 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 
-public class CustomUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+/**
+ * This class is custom authentication success handler which implements AuthenticationSuccessHandler
+ *
+ * @author Igor Ivanov
+ */
+public class CustomUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler
+{
+    /**
+     * This field is redirect strategy.
+     */
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    /**
+     * This method receives HTTP servlet request, HTTP servlet response, authentication.
+     * It calls {@link CustomUrlAuthenticationSuccessHandler#handle(HttpServletRequest, HttpServletResponse, Authentication)}
+     * and {@link CustomUrlAuthenticationSuccessHandler#clearAuthenticationAttributes(HttpServletRequest)}
+     *
+     * @param request        - HTTP servlet request.
+     * @param response       - HTTP servlet response.
+     * @param authentication -  authentication.
+     * @throws IOException when {@link CustomUrlAuthenticationSuccessHandler#handle(HttpServletRequest, HttpServletResponse, Authentication)}
+     *                     throws IOException.
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
-                                        HttpServletResponse response, Authentication authentication)
-            throws IOException {
-
+                                        HttpServletResponse response, Authentication authentication) throws IOException
+    {
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
     }
 
+    /**
+     * This method receives HTTP servlet request, HTTP servlet response, authentication. It gets target url
+     * from {@link CustomUrlAuthenticationSuccessHandler#determineTargetUrl(Authentication)} and passes redirect parameters
+     * to redirectStrategy.
+     *
+     * @param request        - HTTP servlet request.
+     * @param response       - HTTP servlet response.
+     * @param authentication -  authentication.
+     * @throws IOException when redirectStrategy throws IOException.
+     */
     protected void handle(HttpServletRequest request,
-                          HttpServletResponse response, Authentication authentication)
-            throws IOException {
-
+                          HttpServletResponse response, Authentication authentication) throws IOException
+    {
         String targetUrl = determineTargetUrl(authentication);
-
-        if (response.isCommitted()) {
+        if (response.isCommitted())
+        {
             return;
         }
-
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
-    protected String determineTargetUrl(Authentication authentication) {
+    /**
+     * This methods receives authentication and determines target url according to authentication's role.
+     *
+     * @param authentication - authentication.
+     * @return target url.
+     */
+    protected String determineTargetUrl(Authentication authentication)
+    {
         boolean isUser = false;
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
-        for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+        for (GrantedAuthority grantedAuthority : authorities)
+        {
+            if (grantedAuthority.getAuthority().equals("ROLE_USER"))
+            {
                 isUser = true;
                 break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+            }
+            else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN"))
+            {
                 isAdmin = true;
                 break;
             }
         }
 
-        if (isUser) {
+        if (isUser)
+        {
             return "/";
-        } else if (isAdmin) {
+        }
+        else if (isAdmin)
+        {
             return "/admin";
-        } else {
+        }
+        else
+        {
             throw new IllegalStateException();
         }
     }
 
-    protected void clearAuthenticationAttributes(HttpServletRequest request) {
+    /**
+     * This method receives HTTP servlet request and clears authentication's attribute in session.
+     *
+     * @param request - HTTP servlet.
+     */
+    protected void clearAuthenticationAttributes(HttpServletRequest request)
+    {
         HttpSession session = request.getSession(false);
-        if (session == null) {
+        if (session == null)
+        {
             return;
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 
-    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
+    /**
+     * This method sets redirect strategy.
+     *
+     * @param redirectStrategy - redirect strategy.
+     */
+    public void setRedirectStrategy(RedirectStrategy redirectStrategy)
+    {
         this.redirectStrategy = redirectStrategy;
     }
-    protected RedirectStrategy getRedirectStrategy() {
+
+    /**
+     * This method returns redirect strategy.
+     *
+     * @return redirect strategy.
+     */
+    protected RedirectStrategy getRedirectStrategy()
+    {
         return redirectStrategy;
     }
-
 }

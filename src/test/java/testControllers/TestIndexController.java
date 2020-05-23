@@ -1,6 +1,7 @@
 package testControllers;
 
 import com.company.config.WebConfiguration;
+import com.company.controller.IndexController;
 import com.company.model.domain.tourPackage.FoodSystem;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.tourPackage.Transport;
@@ -24,39 +25,70 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.validateMockitoUsage;
 
+/**
+ * This class is integration test class for {@link IndexController}.
+ *
+ * @author Igor Ivanov
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {WebConfiguration.class, TestConfiguration.class})
-public class TestIndexController {
+public class TestIndexController
+{
+    /**
+     * This field is main entry point for server-side Spring MVC test support.
+     */
     private MockMvc mockMvc;
+    /**
+     * This field is configuration for a web application.
+     */
     @Autowired
     private WebApplicationContext webConfiguration;
 
+    /**
+     * This field is mock for tour package's facade.
+     */
     @Autowired
     private FacadeTourPackage facadeTourPackageMock;
 
+    /**
+     * This method executes before each method, resets tour package's facade mock, builds and assigns mockMVC.
+     */
     @Before
-    public void SetUp(){
+    public void SetUp()
+    {
         Mockito.reset(facadeTourPackageMock);
         Mockito.clearInvocations(facadeTourPackageMock);
         mockMvc = MockMvcBuilders.webAppContextSetup(webConfiguration).build();
     }
+
+    /**
+     * This method execute after each method and call validateMockitoUsage().
+     */
     @After
-    public void validate() {
+    public void validate()
+    {
         validateMockitoUsage();
     }
+
+    /**
+     * This test method tests handlers "/" request.
+     *
+     * @throws Exception when mockMVC throws Exception.
+     */
     @Test
-    public void shouldReturnIndexViewAndModelWithExpectedAttributes_whenPassRequest() throws Exception {
-        List<TourPackage> expectedListTourPackages = Arrays.asList(new TourPackage());
-        Optional<List<TypeTourPackage>> expectedTypes = Optional.of(Arrays.asList(new TypeTourPackage()));
-        Optional<List<Transport>> expectedTransports = Optional.of(Arrays.asList(new Transport()));
-        Optional<List<FoodSystem>> expectedFoodSystems = Optional.of(Arrays.asList(new FoodSystem()));
+    public void shouldReturnIndexViewAndModelWithExpectedAttributes_whenPassRequest() throws Exception
+    {
+        List<TourPackage> expectedListTourPackages = Collections.singletonList(new TourPackage());
+        Optional<List<TypeTourPackage>> expectedTypes = Optional.of(Collections.singletonList(new TypeTourPackage()));
+        Optional<List<Transport>> expectedTransports = Optional.of(Collections.singletonList(new Transport()));
+        Optional<List<FoodSystem>> expectedFoodSystems = Optional.of(Collections.singletonList(new FoodSystem()));
 
         MockHttpSession session = new MockHttpSession();
         Mockito.when(facadeTourPackageMock.getTourPackages())
@@ -79,22 +111,28 @@ public class TestIndexController {
         Assert.assertNotNull(session.getAttribute("foodSystemList"));
     }
 
+    /**
+     * This test method tests handlers "/1" request.
+     *
+     * @throws Exception when mockMVC throws Exception.
+     */
     @Test
-    public void shouldReturnIndexViewAndModelWithExpectedAttributes_whenPassRequestWithNumberPage() throws Exception {
-        List<TourPackage> expectedListTourPackages = Arrays.asList(new TourPackage());
-        List<TypeTourPackage> types =Arrays.asList(new TypeTourPackage());
-        List<Transport> transports =Arrays.asList(new Transport());
-        List<FoodSystem> foodSystems =Arrays.asList(new FoodSystem());
+    public void shouldReturnIndexViewAndModelWithExpectedAttributes_whenPassRequestWithNumberPage() throws Exception
+    {
+        List<TourPackage> expectedListTourPackages = Collections.singletonList(new TourPackage());
+        List<TypeTourPackage> types = Collections.singletonList(new TypeTourPackage());
+        List<Transport> transports = Collections.singletonList(new Transport());
+        List<FoodSystem> foodSystems = Collections.singletonList(new FoodSystem());
 
         Optional<List<TypeTourPackage>> expectedTypes = Optional.of(types);
         Optional<List<Transport>> expectedTransports = Optional.of(transports);
         Optional<List<FoodSystem>> expectedFoodSystems = Optional.of(foodSystems);
 
         MockHttpSession session = new MockHttpSession();
-        session.setAttribute("tourPackages",new PagedListHolder<>());
+        session.setAttribute("tourPackages", new PagedListHolder<>());
         session.setAttribute("types", types);
-        session.setAttribute("transports",transports);
-        session.setAttribute("foodSystemList",foodSystems);
+        session.setAttribute("transports", transports);
+        session.setAttribute("foodSystemList", foodSystems);
 
         Mockito.when(facadeTourPackageMock.getTourPackages())
                 .thenReturn(expectedListTourPackages);
@@ -116,23 +154,28 @@ public class TestIndexController {
         Assert.assertNotNull(session.getAttribute("foodSystemList"));
     }
 
-
+    /**
+     * This test method tests handlers "/prev" request.
+     *
+     * @throws Exception when mockMVC throws Exception.
+     */
     @Test
-    public void shouldReturnIndexViewAndModelWithExpectedAttributes_whenPassRequestWithPrevPage() throws Exception {
-        List<TourPackage> expectedListTourPackages = Arrays.asList(new TourPackage());
-        List<TypeTourPackage> types =Arrays.asList(new TypeTourPackage());
-        List<Transport> transports =Arrays.asList(new Transport());
-        List<FoodSystem> foodSystems =Arrays.asList(new FoodSystem());
+    public void shouldReturnIndexViewAndModelWithExpectedAttributes_whenPassRequestWithPrevPage() throws Exception
+    {
+        List<TourPackage> expectedListTourPackages = Collections.singletonList(new TourPackage());
+        List<TypeTourPackage> types = Collections.singletonList(new TypeTourPackage());
+        List<Transport> transports = Collections.singletonList(new Transport());
+        List<FoodSystem> foodSystems = Collections.singletonList(new FoodSystem());
 
         Optional<List<TypeTourPackage>> expectedTypes = Optional.of(types);
         Optional<List<Transport>> expectedTransports = Optional.of(transports);
         Optional<List<FoodSystem>> expectedFoodSystems = Optional.of(foodSystems);
 
         MockHttpSession session = new MockHttpSession();
-        session.setAttribute("tourPackages",new PagedListHolder<>());
+        session.setAttribute("tourPackages", new PagedListHolder<>());
         session.setAttribute("types", types);
-        session.setAttribute("transports",transports);
-        session.setAttribute("foodSystemList",foodSystems);
+        session.setAttribute("transports", transports);
+        session.setAttribute("foodSystemList", foodSystems);
 
         Mockito.when(facadeTourPackageMock.getTourPackages())
                 .thenReturn(expectedListTourPackages);
@@ -154,22 +197,28 @@ public class TestIndexController {
         Assert.assertNotNull(session.getAttribute("foodSystemList"));
     }
 
+    /**
+     * This test method tests handlers "/next" request.
+     *
+     * @throws Exception when mockMVC throws Exception.
+     */
     @Test
-    public void shouldReturnIndexViewAndModelWithExpectedAttributes_whenPassRequestWithNextPage() throws Exception {
-        List<TourPackage> expectedListTourPackages = Arrays.asList(new TourPackage());
-        List<TypeTourPackage> types =Arrays.asList(new TypeTourPackage());
-        List<Transport> transports =Arrays.asList(new Transport());
-        List<FoodSystem> foodSystems =Arrays.asList(new FoodSystem());
+    public void shouldReturnIndexViewAndModelWithExpectedAttributes_whenPassRequestWithNextPage() throws Exception
+    {
+        List<TourPackage> expectedListTourPackages = Collections.singletonList(new TourPackage());
+        List<TypeTourPackage> types = Collections.singletonList(new TypeTourPackage());
+        List<Transport> transports = Collections.singletonList(new Transport());
+        List<FoodSystem> foodSystems = Collections.singletonList(new FoodSystem());
 
         Optional<List<TypeTourPackage>> expectedTypes = Optional.of(types);
         Optional<List<Transport>> expectedTransports = Optional.of(transports);
         Optional<List<FoodSystem>> expectedFoodSystems = Optional.of(foodSystems);
 
         MockHttpSession session = new MockHttpSession();
-        session.setAttribute("tourPackages",new PagedListHolder<>());
+        session.setAttribute("tourPackages", new PagedListHolder<>());
         session.setAttribute("types", types);
-        session.setAttribute("transports",transports);
-        session.setAttribute("foodSystemList",foodSystems);
+        session.setAttribute("transports", transports);
+        session.setAttribute("foodSystemList", foodSystems);
 
         Mockito.when(facadeTourPackageMock.getTourPackages())
                 .thenReturn(expectedListTourPackages);
@@ -191,12 +240,18 @@ public class TestIndexController {
         Assert.assertNotNull(session.getAttribute("foodSystemList"));
     }
 
+    /**
+     * This test method tests handlers "/" request when get null values from facade.
+     *
+     * @throws Exception when mockMVC throws Exception.
+     */
     @Test
-    public void shouldReturnGenericErrorViewAndModelWithExpectedAttributes_whenGetNullValuesFromFacadeRequest() throws Exception {
-        List<TourPackage> expectedListTourPackages = Arrays.asList(new TourPackage());
-        Optional<List<TypeTourPackage>> expectedTypes = Optional.ofNullable(null);
-        Optional<List<Transport>> expectedTransports = Optional.ofNullable(null);
-        Optional<List<FoodSystem>> expectedFoodSystems = Optional.ofNullable(null);
+    public void shouldReturnGenericErrorViewAndModelWithExpectedAttributes_whenGetNullValuesFromFacadeRequest() throws Exception
+    {
+        List<TourPackage> expectedListTourPackages = Collections.singletonList(new TourPackage());
+        Optional<List<TypeTourPackage>> expectedTypes = Optional.empty();
+        Optional<List<Transport>> expectedTransports = Optional.empty();
+        Optional<List<FoodSystem>> expectedFoodSystems = Optional.empty();
 
         MockHttpSession session = new MockHttpSession();
         Mockito.when(facadeTourPackageMock.getTourPackages())
@@ -213,34 +268,42 @@ public class TestIndexController {
 
     }
 
+    /**
+     * This test method tests handlers "/authorization" request.
+     *
+     * @throws Exception when mockMVC throws Exception.
+     */
     @Test
-    public void shouldReturnAuthorizationView_whenPassRequest() throws Exception {
+    public void shouldReturnAuthorizationView_whenPassRequest() throws Exception
+    {
         mockMvc.perform(MockMvcRequestBuilders.get("/authorization"))
                 .andExpect(MockMvcResultMatchers.view().name("authorization"));
     }
 
+    /**
+     * This test method tests handlers "/select" request.
+     *
+     * @throws Exception when mockMVC throws Exception.
+     */
     @Test
-    public void shouldReturnIndexView_whenPassRequest() throws Exception {
-        List<TourPackage> expectedListTourPackages = Arrays.asList(new TourPackage());
-
+    public void shouldReturnIndexView_whenPassRequest() throws Exception
+    {
+        List<TourPackage> expectedListTourPackages = Collections.singletonList(new TourPackage());
         MockHttpSession session = new MockHttpSession();
-        session.setAttribute("tourPackages",new PagedListHolder<>());
-
+        session.setAttribute("tourPackages", new PagedListHolder<>());
         Mockito.when(facadeTourPackageMock.getSelectedTourPackages(Mockito.any()))
                 .thenReturn(expectedListTourPackages);
-
 
         mockMvc.perform(MockMvcRequestBuilders.get("/select").session(session)
                 .param("idOfFoodSystem", "1")
                 .param("idOfTransport", "1")
                 .param("idOfType", "1")
                 .param("statusHot", "true")
-                .param("minDay","")
+                .param("minDay", "")
                 .param("maxDay", "")
                 .param("minPrice", "")
                 .param("maxPrice", ""))
                 .andExpect(MockMvcResultMatchers.view().name("index"));
-
     }
 
 }
