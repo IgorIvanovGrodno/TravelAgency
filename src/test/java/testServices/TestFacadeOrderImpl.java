@@ -17,64 +17,122 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
-public class TestFacadeOrderImpl {
+/**
+ * This class is unit test class for {@link FacadeOrderImpl}.
+ *
+ * @author Igor Ivanov
+ */
+public class TestFacadeOrderImpl
+{
+    /**
+     * This field is order's service mock.
+     */
     private static OrderService orderServiceMock;
+
+    /**
+     * This field is status order service mock.
+     */
     private static StatusOrderService statusOrderServiceMock;
+
+    /**
+     * This field is user's service mock.
+     */
     private static UserService userServiceMock;
+
+    /**
+     * This field is order's facade.
+     */
     private static FacadeOrder facadeOrder;
 
+    /**
+     * This method executes before all methods, creates status order service mock, user's service mock, order's service
+     * mock, order's facade.
+     */
     @BeforeClass
-    public static void setUp() {
-        statusOrderServiceMock=Mockito.mock(StatusOrderService.class);
-        userServiceMock=Mockito.mock(UserService.class);
+    public static void setUp()
+    {
+        statusOrderServiceMock = Mockito.mock(StatusOrderService.class);
+        userServiceMock = Mockito.mock(UserService.class);
         orderServiceMock = Mockito.mock(OrderService.class);
         facadeOrder = new FacadeOrderImpl(orderServiceMock, statusOrderServiceMock, userServiceMock);
     }
 
+    /**
+     * This method executes before each method, resets status order service mock, user's service mock, order's service
+     * mock.
+     */
     @Before
-    public void set(){
+    public void set()
+    {
         Mockito.reset(statusOrderServiceMock);
         Mockito.reset(userServiceMock);
         Mockito.reset(orderServiceMock);
     }
 
+    /**
+     * This test method tests throwing exception when invoke facadeOrder.makePayment(Order order, TourPackage tourPackageOrder, String loginUser)
+     * with null parameters.
+     *
+     * @throws ServiceException when invoke facadeOrder.makePayment(Order order, TourPackage tourPackageOrder, String loginUser)
+     *                          with null parameters.
+     */
     @Test(expected = ServiceException.class)
-    public void shouldThrowServiceException_whenPassNullParametersToMakePayment() throws ServiceException {
+    public void shouldThrowServiceException_whenPassNullParametersToMakePayment() throws ServiceException
+    {
         facadeOrder.makePayment(null, null, null);
     }
 
+    /**
+     * This test method tests invoking method orderService.makePayment(Order order, TourPackage tourPackage, User user, StatusOrder statusOrder)
+     * when invoke facadeOrder.makePayment(Order order, TourPackage tourPackageOrder, String loginUser)
+     *
+     * @throws ServiceException then service throw ServiceException.
+     */
     @Test
-    public void shouldCallMethodsOfOrderServiceMock_whenPassParametersToMakePayment() throws ServiceException {
+    public void shouldCallMethodsOfOrderServiceMock_whenPassParametersToMakePayment() throws ServiceException
+    {
         User user = new User();
         StatusOrder statusOrder = new StatusOrder();
-        Order order=new Order();
-        TourPackage tourPackage=new TourPackage();
-        Mockito.when(statusOrderServiceMock.getStatusForNewOrder()).thenReturn(Optional.ofNullable(statusOrder));
-        Mockito.when(userServiceMock.getUserByLogin(Mockito.anyString())).thenReturn(Optional.ofNullable(user));
+        Order order = new Order();
+        TourPackage tourPackage = new TourPackage();
+        Mockito.when(statusOrderServiceMock.getStatusForNewOrder()).thenReturn(Optional.of(statusOrder));
+        Mockito.when(userServiceMock.getUserByLogin(Mockito.anyString())).thenReturn(Optional.of(user));
         facadeOrder.makePayment(order, tourPackage, "login");
         Mockito.verify(orderServiceMock).makePayment(order, tourPackage, user, statusOrder);
     }
 
+    /**
+     * This test method tests throwing exception when status order service return null.
+     *
+     * @throws ServiceException when status order service return null.
+     */
     @Test(expected = ServiceException.class)
-    public void shouldThrowServiceException_whenStatusOrderServiceReturnNull() throws ServiceException {
+    public void shouldThrowServiceException_whenStatusOrderServiceReturnNull() throws ServiceException
+    {
         User user = new User();
         StatusOrder statusOrder = new StatusOrder();
-        Order order=new Order();
-        TourPackage tourPackage=new TourPackage();
-        Mockito.when(statusOrderServiceMock.getStatusForNewOrder()).thenReturn(Optional.ofNullable(null));
-        Mockito.when(userServiceMock.getUserByLogin(Mockito.anyString())).thenReturn(Optional.ofNullable(user));
+        Order order = new Order();
+        TourPackage tourPackage = new TourPackage();
+        Mockito.when(statusOrderServiceMock.getStatusForNewOrder()).thenReturn(Optional.empty());
+        Mockito.when(userServiceMock.getUserByLogin(Mockito.anyString())).thenReturn(Optional.of(user));
         facadeOrder.makePayment(order, tourPackage, "login");
         Mockito.verify(orderServiceMock).makePayment(order, tourPackage, user, statusOrder);
     }
 
+    /**
+     * This test method tests throwing exception when user service return null.
+     *
+     * @throws ServiceException when user service return null.
+     */
     @Test(expected = ServiceException.class)
-    public void shouldThrowServiceException_whenUserServiceReturnNull() throws ServiceException {
+    public void shouldThrowServiceException_whenUserServiceReturnNull() throws ServiceException
+    {
         User user = new User();
         StatusOrder statusOrder = new StatusOrder();
-        Order order=new Order();
-        TourPackage tourPackage=new TourPackage();
-        Mockito.when(statusOrderServiceMock.getStatusForNewOrder()).thenReturn(Optional.ofNullable(statusOrder));
-        Mockito.when(userServiceMock.getUserByLogin(Mockito.anyString())).thenReturn(Optional.ofNullable(null));
+        Order order = new Order();
+        TourPackage tourPackage = new TourPackage();
+        Mockito.when(statusOrderServiceMock.getStatusForNewOrder()).thenReturn(Optional.of(statusOrder));
+        Mockito.when(userServiceMock.getUserByLogin(Mockito.anyString())).thenReturn(Optional.empty());
         facadeOrder.makePayment(order, tourPackage, "login");
         Mockito.verify(orderServiceMock).makePayment(order, tourPackage, user, statusOrder);
     }
