@@ -9,90 +9,137 @@ import org.hibernate.query.Query;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-public class TestUserDAO {
+import static org.mockito.Mockito.*;
+
+/**
+ * This class is unit test class for {@link TestUserDAO}.
+ *
+ * @author Igor Ivanov
+ */
+public class TestUserDAO
+{
+    /**
+     * This field is type tour package DAO.
+     */
     private static UserDAO userDAO;
+
+    /**
+     * This field is hibernate session mock.
+     */
     private static Session sessionMock;
 
+    /**
+     * This method executes before all methods, creates hibernate session factory mock, hibernate session mock,
+     * user DAO mock.
+     */
     @BeforeClass
-    public static void setUp(){
-        SessionFactory sessionFactoryMock = Mockito.mock(SessionFactory.class);
-        sessionMock = Mockito.mock(Session.class);
-        Mockito.when(sessionFactoryMock.getCurrentSession()).thenReturn(sessionMock);
+    public static void setUp()
+    {
+        SessionFactory sessionFactoryMock = mock(SessionFactory.class);
+        sessionMock = mock(Session.class);
+        when(sessionFactoryMock.getCurrentSession()).thenReturn(sessionMock);
         userDAO = new HibernateUserDAOImpl(sessionFactoryMock);
     }
 
+    /**
+     * This method executes before each method, resets hibernate session mock.
+     */
     @Before
-    public void set(){
-        Mockito.reset(sessionMock);
-        Mockito.clearInvocations(sessionMock);
+    public void set()
+    {
+        reset(sessionMock);
+        clearInvocations(sessionMock);
     }
 
+    /**
+     * This test method tests findById(Long id) method of user DAO.
+     */
     @Test
-    public void shouldCallGetMethodOfSession_whenCallFindByIdMethod(){
+    public void shouldCallGetMethodOfSession_whenCallFindByIdMethod()
+    {
         userDAO.findById(1L);
-        Mockito.verify(sessionMock).get(User.class, 1L);
+        verify(sessionMock).get(User.class, 1L);
     }
 
+    /**
+     * This test method tests findAll() method of user DAO.
+     */
     @Test
-    public void shouldCallExpectedMethodsOfMocks_whenCallFindAllMethod(){
-        CriteriaBuilder builderMock = Mockito.mock(CriteriaBuilder.class);
-        CriteriaQuery<User> criteriaQueryMock = Mockito.mock(CriteriaQuery.class);
-        Root<User> rootMock = Mockito.mock(Root.class);
-        Query<User> queryMock = Mockito.mock(Query.class);
+    public void shouldCallExpectedMethodsOfMocks_whenCallFindAllMethod()
+    {
+        CriteriaBuilder builderMock = mock(CriteriaBuilder.class);
+        CriteriaQuery<User> criteriaQueryMock = mock(CriteriaQuery.class);
+        Root<User> rootMock = mock(Root.class);
+        Query<User> queryMock = mock(Query.class);
 
-        Mockito.when(sessionMock.getCriteriaBuilder()).thenReturn(builderMock);
-        Mockito.when(sessionMock.createQuery(criteriaQueryMock)).thenReturn(queryMock);
-        Mockito.when(builderMock.createQuery(User.class)).thenReturn(criteriaQueryMock);
-        Mockito.when(criteriaQueryMock.from(User.class)).thenReturn(rootMock);
+        when(sessionMock.getCriteriaBuilder()).thenReturn(builderMock);
+        when(sessionMock.createQuery(criteriaQueryMock)).thenReturn(queryMock);
+        when(builderMock.createQuery(User.class)).thenReturn(criteriaQueryMock);
+        when(criteriaQueryMock.from(User.class)).thenReturn(rootMock);
 
         userDAO.findAll();
 
-        Mockito.verify(sessionMock).getCriteriaBuilder();
-        Mockito.verify(sessionMock).createQuery(criteriaQueryMock);
-        Mockito.verify(builderMock).createQuery(User.class);
-        Mockito.verify(criteriaQueryMock).from(User.class);
-        Mockito.verify(criteriaQueryMock).select(rootMock);
-        Mockito.verify(queryMock).getResultList();
+        verify(sessionMock).getCriteriaBuilder();
+        verify(sessionMock).createQuery(criteriaQueryMock);
+        verify(builderMock).createQuery(User.class);
+        verify(criteriaQueryMock).from(User.class);
+        verify(criteriaQueryMock).select(rootMock);
+        verify(queryMock).getResultList();
     }
 
+    /**
+     * This test method tests makePersistent(User user) method of user DAO.
+     */
     @Test
-    public void shouldCallSaveOrUpdatedMethod_whenCallMakePersistentMethod(){
+    public void shouldCallSaveOrUpdatedMethod_whenCallMakePersistentMethod()
+    {
         User user = new User();
         userDAO.makePersistent(user);
-        Mockito.verify(sessionMock).saveOrUpdate(user);
+        verify(sessionMock).saveOrUpdate(user);
     }
 
+    /**
+     * This test method tests makeTransient(User user) method of user DAO.
+     */
     @Test
-    public void shouldCallDeleteMethod_whenCallMakeTransientMethod(){
+    public void shouldCallDeleteMethod_whenCallMakeTransientMethod()
+    {
         User user = new User();
         userDAO.makeTransient(user);
-        Mockito.verify(sessionMock).delete(user);
+        verify(sessionMock).delete(user);
     }
 
+    /**
+     * This test method tests setDiscountById(Long id, int discount) method of user DAO.
+     */
     @Test
-    public void shouldCallExpectedMethodsOfQuery_whenCallSetDiscountByIdMethod(){
-        Query<User> queryMock = Mockito.mock(Query.class);
-        Mockito.when(sessionMock.createQuery("update User set discount=:discount where id=:id")).thenReturn(queryMock);
-        Mockito.when(queryMock.setCacheable(true)).thenReturn(queryMock);
+    public void shouldCallExpectedMethodsOfQuery_whenCallSetDiscountByIdMethod()
+    {
+        Query<User> queryMock = mock(Query.class);
+        when(sessionMock.createQuery("update User set discount=:discount where id=:id")).thenReturn(queryMock);
+        when(queryMock.setCacheable(true)).thenReturn(queryMock);
         userDAO.setDiscountById(1L, 1);
-        Mockito.verify(queryMock).setParameter("id", 1L);
-        Mockito.verify(queryMock).setParameter("discount", 1);
-        Mockito.verify(queryMock).executeUpdate();
+        verify(queryMock).setParameter("id", 1L);
+        verify(queryMock).setParameter("discount", 1);
+        verify(queryMock).executeUpdate();
     }
 
+    /**
+     * This test method tests getUserByLogin(String login) method of user DAO.
+     */
     @Test
-    public void shouldCallExpectedMethodsOfQuery_whenCallGetUserByLoginMethod(){
-        Query<User> queryMock =  Mockito.mock(Query.class);
-        Mockito.when(sessionMock.createQuery("from User where authorization.login=:login")).thenReturn(queryMock);
-        Mockito.when(queryMock.setCacheable(true)).thenReturn(queryMock);
+    public void shouldCallExpectedMethodsOfQuery_whenCallGetUserByLoginMethod()
+    {
+        Query<User> queryMock = mock(Query.class);
+        when(sessionMock.createQuery("from User where authorization.login=:login")).thenReturn(queryMock);
+        when(queryMock.setCacheable(true)).thenReturn(queryMock);
         userDAO.getUserByLogin("login");
-        Mockito.verify(queryMock).setParameter("login", "login");
-        Mockito.verify(queryMock).getSingleResult();
+        verify(queryMock).setParameter("login", "login");
+        verify(queryMock).getSingleResult();
     }
 }
