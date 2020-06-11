@@ -15,7 +15,7 @@ import java.util.*;
  */
 @Entity
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "com.company.model.domain.tourPackage.TourPackage")
 @Table(name = "tour_package")
 public class TourPackage implements Serializable
 {

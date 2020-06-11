@@ -58,7 +58,8 @@ public class IndexController
 
     /**
      * This method handles request "/","/{page}". It sets lists of transports, food systems, tour package's types
-     * and list of tour packages for pagination to session attributes. It sets tour package for order and selected parameters to model attribute
+     * and list of tour packages for pagination to session attributes. It sets tour package for order and
+     * selected parameters to model attribute
      * and returns "index" page.
      *
      * @param model                             - model.
@@ -80,9 +81,9 @@ public class IndexController
                                        TourPackage tourPackageForOrder
     ) throws ServiceException, ControllerException
     {
-        PagedListHolder<TourPackage> tourPackagesListHolder;
-        if (page == null || page.isEmpty() || page.equals("favicon"))
+        if (page == null || page.isEmpty())
         {
+            PagedListHolder<TourPackage> tourPackagesListHolder;
             tourPackagesListHolder = new PagedListHolder<>();
             tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
@@ -158,7 +159,8 @@ public class IndexController
         if (request.isUserInRole("ROLE_USER"))
         {
             request.getSession().setAttribute("discount",
-                    userService.getUserByLogin(request.getUserPrincipal().getName()).orElseThrow(() -> new ControllerException("Not found user")).getDiscount());
+                    userService.getUserByLogin(request.getUserPrincipal().getName())
+                            .orElseThrow(() -> new ControllerException("Not found user")).getDiscount());
         }
     }
 }

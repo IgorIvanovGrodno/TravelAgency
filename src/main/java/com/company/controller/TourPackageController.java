@@ -8,6 +8,7 @@ import com.company.utils.UtilController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -32,6 +34,12 @@ public class TourPackageController
      * This field is facade for working with tour package.
      */
     private FacadeTourPackage facadeTourPackage;
+
+    /**
+     * This field is message source.
+     */
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * This field is model tour package's identifier validator.
@@ -66,9 +74,9 @@ public class TourPackageController
                                             @PathVariable(required = false, name = "page") String page,
                                             HttpServletRequest request)
     {
-        PagedListHolder<TourPackage> tourPackagesListHolder;
         if (page == null)
         {
+            PagedListHolder<TourPackage> tourPackagesListHolder;
             tourPackagesListHolder = new PagedListHolder<>();
             tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
@@ -92,12 +100,12 @@ public class TourPackageController
      * @return if data is valid - "admin" view, else - "update_tour_package" view.
      * @throws ServiceException when facade throws ServiceException.
      */
-    @RequestMapping(value = "admin/update/tourPackage/update", method = RequestMethod.POST)
-    public String updateTourPackages(
+    @RequestMapping(value = "/admin/update/tourPackage/update", method = RequestMethod.POST)
+    public String updateTourPackage(
             @Valid
             @ModelAttribute("updateTourPackage")
                     ModelTourPackage modelTourPackage,
-            BindingResult result) throws ServiceException
+            BindingResult result, HttpServletRequest request) throws ServiceException
     {
         modelTourPackageIdValidator.validate(modelTourPackage, result);
         if (result.hasErrors())
@@ -105,6 +113,8 @@ public class TourPackageController
             return "update_tour_package";
         }
         facadeTourPackage.updateTourPackage(modelTourPackage);
+        request.getSession().setAttribute("message",
+                messageSource.getMessage("admin.success", null, RequestContextUtils.getLocaleResolver(request).resolveLocale(request)));
         return "admin";
     }
 
@@ -118,14 +128,14 @@ public class TourPackageController
      * @param request - HTTP request.
      * @return "delete_tour_package" view.
      */
-    @RequestMapping({"admin/delete/", "admin/delete/{page}"})
+    @RequestMapping({"/admin/delete/", "/admin/delete/{page}"})
     public String showDeleteTourPackagePage(Model model,
                                             @PathVariable(required = false, name = "page") String page,
                                             HttpServletRequest request)
     {
-        PagedListHolder<TourPackage> tourPackagesListHolder;
         if (page == null)
         {
+            PagedListHolder<TourPackage> tourPackagesListHolder;
             tourPackagesListHolder = new PagedListHolder<>();
             tourPackagesListHolder.setSource(facadeTourPackage.getTourPackages());
             tourPackagesListHolder.setPageSize(5);
@@ -149,11 +159,11 @@ public class TourPackageController
      * @return if data is valid - "admin" view, else - "delete_tour_package" view.
      * @throws ServiceException when facade throws ServiceException.
      */
-    @RequestMapping(value = "admin/delete/tourPackage", method = RequestMethod.POST)
-    public String deleteTourPackages(
+    @RequestMapping(value = "/admin/delete/tourPackage", method = RequestMethod.POST)
+    public String deleteTourPackage(
             @ModelAttribute("deleteTourPackage")
                     ModelTourPackage modelTourPackage,
-            BindingResult result) throws ServiceException
+            BindingResult result, HttpServletRequest request) throws ServiceException
     {
         modelTourPackageIdValidator.validate(modelTourPackage, result);
         if (result.hasErrors())
@@ -161,6 +171,8 @@ public class TourPackageController
             return "delete_tour_package";
         }
         facadeTourPackage.deleteTourPackage(modelTourPackage.getId());
+        request.getSession().setAttribute("message",
+                messageSource.getMessage("admin.success", null, RequestContextUtils.getLocaleResolver(request).resolveLocale(request)));
         return "admin";
     }
 
@@ -171,7 +183,7 @@ public class TourPackageController
      * @param model - model.
      * @return "create_tour_package" view.
      */
-    @RequestMapping({"admin/create/**"})
+    @RequestMapping({"/admin/create/"})
     public String showCreateTourPackagePage(Model model)
     {
         model.addAttribute("newTourPackage", new ModelTourPackage());
@@ -193,13 +205,15 @@ public class TourPackageController
             @Valid
             @ModelAttribute("newTourPackage")
                     ModelTourPackage modelTourPackage,
-            BindingResult result) throws ServiceException
+            BindingResult result, HttpServletRequest request) throws ServiceException
     {
         if (result.hasErrors())
         {
             return "create_tour_package";
         }
         facadeTourPackage.createTourPackage(modelTourPackage);
+        request.getSession().setAttribute("message",
+                messageSource.getMessage("admin.success", null, RequestContextUtils.getLocaleResolver(request).resolveLocale(request)));
         return "admin";
     }
 }

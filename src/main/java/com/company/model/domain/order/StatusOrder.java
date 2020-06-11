@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @Entity
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "status_order")
 public class StatusOrder implements Serializable
 {

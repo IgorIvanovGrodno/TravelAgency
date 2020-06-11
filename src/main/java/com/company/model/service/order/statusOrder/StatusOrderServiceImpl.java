@@ -41,4 +41,14 @@ public class StatusOrderServiceImpl implements StatusOrderService
     {
         return Optional.ofNullable(statusOrderDAO.findById(1L));
     }
+
+    /**
+     * This method returns optional of status for payed order.
+     *
+     * @return optional of status for payed order.
+     */
+    @Override
+    public Optional<StatusOrder> getStatusForPayedOrder() {
+        return Optional.ofNullable(statusOrderDAO.findById(2L));
+    }
 }

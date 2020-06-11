@@ -81,7 +81,7 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
      * @param id - identifier.
      * @return - entity.
      */
-    @SuppressWarnings("unchecked")
+
     public T findById(ID id)
     {
         T entity = (T) getSession().get(getPersistentClass(), id);
@@ -93,7 +93,7 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
      *
      * @return list of stored entities.
      */
-    @SuppressWarnings("unchecked")
+
     public List<T> findAll()
     {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
@@ -111,7 +111,6 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable> implements
      * @param entity - entity for saving.
      * @return saved entity.
      */
-    @SuppressWarnings("unchecked")
     public T makePersistent(T entity)
     {
         getSession().saveOrUpdate(entity);

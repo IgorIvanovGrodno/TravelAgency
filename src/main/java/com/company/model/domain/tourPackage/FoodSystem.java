@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 @Entity
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "food_system")
 public class FoodSystem implements Serializable
 {
@@ -41,7 +41,7 @@ public class FoodSystem implements Serializable
     /**
      * This field is list of tour packages that have this food system.
      */
-    @OneToMany(mappedBy = "foodSystem", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "foodSystem")
     private List<TourPackage> tourPackage;
 
     /**

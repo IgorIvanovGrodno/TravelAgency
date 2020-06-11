@@ -95,7 +95,7 @@ public class LoggingAspect
     }
 
     /**
-     * This method is aspect for callFacadePaymentMethod pointcut. It receives and logs input parameters before execute method.
+     * This method is advice for callFacadePaymentMethod pointcut. It receives and logs input parameters before execute method.
      *
      * @param joinPoint        - join point.
      * @param order            - order.
@@ -112,7 +112,7 @@ public class LoggingAspect
     }
 
     /**
-     * This method is aspect for callServicePaymentMethod pointcut. It receives and logs input parameters before execute method.
+     * This method is advice for callServicePaymentMethod pointcut. It receives and logs input parameters before execute method.
      *
      * @param joinPoint        - join point.
      * @param order            - order.
@@ -131,7 +131,7 @@ public class LoggingAspect
     }
 
     /**
-     * This method is aspect for callOrderDAOMakePersistentMethod pointcut. It receives and logs input parameters before execute method.
+     * This method is advice for callOrderDAOMakePersistentMethod pointcut. It receives and logs input parameters before execute method.
      *
      * @param joinPoint - join point.
      * @param order     - order.
@@ -144,7 +144,7 @@ public class LoggingAspect
     }
 
     /**
-     * This method is aspect for callUserServiceSetDiscountMethod pointcut. It receives and logs input parameters before execute method.
+     * This method is advice for callUserServiceSetDiscountMethod pointcut. It receives and logs input parameters before execute method.
      *
      * @param joinPoint - join point.
      * @param user      - user.
@@ -157,7 +157,7 @@ public class LoggingAspect
     }
 
     /**
-     * This method is aspect for callUserDAOMakePersistentMethod pointcut. It receives and logs input parameters before execute method.
+     * This method is advice for callUserDAOMakePersistentMethod pointcut. It receives and logs input parameters before execute method.
      *
      * @param joinPoint - join point.
      * @param user      - user.
@@ -170,7 +170,7 @@ public class LoggingAspect
     }
 
     /**
-     * This method is aspect for springBeanPointcut pointcut. It receives throwing exception and logs name exception, exception message, stack trace.
+     * This method is advice for springBeanPointcut pointcut. It receives throwing exception and logs name exception, exception message, stack trace.
      *
      * @param joinPoint - join point.
      * @param exception - exception.

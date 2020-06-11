@@ -11,6 +11,8 @@ import com.company.model.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * This class is concrete implementation facade which provides business logic's methods for working with orders.
  *
@@ -66,5 +68,28 @@ public class FacadeOrderImpl implements FacadeOrder
         StatusOrder statusOrder = statusOrderService.getStatusForNewOrder().orElseThrow(() -> new ServiceException("Not found status order"));
         User user = userService.getUserByLogin(loginUser).orElseThrow(() -> new ServiceException("Not found user"));
         orderService.makePayment(order, tourPackageOrder, user, statusOrder);
+    }
+
+    /**
+     * This method returns new orders.
+     * @return returns new orders.
+     */
+    @Override
+    public List<Order> getNewOrders()
+    {
+        return orderService.getNewOrders();
+    }
+
+    /**
+     * This method changes status order.
+     *
+     * @param id - identifier order for changing status.
+     */
+    @Override
+    public void changeStatusOrder(Long id) throws ServiceException {
+        Order order = orderService.getOrderById(id);
+        StatusOrder statusOrder = statusOrderService.getStatusForPayedOrder().orElseThrow(() -> new ServiceException("Not found status order"));
+        order.setStatus(statusOrder);
+        orderService.saveOrder(order);
     }
 }

@@ -61,6 +61,10 @@
         <put-attribute name="body" value="/WEB-INF/views/admin/set_discount.jsp"/>
     </definition>
 
+    <definition name="change_status_order" extends="admin">
+        <put-attribute name="body" value="/WEB-INF/views/admin/change_status_order.jsp"/>
+    </definition>
+
     <definition name="user_cabinet" extends="main">
         <put-attribute name="body" value="/WEB-INF/views/user/user_cabinet.jsp"/>
     </definition>

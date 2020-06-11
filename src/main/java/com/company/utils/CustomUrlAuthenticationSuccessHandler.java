@@ -119,24 +119,4 @@ public class CustomUrlAuthenticationSuccessHandler implements AuthenticationSucc
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
-
-    /**
-     * This method sets redirect strategy.
-     *
-     * @param redirectStrategy - redirect strategy.
-     */
-    public void setRedirectStrategy(RedirectStrategy redirectStrategy)
-    {
-        this.redirectStrategy = redirectStrategy;
-    }
-
-    /**
-     * This method returns redirect strategy.
-     *
-     * @return redirect strategy.
-     */
-    protected RedirectStrategy getRedirectStrategy()
-    {
-        return redirectStrategy;
-    }
 }

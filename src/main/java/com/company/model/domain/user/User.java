@@ -1,7 +1,6 @@
 package com.company.model.domain.user;
 
 import com.company.model.domain.order.Order;
-import com.company.model.domain.tourPackage.TourPackage;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -65,7 +64,7 @@ public class User implements Serializable
     /**
      * This field is user's authorization information.
      */
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Authorization authorization;
 
     /**

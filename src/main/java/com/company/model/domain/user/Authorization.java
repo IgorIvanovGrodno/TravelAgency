@@ -50,7 +50,7 @@ public class Authorization implements Serializable
     /**
      * This field is user which associated with the authorization.
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private User user;
 

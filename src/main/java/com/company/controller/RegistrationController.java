@@ -28,7 +28,6 @@ public class RegistrationController
      * This field is registration's validator for user.
      */
     @Autowired
-    @Qualifier("userRegistrationValidator")
     private UserRegistrationValidator userRegistrationValidator;
 
     /**

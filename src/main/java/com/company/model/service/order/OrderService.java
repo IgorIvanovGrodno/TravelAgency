@@ -6,6 +6,8 @@ import com.company.model.domain.order.StatusOrder;
 import com.company.model.domain.tourPackage.TourPackage;
 import com.company.model.domain.user.User;
 
+import java.util.List;
+
 /**
  * This class is interface for service which provides business logic's methods for working with orders.
  *
@@ -24,4 +26,24 @@ public interface OrderService
      * @throws ServiceException - exception when input parameters are incorrect.
      */
     void makePayment(Order order, TourPackage tourPackageOrder, User currentUser, StatusOrder statusOrder) throws ServiceException;
+
+    /**
+     * This method returns new orders.
+     * @return returns new orders.
+     */
+    List<Order> getNewOrders();
+
+    /**
+     * This method returns order by identifier.
+     *
+     * @param id - identifier.
+     * @return order by identifier.
+     */
+    Order getOrderById(Long id);
+
+    /**
+     * This method saves order.
+     * @param order - order for saving.
+     */
+    void saveOrder(Order order);
 }

@@ -64,16 +64,14 @@ public class WebConfiguration implements WebMvcConfigurer
     }
 
     /**
-     * This method receives view resolver registry, creates and registers Tiles view resolver.
-     *
-     * @param registry - view resolver registry.
+     * This method returns tiles view resolver.
+     * @return tiles view resolver.
      */
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry)
-    {
-        TilesViewResolver viewResolver = new TilesViewResolver();
-        registry.viewResolver(viewResolver);
-    }
+   @Bean
+   public TilesViewResolver viewResolver()
+   {
+       return new TilesViewResolver();
+   }
 
     /**
      * This method creates, configures and returns exception resolver.
@@ -139,6 +137,4 @@ public class WebConfiguration implements WebMvcConfigurer
         cookieLocaleResolver.setCookieMaxAge(100000);
         return cookieLocaleResolver;
     }
-
-
 }

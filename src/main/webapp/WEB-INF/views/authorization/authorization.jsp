@@ -32,14 +32,6 @@
                 </tr>
                 <tr>
                     <th></th>
-                    <td><input id="remember_me"
-                               name="j_remember_me"
-                               type="checkbox"/> <!-- Flag "remember me" -->
-                        <label for="remember_me"
-                               class="inline"><spring:message key="remember.me"/></label></td>
-                </tr>
-                <tr>
-                    <th></th>
                     <td><input name="commit" type="submit" value="Sign In" /></td>
                 </tr>
             </table>

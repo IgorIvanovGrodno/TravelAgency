@@ -53,9 +53,9 @@ public class UserCabinetController
             HttpServletRequest request,
             Principal principal) throws ServiceException
     {
-        PagedListHolder<Order> ordersListHolder;
         if (page == null)
         {
+            PagedListHolder<Order> ordersListHolder;
             ordersListHolder = new PagedListHolder<>();
             ordersListHolder.setSource(userService.getUsersOrders(principal.getName()));
             ordersListHolder.setPageSize(5);

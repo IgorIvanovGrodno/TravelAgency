@@ -10,6 +10,7 @@
             <li><a href="/admin/update/tourPackage/"><spring:message key="update.tour.package"/></a></li>
             <li><a href="/admin/delete/"><spring:message key="delete.tour.package"/></a></li>
             <li><a href="/admin/set/discount/"><spring:message key="set.discount"/></a></li>
+            <li><a href="/admin/orders/"><spring:message key="change.status.order"/></a></li>
             <li><a href="/"><spring:message key="main.page"/></a></li>
         </ul>
     </nav>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class is implementation for service which provides business logic's methods for working with orders.
@@ -59,6 +60,37 @@ public class OrderServiceImpl implements OrderService
         order.setUser(currentUser);
         order.setStatus(statusOrder);
         order.setCreateDate(new Date());
+        orderDAO.makePersistent(order);
+    }
+
+    /**
+     * This method returns new orders.
+     * @return returns new orders.
+     */
+    @Override
+    public List<Order> getNewOrders()
+    {
+        return orderDAO.findNewOrders();
+    }
+
+    /**
+     * This method returns order by identifier.
+     *
+     * @param id - identifier.
+     * @return order by identifier.
+     */
+    @Override
+    public Order getOrderById(Long id) {
+        return orderDAO.findById(id);
+    }
+
+    /**
+     * This method saves order.
+     *
+     * @param order - order for saving.
+     */
+    @Override
+    public void saveOrder(Order order) {
         orderDAO.makePersistent(order);
     }
 }

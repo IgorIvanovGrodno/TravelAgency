@@ -17,4 +17,11 @@ public interface StatusOrderService
      * @return optional of status for new order.
      */
     Optional<StatusOrder> getStatusForNewOrder();
+
+    /**
+     * This method returns optional of status for payed order.
+     *
+     * @return optional of status for payed order.
+     */
+    Optional<StatusOrder> getStatusForPayedOrder();
 }

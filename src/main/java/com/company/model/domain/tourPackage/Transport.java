@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 @Entity
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "transport")
 public class Transport implements Serializable
 {
@@ -41,7 +41,7 @@ public class Transport implements Serializable
     /**
      * This field is list of tour packages that have this transport.
      */
-    @OneToMany(mappedBy = "transport", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "transport")
     private List<TourPackage> tourPackage;
 
     /**

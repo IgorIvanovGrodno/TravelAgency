@@ -108,7 +108,7 @@ public class Order implements Serializable
     /**
      * This method set identifier of order
      *
-     * @param id
+     * @param id - identifier of order
      */
     public void setId(Long id)
     {
